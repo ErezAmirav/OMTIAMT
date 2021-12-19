@@ -2,7 +2,12 @@ package Model;
 
 import android.graphics.Picture;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Product {
+    @PrimaryKey
     String id;
     Users user;
     String productName;

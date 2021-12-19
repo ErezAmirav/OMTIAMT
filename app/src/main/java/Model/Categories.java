@@ -2,13 +2,22 @@ package Model;
 
 import android.graphics.Picture;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 
+@Entity
 public class Categories {
+    @PrimaryKey
     String id;
     String categoryName;
     Picture categoryPicture;
     List<Product> products;
+
+    public Categories() {
+    }
 
     public String getId() {
         return id;
