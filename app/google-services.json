@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "42285924726",
+    "project_id": "omtiamt-ie",
+    "storage_bucket": "omtiamt-ie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:42285924726:android:ce8ea43126efba12cf7a57",
+        "android_client_info": {
+          "package_name": "com.example.omtiamt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "42285924726-opjld3r99i3evp24677m0il89t6isqq4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdoZ1R5dNACajU-W_lQoJuP6B8MK8TBKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "42285924726-opjld3r99i3evp24677m0il89t6isqq4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
