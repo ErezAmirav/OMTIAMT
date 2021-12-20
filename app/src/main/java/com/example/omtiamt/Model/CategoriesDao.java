@@ -1,4 +1,4 @@
-package Model;
+package com.example.omtiamt.Model;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -8,15 +8,14 @@ import androidx.room.Query;
 
 import java.util.List;
 @Dao
-public interface ProductDao {
+public interface CategoriesDao {
 
-    @Query("select * from Product")
-    List<Product> getAll();
+    @Query("select * from Categories")
+    List<Categories> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void  insertAll(Product... products);
+    void  insertAll(Categories... categories);
 
     @Delete
-    void delete(Product product);
+    void delete(Categories categories);
 }
-

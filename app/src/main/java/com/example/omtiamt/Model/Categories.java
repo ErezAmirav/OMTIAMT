@@ -1,8 +1,7 @@
-package Model;
+package com.example.omtiamt.Model;
 
 import android.graphics.Picture;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
