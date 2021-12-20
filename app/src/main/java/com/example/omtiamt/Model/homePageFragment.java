@@ -12,10 +12,10 @@ import com.example.omtiamt.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link HomePageFragment#newInstance} factory method to
+ * Use the {@link homePageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomePageFragment extends Fragment {
+public class homePageFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class HomePageFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public HomePageFragment() {
+    public homePageFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class HomePageFragment extends Fragment {
      * @return A new instance of fragment HomePageFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HomePageFragment newInstance(String param1, String param2) {
-        HomePageFragment fragment = new HomePageFragment();
+    public static homePageFragment newInstance(String param1, String param2) {
+        homePageFragment fragment = new homePageFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
