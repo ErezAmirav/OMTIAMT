@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -34,11 +35,21 @@ public class Login extends AppCompatActivity {
         //hide navbar
         //getSupportActionBar().hide();
         //hide status bar
-       // getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        navigationView = findViewById(R.id.bottom_navigation_id);
-        getSupportFragmentManager().beginTransaction().replace(R.id.body_container, new homePageFragment()).commit();
-        navigationView.setSelectedItemId(R.id.nav_home);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        connect = findViewById(login_btn_id);
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new homePageFragment();
+                navigationView.setVisibility(View.VISIBLE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
+            }
+        });
+        navigationView = findViewById(R.id.bottom_navigation_id);
+       // getSupportFragmentManager().beginTransaction().replace(R.id.body_container, new homePageFragment()).commit();
+        navigationView.setSelectedItemId(R.id.nav_home);
+        navigationView.setVisibility(View.GONE);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -73,14 +84,7 @@ public class Login extends AppCompatActivity {
             }
 
         });
-        connect = findViewById(login_btn_id);
-        connect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction2.replace(R.id.login, new homePageFragment()).commit();
-            }
-        });
+
     }
 
     public void login_btn(View view) {
