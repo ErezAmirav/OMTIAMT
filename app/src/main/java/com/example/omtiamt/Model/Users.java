@@ -81,4 +81,14 @@ public class Users {
         this.myProduct = myProduct;
         this.savedProduct = savedProduct;
     }
+
+    public Users(String name, String password,String email) {
+        this.id = "1";
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = "";
+        this.myProduct = null;
+        this.savedProduct = null;
+    }
 }
