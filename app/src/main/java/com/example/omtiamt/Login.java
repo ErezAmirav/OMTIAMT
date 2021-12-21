@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.login, new RegisterFragment()).commit();
+                fragmentTransaction.replace(R.id.body_container, new RegisterFragment()).commit();
             }
 
         });
