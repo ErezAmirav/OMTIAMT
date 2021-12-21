@@ -12,10 +12,10 @@ import com.example.omtiamt.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProductFargment#newInstance} factory method to
+ * Use the {@link ProductFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProductFargment extends Fragment {
+public class ProductFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class ProductFargment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProductFargment() {
+    public ProductFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class ProductFargment extends Fragment {
      * @return A new instance of fragment ProductFargment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProductFargment newInstance(String param1, String param2) {
-        ProductFargment fragment = new ProductFargment();
+    public static ProductFragment newInstance(String param1, String param2) {
+        ProductFragment fragment = new ProductFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
