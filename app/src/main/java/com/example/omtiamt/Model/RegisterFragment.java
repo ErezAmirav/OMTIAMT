@@ -21,12 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class RegisterFragment extends Fragment {
     ImageButton btn;
-    private FirebaseAuth mAuth;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mAuth = FirebaseAuth.getInstance();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
         btn = (ImageButton) view.findViewById(R.id.signup_register_btn_id);
