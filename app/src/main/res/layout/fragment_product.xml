@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".Model.ProductFargment">
+
+    <TextView
+        android:id="@+id/productname_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Product Name"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/aldrich"
+        android:text="City:"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/productname_id"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/product_city_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/aldrich"
+        android:text="City Name"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        tools:layout_editor_absoluteY="206dp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/aldrich"
+        android:text="User:"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/product_username_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Username"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        tools:layout_editor_absoluteY="247dp" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Details:"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/product_details_id"
+        android:layout_width="216dp"
+        android:layout_height="148dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/aldrich"
+        android:text="sdfgjhdsfgjh dsjkfh sdlfkjh sdfkljgh sdlfjkghslkdfjgh lksdjfghksldfjgh lksjdfghlkdsfjgh "
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        tools:layout_editor_absoluteY="288dp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="141dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="18dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/omtiamt_no_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/product_image_id"
+        android:layout_width="255dp"
+        android:layout_height="166dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@+id/product_details_id"
+        tools:layout_editor_absoluteX="78dp"
+        tools:src="@tools:sample/avatars" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

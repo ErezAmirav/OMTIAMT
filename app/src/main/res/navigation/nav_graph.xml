@@ -21,4 +21,23 @@
             app:launchSingleTop="false"
             app:popUpTo="@id/login" />
     </fragment>
+    <activity
+        android:id="@+id/loading_Screen"
+        android:name="com.example.omtiamt.Loading_Screen"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.omtiamt.Model.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/homePageFragment"
+        android:name="com.example.omtiamt.Model.homePageFragment"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePageFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
 </navigation>
