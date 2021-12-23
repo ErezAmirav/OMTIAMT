@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.omtiamt.Model.ModelFirebase;
 import com.example.omtiamt.Model.ProductFragment;
 import com.example.omtiamt.Model.ProfileFragment;
 import com.example.omtiamt.Model.homePageFragment;
@@ -28,6 +29,7 @@ public class Login extends AppCompatActivity {
     ImageButton connect;
     BottomNavigationView navigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,7 @@ public class Login extends AppCompatActivity {
         //getSupportActionBar().hide();
         //hide status bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        ModelFirebase mf = new ModelFirebase();
         connect = findViewById(login_btn_id);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override

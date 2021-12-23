@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Users {
@@ -16,6 +17,9 @@ public class Users {
     List<Product> myProduct;
     List<Product> savedProduct;
 
+    public static Map<String, Object> toJson() {
+
+    }
     public String getId() {
         return id;
     }
