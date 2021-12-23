@@ -25,9 +25,7 @@ public class model {
         modelFirebase.getAllUsers(listener);
         }
         public interface AddUsersListener{
-        void onComplete(List<Users> user);
-
-            void onComplete();
+        void onComplete();
         }
 
         public void addUser(Users user, AddUsersListener listener){
