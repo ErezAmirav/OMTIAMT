@@ -34,6 +34,7 @@ public class model {
         modelFirebase.addUser(user,listener);
         }
 
+
         public Users getUsersById(String userId){
         modelFirebase.getUsersById(userId);
         return null;
