@@ -28,8 +28,9 @@
         android:textColor="#FF5722"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/password_register_id"
-        tools:layout_editor_absoluteX="85dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_register_id" />
 
     <TextView
         android:id="@+id/textView8"
@@ -40,8 +41,9 @@
         android:textColor="#FF5722"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/confirmpassword_register_id"
-        tools:layout_editor_absoluteX="164dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmpassword_register_id" />
 
     <EditText
         android:id="@+id/password_register_id"
@@ -51,12 +53,13 @@
         android:backgroundTint="#FFFFFF"
         android:backgroundTintMode="add"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:shadowColor="#FFFFFF"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        tools:layout_editor_absoluteX="80dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
         android:id="@+id/confirmpassword_register_id"
@@ -65,12 +68,13 @@
         android:backgroundTint="#FFFFFF"
         android:backgroundTintMode="add"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:shadowColor="#FFFFFF"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        tools:layout_editor_absoluteX="82dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <EditText
         android:id="@+id/email_register_id"
@@ -79,12 +83,13 @@
         android:backgroundTint="#FFFFFF"
         android:backgroundTintMode="add"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:shadowColor="#FFFFFF"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
-        tools:layout_editor_absoluteX="82dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textView6"
@@ -95,8 +100,9 @@
         android:textColor="#FF5722"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/username_register_id"
-        tools:layout_editor_absoluteX="141dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/username_register_id" />
 
     <TextView
         android:id="@+id/textView"
@@ -126,8 +132,10 @@
         android:textColor="#FF5722"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="136dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/username_register_id"
@@ -140,18 +148,20 @@
         android:shadowColor="#FFFFFF"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:layout_editor_absoluteX="82dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <ImageButton
         android:id="@+id/signup_register_btn_id"
-        android:layout_width="408dp"
-        android:layout_height="101dp"
+        android:layout_width="316dp"
+        android:layout_height="95dp"
         android:backgroundTint="#00FFFFFF"
         android:onClick="signup_btn"
         android:scaleType="fitCenter"
         android:src="@drawable/sign_up_button"
-        app:layout_constraintTop_toBottomOf="@+id/email_register_id"
-        tools:layout_editor_absoluteX="3dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_register_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
