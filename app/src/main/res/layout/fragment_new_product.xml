@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".Model.NewProductFragment">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="221dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/aldrich"
+        android:text="New Product"
+        android:textAlignment="textStart"
+
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="131dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="9dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/omtiamt_no_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Product Name:"
+        android:textColor="#FF5722"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Choose Category:"
+        android:textColor="#FF5722"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newproduct_name_id" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Details:"
+        android:textColor="#FF5722"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newproduct_name_id4" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="9dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Adress:"
+        android:textColor="#FF5722"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newproduct_name_id2" />
+
+    <EditText
+        android:id="@+id/newproduct_name_id"
+        android:layout_width="251dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="#FFFFFF"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:shadowColor="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/newproduct_name_id2"
+        android:layout_width="251dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="#FFFFFF"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:shadowColor="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <EditText
+        android:id="@+id/newproduct_name_id3"
+        android:layout_width="251dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="#FFFFFF"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:shadowColor="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <EditText
+        android:id="@+id/newproduct_name_id4"
+        android:layout_width="251dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="#FFFFFF"
+        android:backgroundTintMode="add"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:shadowColor="#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="#FF5722"
+        android:fontFamily="@font/aldrich"
+        android:text="Upload Photo"
+        app:layout_constraintTop_toBottomOf="@+id/newproduct_name_id3"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:backgroundTint="#FF5722"
+        android:fontFamily="@font/aldrich"
+        android:text="Take Photo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        tools:layout_editor_absoluteY="586dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="#FF5722"
+        android:fontFamily="@font/aldrich"
+        android:text="Publish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
