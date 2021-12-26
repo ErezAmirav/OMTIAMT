@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Entity
 public class Users {
-    final public static String COLLECTION_NAME = "users";
+    final public static String COLLECTION_NAME = "Users";
     @PrimaryKey
     String id;
     String name;

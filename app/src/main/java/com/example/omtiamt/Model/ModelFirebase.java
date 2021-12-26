@@ -35,7 +35,7 @@ public class ModelFirebase {
     public void addUser(Users user, model.AddUsersListener listener) {
         Map<String, Object> json = user.toJson();
         db.collection(Users.COLLECTION_NAME)
-                .document(user.getId())
+                .document()
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
