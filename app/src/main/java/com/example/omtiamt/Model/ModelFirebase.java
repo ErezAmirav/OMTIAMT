@@ -34,14 +34,23 @@ public class ModelFirebase {
     }
     public void addUser(Users user, model.AddUsersListener listener) {
         Map<String, Object> json = user.toJson();
+        String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
+        json.put("id",NewDocument);
         db.collection(Users.COLLECTION_NAME)
-                .document()
+                .document(NewDocument)
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
 
+
     }
+
 
     public void getUsersById(String userId) {
     }
+
+    public void UpdateId(String userId) {
+    }
+
+
 }
