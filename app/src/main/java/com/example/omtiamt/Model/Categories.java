@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 public class Categories {
+    final public static String COLLECTION_NAME = "Category";
     @PrimaryKey
     String id;
     String categoryName;

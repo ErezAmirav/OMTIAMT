@@ -24,13 +24,28 @@ public class model {
         public void getAllUsers(GetAllUsersListener listener){
         modelFirebase.getAllUsers(listener);
         }
+        public interface GetAllCategoriesListener{
+        void onComplete(List<Categories> categories);
+    }
+
+        public List<String> getAllCategoriesName(){
+        return modelFirebase.getCategoriesName();
+    }
+
         public interface AddUsersListener{
+        void onComplete();
+        }
+        public interface AddProductListener{
         void onComplete();
         }
 
         public void addUser(Users user, AddUsersListener listener){
         modelFirebase.addUser(user,listener);
         }
+
+    public void addProduct(Product product, AddProductListener listener){
+        modelFirebase.addProduct(product,listener);
+    }
 
 
         public Users getUsersById(String userId){

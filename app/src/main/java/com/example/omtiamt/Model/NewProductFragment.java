@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import com.example.omtiamt.R;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link NewProductFragment#newInstance} factory method to
@@ -62,5 +65,11 @@ public class NewProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_new_product, container, false);
+    }
+
+    public void getCategoryName(){
+        List<String> list = new LinkedList<String>();
+        list = model.instance.getAllCategoriesName();
+
     }
 }

@@ -92,7 +92,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newproduct_name_id2" />
+        app:layout_constraintTop_toBottomOf="@+id/choose_category_id" />
 
     <EditText
         android:id="@+id/newproduct_name_id"
@@ -113,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/newproduct_name_id2"
+        android:id="@+id/choose_category_id"
         android:layout_width="251dp"
         android:layout_height="58dp"
         android:layout_marginStart="24dp"
@@ -195,5 +195,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/multiAutoCompleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MultiAutoCompleteTextView"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="248dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,10 @@
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_main.xml" value="0.28804347826086957" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_register.xml" value="0.25729166666666664" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_activity_register.xml" value="0.2713541666666667" />
-        <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_new_product.xml" value="0.33" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_register.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_login.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_new_product.xml" value="0.17407407407407408" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/menu/bottom_navigation.xml" value="0.1796875" />
       </map>
     </option>
   </component>
