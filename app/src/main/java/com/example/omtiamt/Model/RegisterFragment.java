@@ -67,20 +67,28 @@ public class RegisterFragment extends Fragment {
     private void save() {
         inputpassword = view.findViewById(R.id.password_register_id);
         inputemail = view.findViewById(R.id.email_register_id);
+        inputconfirmpassword = view.findViewById(R.id.confirmpassword_register_id);
         String password = inputpassword.getText().toString();
+        String confirmpassword = inputconfirmpassword.getText().toString();
         String email = inputemail.getText().toString();
-        mAuth.createUserWithEmailAndPassword
-                (email,password).
-                addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Navigation.findNavController(inputusername).navigateUp();
-                                } else {
-                                    Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
-                                }
+        if(password == confirmpassword) {
+            mAuth.createUserWithEmailAndPassword
+                    (email, password).
+                    addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Navigation.findNavController(inputusername).navigateUp();
+                            } else {
+                                Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
                             }
-                        });
+                        }
+                    });
+        }
+        else
+        {
+            Toast.makeText(RegisterFragment.this.getContext(), "The password not Equals", Toast.LENGTH_LONG).show();
+        }
     }
 
     /*
