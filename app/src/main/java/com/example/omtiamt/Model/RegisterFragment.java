@@ -32,64 +32,75 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.concurrent.Executor;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class RegisterFragment extends Fragment {
     ImageButton btnSaveUser;
-    EditText nameEt;
-    EditText inputusername;
     EditText inputpassword;
     EditText inputconfirmpassword;
     EditText inputemail;
     View view;
     private FirebaseAuth mAuth;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
         mAuth = FirebaseAuth.getInstance();
+        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_register, container, false);
         btnSaveUser = view.findViewById(R.id.signup_register_btn_id);
-        inputusername = view.findViewById(R.id.username_register_id);
-        inputconfirmpassword = view.findViewById(R.id.confirmpassword_register_id);
+        inputpassword = view.findViewById(R.id.password_register_id);
         inputemail = view.findViewById(R.id.email_register_id);
+        inputconfirmpassword = view.findViewById(R.id.confirmpassword_register_id);
         btnSaveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save();
+                save2();
             }
         });
         return view;
     }
 
-    private void save() {
-        inputpassword = view.findViewById(R.id.password_register_id);
-        inputemail = view.findViewById(R.id.email_register_id);
-        inputconfirmpassword = view.findViewById(R.id.confirmpassword_register_id);
-        String password = inputpassword.getText().toString();
-        String confirmpassword = inputconfirmpassword.getText().toString();
-        String email = inputemail.getText().toString();
-        if(password == confirmpassword) {
-            mAuth.createUserWithEmailAndPassword
-                    (email, password).
-                    addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
+
+    private void save1() {
+        mAuth.createUserWithEmailAndPassword(inputemail.getText().toString(), inputpassword.getText().toString())
+                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("TAG", "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
+                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(RegisterFragment.this.getContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void save2() {
+
+        mAuth.createUserWithEmailAndPassword(inputemail.getText().toString(), inputpassword.getText().toString()).
+                    addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Navigation.findNavController(inputusername).navigateUp();
+                                Navigation.findNavController(inputemail).navigateUp();
                             } else {
                                 Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
         }
-        else
-        {
-            Toast.makeText(RegisterFragment.this.getContext(), "The password not Equals", Toast.LENGTH_LONG).show();
-        }
     }
+
 
     /*
     String name = inputusername.getText().toString();
@@ -99,4 +110,3 @@ public class RegisterFragment extends Fragment {
         model.instance.addUser(user, () -> {
             Navigation.findNavController(inputusername).navigateUp();
      */
-}

@@ -2,6 +2,7 @@ package com.example.omtiamt;
 
 import static com.example.omtiamt.R.id.login_btn_id;
 import static com.example.omtiamt.R.id.login_clickhere_id;
+import static com.example.omtiamt.R.id.product_username_id;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,12 +44,14 @@ public class Login extends AppCompatActivity {
         //hide navbar
         //getSupportActionBar().hide();
         //hide status bar
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ModelFirebase mf = new ModelFirebase();
         SignName = findViewById(R.id.username_id);
         SignPassword = findViewById(R.id.password_id);
         navigationView = findViewById(R.id.bottom_navigation_id);
         connect = findViewById(login_btn_id);
+
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +100,7 @@ public class Login extends AppCompatActivity {
         });
 
     }
+
 
     public void login_btn(View view) {
     }
