@@ -1,37 +1,26 @@
 package com.example.omtiamt.Model;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.room.Update;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.omtiamt.Login;
-import com.example.omtiamt.Model.model;
-import com.example.omtiamt.Model.Users;
-import com.example.omtiamt.Model.ModelFirebase;
 import com.example.omtiamt.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
 import java.util.concurrent.Executor;
 
 /**
@@ -39,34 +28,56 @@ import java.util.concurrent.Executor;
  */
 public class RegisterFragment extends Fragment {
     ImageButton btnSaveUser;
-    EditText inputpassword;
-    EditText inputconfirmpassword;
-    EditText inputemail;
+    EditText inputPassword;
+    EditText inputConfirmPassword;
+    EditText inputEmail;
     View view;
     private FirebaseAuth mAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mAuth = FirebaseAuth.getInstance();
         // Inflate the layout for this fragment
+        mAuth = FirebaseAuth.getInstance();
+
         view = inflater.inflate(R.layout.fragment_register, container, false);
         btnSaveUser = view.findViewById(R.id.signup_register_btn_id);
-        inputpassword = view.findViewById(R.id.password_register_id);
-        inputemail = view.findViewById(R.id.email_register_id);
-        inputconfirmpassword = view.findViewById(R.id.confirmpassword_register_id);
+        inputPassword = view.findViewById(R.id.password_register_id);
+        inputEmail = view.findViewById(R.id.email_register_id);
+        inputConfirmPassword = view.findViewById(R.id.confirmpassword_register_id);
         btnSaveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save2();
+                save3();
             }
         });
         return view;
     }
 
 
+
+    private void save3(){
+
+        String email = inputEmail.getText().toString();
+        String password = inputPassword.getText().toString();
+        String confirmPassword = inputConfirmPassword.getText().toString();
+
+        if (password.equals(confirmPassword)) {
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener((Executor) this, task -> {
+                        if (task.isSuccessful()) {
+                            Navigation.findNavController(inputEmail).navigateUp();
+                        } else
+                            Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
+                    });
+        } else
+            Toast.makeText(RegisterFragment.this.getContext(), "Password Does not Match", Toast.LENGTH_LONG).show();
+    }
+
+    //------------------------------------------------------------------------//
+
     private void save1() {
-        mAuth.createUserWithEmailAndPassword(inputemail.getText().toString(), inputpassword.getText().toString())
+        mAuth.createUserWithEmailAndPassword(inputEmail.getText().toString(), inputPassword.getText().toString())
                 .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -85,14 +96,16 @@ public class RegisterFragment extends Fragment {
                 });
     }
 
+    //------------------------------------------------------------------------//
+
     private void save2() {
 
-        mAuth.createUserWithEmailAndPassword(inputemail.getText().toString(), inputpassword.getText().toString()).
+        mAuth.createUserWithEmailAndPassword(inputEmail.getText().toString(), inputPassword.getText().toString()).
                     addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Navigation.findNavController(inputemail).navigateUp();
+                                Navigation.findNavController(inputEmail).navigateUp();
                             } else {
                                 Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
                             }
