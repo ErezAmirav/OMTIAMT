@@ -35,8 +35,6 @@ public class Login extends AppCompatActivity {
     EditText SignPassword;
     ImageButton connect;
     BottomNavigationView navigationView;
-    ModelLogin myML;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +52,7 @@ public class Login extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                     Fragment fragment = new homePageFragment();
                     navigationView.setVisibility(View.VISIBLE);
                     getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();

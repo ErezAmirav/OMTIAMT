@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.room.Update;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,8 +22,13 @@ import com.example.omtiamt.Model.model;
 import com.example.omtiamt.Model.Users;
 import com.example.omtiamt.Model.ModelFirebase;
 import com.example.omtiamt.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,15 +43,16 @@ public class RegisterFragment extends Fragment {
     EditText inputconfirmpassword;
     EditText inputemail;
     View view;
+    private FirebaseAuth mAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
+        mAuth = FirebaseAuth.getInstance();
         view = inflater.inflate(R.layout.fragment_register, container, false);
         btnSaveUser = view.findViewById(R.id.signup_register_btn_id);
         inputusername = view.findViewById(R.id.username_register_id);
-        inputpassword = view.findViewById(R.id.password_register_id);
         inputconfirmpassword = view.findViewById(R.id.confirmpassword_register_id);
         inputemail = view.findViewById(R.id.email_register_id);
         btnSaveUser.setOnClickListener(new View.OnClickListener() {
@@ -57,13 +65,30 @@ public class RegisterFragment extends Fragment {
     }
 
     private void save() {
-        String name = inputusername.getText().toString();
+        inputpassword = view.findViewById(R.id.password_register_id);
+        inputemail = view.findViewById(R.id.email_register_id);
+        String password = inputpassword.getText().toString();
+        String email = inputemail.getText().toString();
+        mAuth.createUserWithEmailAndPassword
+                (email,password).
+                addOnCompleteListener(this.getActivity(), new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Navigation.findNavController(inputusername).navigateUp();
+                                } else {
+                                    Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+    }
+
+    /*
+    String name = inputusername.getText().toString();
         String password = inputpassword.getText().toString();
         String email = inputemail.getText().toString();
         Users user = new Users(name, password, email);
         model.instance.addUser(user, () -> {
             Navigation.findNavController(inputusername).navigateUp();
-        });
-
-    }
+     */
 }

@@ -7,8 +7,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 
 public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
     static Map<String, Object> UsersMap;
     static Map<String, Object> ProductMap;
 
@@ -68,8 +70,10 @@ public class ModelFirebase {
 
     }
 
+    /*
     public boolean canSignin(String signName, String signPass) {
-        if (UsersMap.containsValue(signName)) {
+        CollectionReference ref = db.collection("Users");
+        Query findNameQ = ref.whereEqualTo(signName,"Name");
             {
                 String checkmyUserName = (String) UsersMap.get("name");
                 String checkmyUserPassword = (String) UsersMap.get("password");
@@ -81,6 +85,8 @@ public class ModelFirebase {
         return false;
     }
 
+     */
+
 
     public void getUsersById(String userId) {
     }
@@ -89,7 +95,7 @@ public class ModelFirebase {
         List<String> list = new LinkedList<String>();
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://console.firebase.google.com/u/0/project/omtiamt-ie/firestore/data/Category/");
         // ^^^^^
-        list.add(mRef.child("Category").orderByChild("name").toString());
+        list.add(mRef.child("Category").orderByChild("Name").toString());
 
         return list;
     }
