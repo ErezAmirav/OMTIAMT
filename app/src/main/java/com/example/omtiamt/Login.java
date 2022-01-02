@@ -47,20 +47,19 @@ public class Login extends AppCompatActivity {
         //hide status bar
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         ModelFirebase mf = new ModelFirebase();
+        SignName = findViewById(R.id.username_id);
+        SignPassword = findViewById(R.id.password_id);
+        navigationView = findViewById(R.id.bottom_navigation_id);
         connect = findViewById(login_btn_id);
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new homePageFragment();
-                navigationView.setVisibility(View.VISIBLE);
-                getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
+                    Fragment fragment = new homePageFragment();
+                    navigationView.setVisibility(View.VISIBLE);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
             }
         });
-
-        SignName = findViewById(R.id.username_id);
-        SignPassword = findViewById(R.id.password_id);
-        navigationView = findViewById(R.id.bottom_navigation_id);
-       // getSupportFragmentManager().beginTransaction().replace(R.id.body_container, new homePageFragment()).commit();
+        // getSupportFragmentManager().beginTransaction().replace(R.id.body_container, new homePageFragment()).commit();
         navigationView.setSelectedItemId(R.id.nav_home);
         navigationView.setVisibility(View.GONE);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -92,19 +91,8 @@ public class Login extends AppCompatActivity {
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myML.signin(SignName.getText().toString(), SignPassword.getText().toString()) == true)
-                {
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.body_container, new RegisterFragment()).commit();
-                }
-                else
-                {
-                    Context context = Login.this;
-                    CharSequence text = "The User Don't Found";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }
             }
 
         });

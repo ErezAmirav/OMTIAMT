@@ -30,7 +30,11 @@
         android:id="@+id/categoryFragment"
         android:name="com.example.omtiamt.Model.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_readmoreProductFragment"
+            app:destination="@id/readmoreProductFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homePageFragment"
         android:name="com.example.omtiamt.Model.homePageFragment"
@@ -40,4 +44,9 @@
             android:id="@+id/action_homePageFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/readmoreProductFragment"
+        android:name="com.example.omtiamt.Model.ReadmoreProductFragment"
+        android:label="fragment_readmore_product"
+        tools:layout="@layout/fragment_readmore_product" />
 </navigation>

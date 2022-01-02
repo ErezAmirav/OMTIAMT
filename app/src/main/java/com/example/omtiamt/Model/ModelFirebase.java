@@ -90,6 +90,7 @@ public class ModelFirebase {
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://console.firebase.google.com/u/0/project/omtiamt-ie/firestore/data/Category/");
         // ^^^^^
         list.add(mRef.child("Category").orderByChild("name").toString());
+
         return list;
     }
 }
