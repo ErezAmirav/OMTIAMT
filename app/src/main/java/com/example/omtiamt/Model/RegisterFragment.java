@@ -100,46 +100,6 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(RegisterFragment.this.getContext(), "Password Does not Match", Toast.LENGTH_LONG).show();
     }
 
-    //------------------------------------------------------------------------//
-
-    private void save1() {
-
-        mAuth.createUserWithEmailAndPassword(inputEmail.getText().toString(), inputPassword.getText().toString())
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
-                            Log.w("TAG", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterFragment.this.getContext(), "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-
-    //------------------------------------------------------------------------//
-
-    private void save2() {
-
-        mAuth.createUserWithEmailAndPassword(inputEmail.getText().toString(), inputPassword.getText().toString()).
-                    addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Navigation.findNavController(inputEmail).navigateUp();
-                            } else {
-                                Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-
-        }
     public void logout_btn2(View view){
         FirebaseAuth.getInstance().signOut();
         onStart();
