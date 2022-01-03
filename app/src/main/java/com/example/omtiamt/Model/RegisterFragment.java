@@ -1,8 +1,10 @@
 package com.example.omtiamt.Model;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.omtiamt.Login;
 import com.example.omtiamt.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -54,7 +57,14 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_login2);
 
+        }
+    }
 
     private void save3(){
 

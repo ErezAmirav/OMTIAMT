@@ -20,6 +20,9 @@
             app:destination="@id/login"
             app:launchSingleTop="false"
             app:popUpTo="@id/login" />
+        <action
+            android:id="@+id/action_registerFragment2_to_login2"
+            app:destination="@id/login" />
     </fragment>
     <activity
         android:id="@+id/loading_Screen"

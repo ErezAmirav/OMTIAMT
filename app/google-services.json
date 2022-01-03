@@ -1,13 +1,14 @@
 {
   "project_info": {
     "project_number": "42285924726",
+    "firebase_url": "https://omtiamt-ie-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "omtiamt-ie",
     "storage_bucket": "omtiamt-ie.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:42285924726:android:ce8ea43126efba12cf7a57",
+        "mobilesdk_app_id": "1:42285924726:android:cae582edaa5354dfcf7a57",
         "android_client_info": {
           "package_name": "com.example.omtiamt"
         }
