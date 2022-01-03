@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +23,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Objects;
 import java.util.concurrent.Executor;
 
 /**
@@ -51,7 +50,7 @@ public class RegisterFragment extends Fragment {
         btnSaveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                save3();
+                createUser();
             }
         });
         return view;
@@ -69,20 +68,33 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(RegisterFragment.this.getContext(), "User Offline", Toast.LENGTH_LONG).show();
     }
 
-    private void save3(){
+    private void createUser(){
 
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
         String confirmPassword = inputConfirmPassword.getText().toString();
+
+        if (TextUtils.isEmpty(email)){
+            inputEmail.setError("Email Field Cannot Be Empty");
+            inputEmail.requestFocus();
+        }
+        else if (TextUtils.isEmpty(password)){
+            inputPassword.setError("Password Field Cannot Be Empty");
+            inputPassword.requestFocus();
+        }
+        else if (TextUtils.isEmpty(confirmPassword)){
+            inputConfirmPassword.setError("Confirm Password Field Cannot Be Empty");
+            inputConfirmPassword.requestFocus();
+        }
 
         if (password.equals(confirmPassword)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Executor) this, task -> {
                         if (task.isSuccessful()) {
                         //    FirebaseAuth.getInstance().signOut();
-                            Navigation.findNavController(inputEmail).navigateUp();
+                            startActivity(new Intent(RegisterFragment.this.getContext(), Login.class));
                         } else
-                            Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RegisterFragment.this.getContext(), "Register Error:" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     });
         } else
             Toast.makeText(RegisterFragment.this.getContext(), "Password Does not Match", Toast.LENGTH_LONG).show();

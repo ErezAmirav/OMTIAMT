@@ -46,6 +46,7 @@ public class Loading_Screen extends AppCompatActivity {
            // getSupportFragmentManager().beginTransaction().replace(R.id.body_container, new homePageFragment()).commit();
             startActivity(new Intent(getApplicationContext(), TestActivity.class));
 
+
         }
     }
 }

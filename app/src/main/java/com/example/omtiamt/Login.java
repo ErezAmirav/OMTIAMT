@@ -123,6 +123,8 @@ public class Login extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //Navigation.findNavController(view).navigate(R.id.);
                             Toast.makeText(Login.this, "Welcome Back", Toast.LENGTH_LONG).show();
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
 
                         } else
                             Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
@@ -141,6 +143,7 @@ public class Login extends AppCompatActivity {
         super.onStart();
         if (currentUser != null) {
             Toast.makeText(Login.this, "Current User Online", Toast.LENGTH_LONG).show();
+
 
         } else
             Toast.makeText(Login.this, "User Offline", Toast.LENGTH_LONG).show();
