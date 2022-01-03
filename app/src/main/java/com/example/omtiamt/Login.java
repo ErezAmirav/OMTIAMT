@@ -44,6 +44,7 @@ public class Login extends AppCompatActivity {
     BottomNavigationView navigationView;
     ImageButton logout;
     private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +121,7 @@ public class Login extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
-                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.homePageFragment, new RegisterFragment()).commit();
+                            //Navigation.findNavController(view).navigate(R.id.);
                             Toast.makeText(Login.this, "Welcome Back", Toast.LENGTH_LONG).show();
 
                         } else
@@ -135,5 +135,14 @@ public class Login extends AppCompatActivity {
     public void logout_btn(View view) {
         mAuth.signOut();
         startActivity(new Intent(this, Login.class));
+    }
+
+    public void onStart() {
+        super.onStart();
+        if (currentUser != null) {
+            Toast.makeText(Login.this, "Current User Online", Toast.LENGTH_LONG).show();
+
+        } else
+            Toast.makeText(Login.this, "User Offline", Toast.LENGTH_LONG).show();
     }
 }

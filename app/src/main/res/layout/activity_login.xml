@@ -184,7 +184,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_id"
-        app:srcCompat="@drawable/login" />
+        app:srcCompat="@drawable/logout_button" />
 
     <TextView
         android:id="@+id/login_clickhere_id"

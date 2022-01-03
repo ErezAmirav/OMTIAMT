@@ -36,7 +36,7 @@ public class RegisterFragment extends Fragment {
     EditText inputEmail;
     View view;
     private FirebaseAuth mAuth;
-
+    FirebaseUser currentUser;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,11 +59,14 @@ public class RegisterFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //FirebaseAuth.getInstance().signOut();
+        currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_login2);
+                Toast.makeText(RegisterFragment.this.getContext(), "Current User Online", Toast.LENGTH_LONG).show();
+           // Navigation.findNavController(view).navigate(R.id.action_registerFragment2_to_login2);
 
-        }
+        } else
+            Toast.makeText(RegisterFragment.this.getContext(), "User Offline", Toast.LENGTH_LONG).show();
     }
 
     private void save3(){
@@ -76,6 +79,7 @@ public class RegisterFragment extends Fragment {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Executor) this, task -> {
                         if (task.isSuccessful()) {
+                        //    FirebaseAuth.getInstance().signOut();
                             Navigation.findNavController(inputEmail).navigateUp();
                         } else
                             Toast.makeText(RegisterFragment.this.getContext(), "Register Failed", Toast.LENGTH_LONG).show();
@@ -87,6 +91,7 @@ public class RegisterFragment extends Fragment {
     //------------------------------------------------------------------------//
 
     private void save1() {
+
         mAuth.createUserWithEmailAndPassword(inputEmail.getText().toString(), inputPassword.getText().toString())
                 .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -121,8 +126,13 @@ public class RegisterFragment extends Fragment {
                             }
                         }
                     });
+
         }
+    public void logout_btn2(View view){
+        FirebaseAuth.getInstance().signOut();
+        onStart();
     }
+}
 
 
     /*
