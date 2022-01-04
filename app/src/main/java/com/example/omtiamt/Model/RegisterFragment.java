@@ -50,7 +50,8 @@ public class RegisterFragment extends Fragment {
         btnSaveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createUser();
+
+                model.instance.registerNewUser(inputEmail.getText().toString(),inputPassword.getText().toString());
             }
         });
         return view;
@@ -68,37 +69,7 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(RegisterFragment.this.getContext(), "User Offline", Toast.LENGTH_LONG).show();
     }
 
-    private void createUser(){
 
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-        String confirmPassword = inputConfirmPassword.getText().toString();
-
-        if (TextUtils.isEmpty(email)){
-            inputEmail.setError("Email Field Cannot Be Empty");
-            inputEmail.requestFocus();
-        }
-        else if (TextUtils.isEmpty(password)){
-            inputPassword.setError("Password Field Cannot Be Empty");
-            inputPassword.requestFocus();
-        }
-        else if (TextUtils.isEmpty(confirmPassword)){
-            inputConfirmPassword.setError("Confirm Password Field Cannot Be Empty");
-            inputConfirmPassword.requestFocus();
-        }
-
-        if (password.equals(confirmPassword)) {
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener((Executor) this, task -> {
-                        if (task.isSuccessful()) {
-                        //    FirebaseAuth.getInstance().signOut();
-                            startActivity(new Intent(RegisterFragment.this.getContext(), Login.class));
-                        } else
-                            Toast.makeText(RegisterFragment.this.getContext(), "Register Error:" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                    });
-        } else
-            Toast.makeText(RegisterFragment.this.getContext(), "Password Does not Match", Toast.LENGTH_LONG).show();
-    }
 
     public void logout_btn2(View view){
         FirebaseAuth.getInstance().signOut();

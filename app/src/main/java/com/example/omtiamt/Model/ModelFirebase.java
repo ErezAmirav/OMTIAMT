@@ -1,10 +1,15 @@
 package com.example.omtiamt.Model;
 
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
@@ -20,9 +25,7 @@ import java.util.Map;
 public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-    static Map<String, Object> UsersMap;
-    static Map<String, Object> ProductMap;
-
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public void getAllUsers(model.GetAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
                 .get()
@@ -44,9 +47,6 @@ public class ModelFirebase {
         Map<String, Object> json = user.toJson();
         String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
         json.put("id", NewDocument);
-        UsersMap.put("name", json.get("name"));
-        UsersMap.put("id", json.get("id"));
-        UsersMap.put("password", json.get("password"));
         db.collection(Users.COLLECTION_NAME)
                 .document(NewDocument)
                 .set(json)
@@ -59,9 +59,6 @@ public class ModelFirebase {
         Map<String, Object> json = product.toJson();
         String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
         json.put("id", NewDocument);
-        UsersMap.put("name", json.get("name"));
-        UsersMap.put("id", json.get("id"));
-        UsersMap.put("password", json.get("password"));
         db.collection(Users.COLLECTION_NAME)
                 .document(NewDocument)
                 .set(json)
@@ -70,22 +67,22 @@ public class ModelFirebase {
 
     }
 
-    /*
-    public boolean canSignin(String signName, String signPass) {
-        CollectionReference ref = db.collection("Users");
-        Query findNameQ = ref.whereEqualTo(signName,"Name");
-            {
-                String checkmyUserName = (String) UsersMap.get("name");
-                String checkmyUserPassword = (String) UsersMap.get("password");
-                if ((signName.equals(checkmyUserName)) && (signPass.equals(checkmyUserPassword))) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public void registerNewUser(String email,String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("Tag", "Succses");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                        } else {
+                            Log.w("Tag", "Fail");
+                        }
+                    }
+                });
     }
 
-     */
+
 
 
     public void getUsersById(String userId) {
@@ -100,4 +97,3 @@ public class ModelFirebase {
         return list;
     }
 }
-

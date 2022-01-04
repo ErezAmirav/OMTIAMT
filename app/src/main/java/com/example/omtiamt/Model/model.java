@@ -53,6 +53,9 @@ public class model {
         modelFirebase.getUsersById(userId);
         return null;
         }
+    public void registerNewUser(String email,String password){
+        modelFirebase.registerNewUser(email,password);
+    }
 
     }
 
