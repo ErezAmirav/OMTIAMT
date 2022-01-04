@@ -3,27 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/registerFragment2">
+    app:startDestination="@id/registerFragment">
 
     <activity
         android:id="@+id/login"
         android:name="com.example.omtiamt.Login"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
-    <fragment
-        android:id="@+id/registerFragment2"
-        android:name="com.example.omtiamt.Model.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_registerFragment2_to_login"
-            app:destination="@id/login"
-            app:launchSingleTop="false"
-            app:popUpTo="@id/login" />
-        <action
-            android:id="@+id/action_registerFragment2_to_login2"
-            app:destination="@id/login" />
-    </fragment>
     <activity
         android:id="@+id/loading_Screen"
         android:name="com.example.omtiamt.Loading_Screen"
@@ -52,4 +38,18 @@
         android:name="com.example.omtiamt.Model.ReadmoreProductFragment"
         android:label="fragment_readmore_product"
         tools:layout="@layout/fragment_readmore_product" />
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.omtiamt.Model.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.omtiamt.Model.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
+    </fragment>
 </navigation>
