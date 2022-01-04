@@ -29,9 +29,12 @@ import com.example.omtiamt.Model.ProductFragment;
 import com.example.omtiamt.Model.ProfileFragment;
 import com.example.omtiamt.Model.homePageFragment;
 import com.example.omtiamt.Model.RegisterFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
 
 import java.util.concurrent.Executor;
 
@@ -56,7 +59,6 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         SignName = findViewById(R.id.username_id);
         SignPassword = findViewById(R.id.password_id);
@@ -75,29 +77,23 @@ public class Login extends AppCompatActivity {
         // getSupportFragmentManager().beginTransaction().replace(R.id.body_container, new homePageFragment()).commit();
         navigationView.setSelectedItemId(R.id.nav_home);
         navigationView.setVisibility(View.GONE);
-        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment fragment = null;
-                switch (item.getItemId()){
-                    case R.id.nav_home:
-                        fragment = new homePageFragment();
-                        break;
+        navigationView.setOnNavigationItemSelectedListener(item -> {
+            Fragment fragment = null;
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    fragment = new homePageFragment();
+                    break;
 
-                    case R.id.nav_add:
-                        fragment = new NewProductFragment();
-                        break;
+                case R.id.nav_add:
+                    fragment = new NewProductFragment();
+                    break;
 
-                    case R.id.nav_profile:
-                        fragment = new ProfileFragment();
-                        break;
-
-
-                }
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
-                return true;
+                case R.id.nav_profile:
+                    fragment = new ProfileFragment();
+                    break;
             }
+            getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
+            return true;
         });
 
         // Register Button
@@ -105,33 +101,30 @@ public class Login extends AppCompatActivity {
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.body_container, new RegisterFragment()).commit();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.body_container, new RegisterFragment()).commit();
             }
 
         });
     }
 
 
-
     public void login_btn(View view) {
         String email = SignName.getText().toString();
         String password = SignPassword.getText().toString();
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, task -> {
-                        if (task.isSuccessful()) {
-                            //Navigation.findNavController(view).navigate(R.id.);
-                            Toast.makeText(Login.this, "Welcome Back", Toast.LENGTH_LONG).show();
-                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(Login.this, "Welcome Back", Toast.LENGTH_LONG).show();
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
 
-                        } else
-                            Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
-                    });
-        }
-
-
+                    } else
+                      //  Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
+                        checkEmail(view);
+                });
+    }
 
 
     public void logout_btn(View view) {
@@ -148,4 +141,15 @@ public class Login extends AppCompatActivity {
         } else
             Toast.makeText(Login.this, "User Offline", Toast.LENGTH_LONG).show();
     }
+
+    public void checkEmail(View v) {
+        mAuth.fetchSignInMethodsForEmail(SignName.getText().toString()).addOnCompleteListener(task -> {
+            boolean check = !task.getResult().getSignInMethods().isEmpty();
+            if (!check)
+                Toast.makeText(Login.this, "Email not found", Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(Login.this, "Email already exist", Toast.LENGTH_LONG).show();
+        });
+    }
+
 }
