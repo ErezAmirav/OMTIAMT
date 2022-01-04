@@ -3,6 +3,8 @@ package com.example.omtiamt.Model;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ public class RegisterFragment extends Fragment {
     View view;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    Fragment fragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +42,7 @@ public class RegisterFragment extends Fragment {
         inputEmail = view.findViewById(R.id.email_register_id);
         inputConfirmPassword = view.findViewById(R.id.confirmpassword_register_id);
         btnSaveUser.setOnClickListener(v -> {
+            fragment =  new WelcomeFragment();
 
             // Checks if Email field is not empty
             if (TextUtils.isEmpty(inputEmail.getText().toString())) {
@@ -66,8 +70,12 @@ public class RegisterFragment extends Fragment {
                 inputEmail.requestFocus();
             }
             // Checks if Password and Confirm Password fields match
-            else if (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString()))
+            else if
+                (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())){
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
+                Toast.makeText(RegisterFragment.this.getContext(), "Register Succsesful", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_welcomeFragment);
+            }
             else
                 Toast.makeText(RegisterFragment.this.getContext(), "The Passwords don't match", Toast.LENGTH_LONG).show();
         });
@@ -92,4 +100,6 @@ public class RegisterFragment extends Fragment {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }
+
+
 }

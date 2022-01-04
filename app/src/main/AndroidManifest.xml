@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OMTIAMT">
         <activity
-            android:name=".Model.TestActivity"
-            android:exported="false" />
-        <activity
             android:name=".Login"
             android:exported="false" />
         <activity
