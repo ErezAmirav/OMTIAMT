@@ -50,8 +50,34 @@ public class RegisterFragment extends Fragment {
         btnSaveUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (TextUtils.isEmpty(inputEmail.getText().toString())){
+                    inputEmail.setError("Email Field Cannot Be Empty");
+                    inputEmail.requestFocus();
+                }
+                else if (TextUtils.isEmpty(inputPassword.getText().toString()))
+                {
+                    inputPassword.setError("Password Field Cannot Be Empty");
+                    inputPassword.requestFocus();
+                }
+                else if (TextUtils.isEmpty(inputConfirmPassword.getText().toString()))
+                {
+                        inputConfirmPassword.setError("Confirm Password Field Cannot Be Empty");
+                        inputConfirmPassword.requestFocus();
+                }
+                else if (isValid(inputEmail.getText().toString()) == false)
+                {
+                    inputEmail.setError("Email not Legal");
+                    inputEmail.requestFocus();
+                }
+                else if (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString()))
+                {
+                        model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
+                }
+                else
+                {
+                    Toast.makeText(RegisterFragment.this.getContext(), "The Password are not equals", Toast.LENGTH_LONG).show();
+                }
 
-                model.instance.registerNewUser(inputEmail.getText().toString(),inputPassword.getText().toString());
             }
         });
         return view;
@@ -75,7 +101,12 @@ public class RegisterFragment extends Fragment {
         FirebaseAuth.getInstance().signOut();
         onStart();
     }
+    static boolean isValid(String email) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
+    }
 }
+
 
 
     /*
