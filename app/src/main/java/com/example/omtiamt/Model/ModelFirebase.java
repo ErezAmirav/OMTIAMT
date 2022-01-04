@@ -2,9 +2,12 @@ package com.example.omtiamt.Model;
 
 
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.omtiamt.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -82,8 +85,13 @@ public class ModelFirebase {
                 });
     }
 
-
-
+    boolean check;
+    public boolean checkEmail(String email) {
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
+            check = !task.getResult().getSignInMethods().isEmpty();
+        });
+        return check;
+    }
 
     public void getUsersById(String userId) {
     }

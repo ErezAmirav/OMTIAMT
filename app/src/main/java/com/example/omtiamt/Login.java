@@ -29,6 +29,7 @@ import com.example.omtiamt.Model.ProductFragment;
 import com.example.omtiamt.Model.ProfileFragment;
 import com.example.omtiamt.Model.homePageFragment;
 import com.example.omtiamt.Model.RegisterFragment;
+import com.example.omtiamt.Model.model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -122,7 +123,11 @@ public class Login extends AppCompatActivity {
 
                     } else
                       //  Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
-                        checkEmail(view);
+                        if (model.instance.checkEmail(email))
+                            Toast.makeText(Login.this, "Email already exist", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(Login.this, "Email not found", Toast.LENGTH_LONG).show();
+
                 });
     }
 
@@ -142,7 +147,7 @@ public class Login extends AppCompatActivity {
             Toast.makeText(Login.this, "User Offline", Toast.LENGTH_LONG).show();
     }
 
-    public void checkEmail(View v) {
+    /*public void checkEmail(View v) {
         mAuth.fetchSignInMethodsForEmail(SignName.getText().toString()).addOnCompleteListener(task -> {
             boolean check = !task.getResult().getSignInMethods().isEmpty();
             if (!check)
@@ -150,6 +155,6 @@ public class Login extends AppCompatActivity {
             else
                 Toast.makeText(Login.this, "Email already exist", Toast.LENGTH_LONG).show();
         });
-    }
+    }*/
 
 }
