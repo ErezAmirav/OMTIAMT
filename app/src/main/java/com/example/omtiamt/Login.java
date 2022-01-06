@@ -64,9 +64,9 @@ public class Login extends AppCompatActivity {
         SignName = findViewById(R.id.username_id);
         SignPassword = findViewById(R.id.password_id);
         navigationView = findViewById(R.id.bottom_navigation_id);
-  /*      connect = findViewById(login_btn_id);
+        connect = findViewById(login_btn_id);
 
-        connect.setOnClickListener(new View.OnClickListener() {
+      /*  connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -109,25 +109,29 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    int num;
 
     public void login_btn(View view) {
+        num = 0;
         String email = SignName.getText().toString();
         String password = SignPassword.getText().toString();
+        if (model.instance.checkEmail(email)) {
+            SignPassword.setError("Incorrect Password");
+            SignPassword.requestFocus();
+            num = 1;
+        } else {
+            Toast.makeText(Login.this, "Email not found", Toast.LENGTH_LONG).show();
+            num = 1;
+        }
+        if (num == 0) {
+            model.instance.loginUser(email, password);
+            Toast.makeText(Login.this, "Welcome Back", Toast.LENGTH_LONG).show();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
 
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(Login.this, "Welcome Back", Toast.LENGTH_LONG).show();
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
-
-                    } else if (model.instance.checkEmail(email)) {
-                        SignPassword.setError("Incorrect Password");
-                        SignPassword.requestFocus();
-                    } else
-                        Toast.makeText(Login.this, "Email not found", Toast.LENGTH_LONG).show();
-                });
+        }
     }
+
 
     public void logout_btn(View view) {
         mAuth.signOut();

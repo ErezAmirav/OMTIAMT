@@ -29,6 +29,7 @@ public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     public void getAllUsers(model.GetAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
                 .get()
@@ -70,7 +71,7 @@ public class ModelFirebase {
 
     }
 
-    public void registerNewUser(String email,String password) {
+    public void registerNewUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -83,11 +84,25 @@ public class ModelFirebase {
     }
 
     boolean check;
+
     public boolean checkEmail(String email) {
         mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
             check = !task.getResult().getSignInMethods().isEmpty();
         });
         return check;
+    }
+
+    public void loginUser(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("Tag", "Succses");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                    } else {
+                        Log.w("Tag", "Fail");
+                    }
+
+                });
     }
 
     public void getUsersById(String userId) {

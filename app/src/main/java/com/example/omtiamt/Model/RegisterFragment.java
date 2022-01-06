@@ -45,14 +45,13 @@ public class RegisterFragment extends Fragment {
         inputConfirmPassword = view.findViewById(R.id.confirmpassword_register_id);
 
         btnSaveUser.setOnClickListener(v -> {
-            fragment =  new WelcomeFragment();
+            fragment = new WelcomeFragment();
 
             // Checks if Email field is not empty
             if (TextUtils.isEmpty(inputEmail.getText().toString())) {
                 inputEmail.setError("Email Field Cannot Be Empty");
                 inputEmail.requestFocus();
-            }
-            else if(model.instance.checkEmail(inputEmail.getText().toString())){
+            } else if (model.instance.checkEmail(inputEmail.getText().toString())) {
                 inputEmail.setError("Email already exist");
                 inputEmail.requestFocus();
             }
@@ -79,13 +78,12 @@ public class RegisterFragment extends Fragment {
 
             // Checks if Password and Confirm Password fields match
             else if
-                (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())){
+            (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())) {
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(RegisterFragment.this.getContext(), "Register Succsesful", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(RegisterFragment.this.getContext(),Login.class));
-            }
-            else
+                startActivity(new Intent(RegisterFragment.this.getContext(), Login.class));
+            } else
                 Toast.makeText(RegisterFragment.this.getContext(), "The Passwords don't match", Toast.LENGTH_LONG).show();
         });
         return view;
