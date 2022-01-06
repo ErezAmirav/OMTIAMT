@@ -1,5 +1,6 @@
 package com.example.omtiamt.Model;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.omtiamt.Login;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,6 +43,7 @@ public class RegisterFragment extends Fragment {
         inputPassword = view.findViewById(R.id.password_register_id);
         inputEmail = view.findViewById(R.id.email_register_id);
         inputConfirmPassword = view.findViewById(R.id.confirmpassword_register_id);
+
         btnSaveUser.setOnClickListener(v -> {
             fragment =  new WelcomeFragment();
 
@@ -78,8 +81,9 @@ public class RegisterFragment extends Fragment {
             else if
                 (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())){
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
+                FirebaseAuth.getInstance().signOut();
                 Toast.makeText(RegisterFragment.this.getContext(), "Register Succsesful", Toast.LENGTH_LONG).show();
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_welcomeFragment);
+                startActivity(new Intent(RegisterFragment.this.getContext(),Login.class));
             }
             else
                 Toast.makeText(RegisterFragment.this.getContext(), "The Passwords don't match", Toast.LENGTH_LONG).show();

@@ -121,16 +121,13 @@ public class Login extends AppCompatActivity {
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
 
+                    } else if (model.instance.checkEmail(email)) {
+                        SignPassword.setError("Incorrect Password");
+                        SignPassword.requestFocus();
                     } else
-                      //  Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
-                        if (model.instance.checkEmail(email))
-                            Toast.makeText(Login.this, "Email already exist", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(Login.this, "Email not found", Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(Login.this, "Email not found", Toast.LENGTH_LONG).show();
                 });
     }
-
 
     public void logout_btn(View view) {
         mAuth.signOut();

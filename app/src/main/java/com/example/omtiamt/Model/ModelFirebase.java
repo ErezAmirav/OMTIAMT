@@ -72,15 +72,12 @@ public class ModelFirebase {
 
     public void registerNewUser(String email,String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("Tag", "Succses");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                        } else {
-                            Log.w("Tag", "Fail");
-                        }
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Log.d("Tag", "Succses");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                    } else {
+                        Log.w("Tag", "Fail");
                     }
                 });
     }
