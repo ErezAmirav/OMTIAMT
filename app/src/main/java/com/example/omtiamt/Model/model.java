@@ -65,8 +65,11 @@ public class model {
         return modelFirebase.checkEmail(email);
     }
 
-    public void loginUser(String email, String password) {
+   /* public void loginUser(String email, String password) {
         modelFirebase.loginUser(email, password);
+    }*/
+    public void loginUser(String email, String password) {
+         modelFirebase.loginUser(email,password);
     }
 }
 

@@ -2,24 +2,19 @@ package com.example.omtiamt.Model;
 
 
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.omtiamt.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -92,7 +87,7 @@ public class ModelFirebase {
         return check;
     }
 
-    public void loginUser(String email, String password) {
+   /* public void loginUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -103,7 +98,7 @@ public class ModelFirebase {
                     }
 
                 });
-    }
+    }*/
 
     public void getUsersById(String userId) {
     }
@@ -116,4 +111,29 @@ public class ModelFirebase {
 
         return list;
     }
-}
+    String message;
+    public void loginUser(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                message = "success";
+                FirebaseUser user = mAuth.getCurrentUser();
+
+            } else {
+                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                switch (errorCode) {
+
+                    case "ERROR_WRONG_PASSWORD":
+                        message = "ERROR_WRONG_PASSWORD";
+                        break;
+
+                    case "ERROR_EMAIL_ALREADY_IN_USE":
+                        message = "ERROR_EMAIL_ALREADY_IN_USE";
+                        break;
+                }
+
+            }
+        });
+    }
+
+
+    }
