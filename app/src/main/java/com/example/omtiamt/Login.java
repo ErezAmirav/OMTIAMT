@@ -33,7 +33,9 @@ import com.example.omtiamt.Model.model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
 
@@ -109,49 +111,35 @@ public class Login extends AppCompatActivity {
         });
     }
 
-
     public void login_btn(View view) {
         String email = SignName.getText().toString();
         String password = SignPassword.getText().toString();
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(Login.this, "Welcome Back", Toast.LENGTH_LONG).show();
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
 
-                    } else if (model.instance.checkEmail(email)) {
-                        SignPassword.setError("Incorrect Password");
-                        SignPassword.requestFocus();
-                    } else
-                        Toast.makeText(Login.this, "Email not found", Toast.LENGTH_LONG).show();
-                });
+                    } else {
+                        String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                        switch (errorCode) {
+
+                            case "ERROR_WRONG_PASSWORD":
+                                SignPassword.setError("Incorrect Password");
+                                SignPassword.requestFocus();
+                                break;
+
+                            case "ERROR_USER_NOT_FOUND":
+                                SignName.setError("Incorrect Password");
+                                SignName.requestFocus();
+                                break;
+                        }
+
+                    }
+                }
+            });
     }
-
-    public void logout_btn(View view) {
-        mAuth.signOut();
-        startActivity(new Intent(this, Login.class));
-    }
-
-    public void onStart() {
-        super.onStart();
-        if (currentUser != null) {
-            Toast.makeText(Login.this, "Current User Online", Toast.LENGTH_LONG).show();
-
-
-        } else
-            Toast.makeText(Login.this, "User Offline", Toast.LENGTH_LONG).show();
-    }
-
-    /*public void checkEmail(View v) {
-        mAuth.fetchSignInMethodsForEmail(SignName.getText().toString()).addOnCompleteListener(task -> {
-            boolean check = !task.getResult().getSignInMethods().isEmpty();
-            if (!check)
-                Toast.makeText(Login.this, "Email not found", Toast.LENGTH_LONG).show();
-            else
-                Toast.makeText(Login.this, "Email already exist", Toast.LENGTH_LONG).show();
-        });
-    }*/
 
 }

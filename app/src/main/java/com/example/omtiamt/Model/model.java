@@ -60,23 +60,10 @@ public class model {
     public void registerNewUser(String email, String password) {
         modelFirebase.registerNewUser(email, password);
     }
-
-    public void checkEmail(String email) {
-        modelFirebase.checkEmail(email);
-    }
-    public String loginUser(String email, String password) {
-        return modelFirebase.loginUser(email,password);
-    }
-    public boolean test3() {
-        return modelFirebase.test3();
+    public boolean checkEmail(String email) {
+        return modelFirebase.checkEmail(email);
     }
 
-   /* public void loginUser(String email, String password) {
-        modelFirebase.loginUser(email, password);
-    }*/
-    public void loginUser(String email, String password) {
-         modelFirebase.loginUser(email,password);
-    }
 }
 
 

@@ -52,10 +52,10 @@ public class RegisterFragment extends Fragment {
                 inputEmail.setError("Email Field Cannot Be Empty");
                 inputEmail.requestFocus();
             }
-            //if(model.instance.checkEmail(inputEmail.getText().toString())){
+            if(model.instance.checkEmail(inputEmail.getText().toString())) {
                 inputEmail.setError("Email already exist");
                 inputEmail.requestFocus();
-
+            }
             // Checks if Password field is not empty
              if (TextUtils.isEmpty(inputPassword.getText().toString())) {
                 inputPassword.setError("Password Field Cannot Be Empty");

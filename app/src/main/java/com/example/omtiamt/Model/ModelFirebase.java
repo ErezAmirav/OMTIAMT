@@ -83,26 +83,6 @@ public class ModelFirebase {
                 });
     }
 
-    boolean check;
-    boolean test;
-    public void checkEmail(String email) {
-        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task ->{
-            if(task.isSuccessful())
-            check = !task.getResult().getSignInMethods().isEmpty();
-            test2(check);
-        });
-
-    }
-
-    public void test2(boolean check)
-    {
-        test = check;
-    }
-    public boolean test3 ()
-    {
-        return test;
-    }
-
     public void getUsersById(String userId) {
     }
 
@@ -115,30 +95,11 @@ public class ModelFirebase {
         return list;
     }
 
-     String messeage = "success";
-    public String loginUser(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    messeage = "success";
-                } else {
-                    String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
-                    switch (errorCode) {
-
-                        case "ERROR_WRONG_PASSWORD":
-                            messeage = "ERROR_WRONG_PASSWORD";
-                            break;
-
-                        case "ERROR_EMAIL_ALREADY_IN_USE":
-                            messeage = "ERROR_EMAIL_ALREADY_IN_USE";
-                            break;
-                    }
-
-                }
-            }
+        boolean check;
+    public boolean checkEmail(String email) {
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
+            check = !task.getResult().getSignInMethods().isEmpty();
         });
-        return messeage;
+        return check;
     }
 }
