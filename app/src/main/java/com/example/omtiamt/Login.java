@@ -57,27 +57,12 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //hide navbar
-        //getSupportActionBar().hide();
         //hide status bar
         mAuth = FirebaseAuth.getInstance();
-
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         SignName = findViewById(R.id.username_id);
         SignPassword = findViewById(R.id.password_id);
         navigationView = findViewById(R.id.bottom_navigation_id);
-  /*      connect = findViewById(login_btn_id);
-
-        connect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                    Fragment fragment = new homePageFragment();
-                    navigationView.setVisibility(View.VISIBLE);
-                    getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
-            }
-        });*/
-        // getSupportFragmentManager().beginTransaction().replace(R.id.body_container, new homePageFragment()).commit();
         navigationView.setSelectedItemId(R.id.nav_home);
         navigationView.setVisibility(View.GONE);
         navigationView.setOnNavigationItemSelectedListener(item -> {
@@ -98,7 +83,6 @@ public class Login extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
             return true;
         });
-
         // Register Button
         Register = findViewById(login_clickhere_id);
         Register.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +105,7 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "Welcome Back", Toast.LENGTH_LONG).show();
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
+                        navigationView.setVisibility(View.VISIBLE);
 
                     } else {
                         String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
