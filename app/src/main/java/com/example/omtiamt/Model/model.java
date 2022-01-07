@@ -70,6 +70,13 @@ public class model {
     public boolean test3() {
         return modelFirebase.test3();
     }
+
+   /* public void loginUser(String email, String password) {
+        modelFirebase.loginUser(email, password);
+    }*/
+    public void loginUser(String email, String password) {
+         modelFirebase.loginUser(email,password);
+    }
 }
 
 
