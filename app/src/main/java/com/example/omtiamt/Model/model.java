@@ -61,8 +61,14 @@ public class model {
         modelFirebase.registerNewUser(email, password);
     }
 
-    public boolean checkEmail(String email) {
-        return modelFirebase.checkEmail(email);
+    public void checkEmail(String email) {
+        modelFirebase.checkEmail(email);
+    }
+    public String loginUser(String email, String password) {
+        return modelFirebase.loginUser(email,password);
+    }
+    public boolean test3() {
+        return modelFirebase.test3();
     }
 }
 

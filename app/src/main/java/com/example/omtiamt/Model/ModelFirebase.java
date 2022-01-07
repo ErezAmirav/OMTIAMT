@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -83,11 +84,23 @@ public class ModelFirebase {
     }
 
     boolean check;
-    public boolean checkEmail(String email) {
-        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
+    boolean test;
+    public void checkEmail(String email) {
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task ->{
+            if(task.isSuccessful())
             check = !task.getResult().getSignInMethods().isEmpty();
+            test2(check);
         });
-        return check;
+
+    }
+
+    public void test2(boolean check)
+    {
+        test = check;
+    }
+    public boolean test3 ()
+    {
+        return test;
     }
 
     public void getUsersById(String userId) {
@@ -100,5 +113,32 @@ public class ModelFirebase {
         list.add(mRef.child("Category").orderByChild("Name").toString());
 
         return list;
+    }
+
+     String messeage = "success";
+    public String loginUser(String email, String password) {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    messeage = "success";
+                } else {
+                    String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                    switch (errorCode) {
+
+                        case "ERROR_WRONG_PASSWORD":
+                            messeage = "ERROR_WRONG_PASSWORD";
+                            break;
+
+                        case "ERROR_EMAIL_ALREADY_IN_USE":
+                            messeage = "ERROR_EMAIL_ALREADY_IN_USE";
+                            break;
+                    }
+
+                }
+            }
+        });
+        return messeage;
     }
 }
