@@ -117,7 +117,7 @@ public class Login extends AppCompatActivity {
                                 break;
 
                             case "ERROR_USER_NOT_FOUND":
-                                SignName.setError("Incorrect Password");
+                                SignName.setError("Email doesn't exist");
                                 SignName.requestFocus();
                                 break;
                         }
