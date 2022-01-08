@@ -1,5 +1,6 @@
 package com.example.omtiamt.Model;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,14 +75,13 @@ public class ProfileFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         mAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -90,57 +90,41 @@ public class ProfileFragment extends Fragment {
         userEmail = " " + mAuth.getCurrentUser().getEmail();
         email.setText(userEmail);
 
+        // Settings Popup Menu
         settingsMenu = view.findViewById(R.id.profile_settings_id);
-        settingsMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupMenu = new PopupMenu(ProfileFragment.this.getContext(),v);
-                popupMenu.getMenuInflater().inflate(R.menu.settings_popup, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.item_delete:
-                                alert = new AlertDialog.Builder(ProfileFragment.this.getContext());
-                                alert.setTitle("Delete User");
-                                alert.setMessage("Are You Sure ?");
-                                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        currentUser.delete();
-                                        Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(ProfileFragment.this.getContext(), Login.class));
-                                    }
-                                });
-                                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
+        settingsMenu.setOnClickListener(v -> {
+            popupMenu = new PopupMenu(ProfileFragment.this.getContext(), v);
+            popupMenu.getMenuInflater().inflate(R.menu.settings_popup, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.item_delete:
+                        // Alert Dialog to Confirm
+                        alert = new AlertDialog.Builder(ProfileFragment.this.getContext());
+                        alert.setTitle("Delete User");
+                        alert.setMessage("Are You Sure ?");
+                        alert.setPositiveButton("Yes", (dialog, which) -> {
+                            currentUser.delete();
+                            Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(ProfileFragment.this.getContext(), Login.class));
+                        });
+                        alert.setNegativeButton("No", (dialog, which) -> {
+                            Toast.makeText(ProfileFragment.this.getContext(), "Aborted", Toast.LENGTH_LONG).show();
+                        });
+                        alert.create().show();
+                        return true;
 
-                                    }
-                                });
-                                alert.create().show();
-                                return true;
+                    case R.id.item_logout:
+                        FirebaseAuth.getInstance().signOut();
+                        Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ProfileFragment.this.getContext(), Login.class));
+                        return true;
 
-                            case R.id.item_logout:
-                                FirebaseAuth.getInstance().signOut();
-                                Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
-                                startActivity(new Intent(ProfileFragment.this.getContext(), Login.class));
-                                return true;
-
-                            default:
-                                return false;
-                        }
-
-
-                    }
-                });
-                popupMenu.show();
-            }
+                    default:
+                        return false;
+                }
+            });
+            popupMenu.show();
         });
-
-
-
         return view;
     }
-
 }
