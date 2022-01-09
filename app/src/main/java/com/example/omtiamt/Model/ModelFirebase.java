@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import com.example.omtiamt.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,11 +18,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -86,12 +93,25 @@ public class ModelFirebase {
     public void getUsersById(String userId) {
     }
 
-    public List<String> getCategoriesName() {
-        List<String> list = new LinkedList<String>();
-        DatabaseReference mRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://console.firebase.google.com/u/0/project/omtiamt-ie/firestore/data/Category/");
-        // ^^^^^
-        list.add(mRef.child("Category").orderByChild("Name").toString());
-
+    FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+    public List<String> getCategoryname()
+    {
+        List<String> list = new ArrayList<>();
+        CollectionReference applicationsRef = rootRef.collection("Category");
+        rootRef.collection("Category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String id = document.getId();
+                        DocumentReference applicationIdRef = applicationsRef.document(id);
+                        String name = document.getString("Name");
+                        list.add(name);
+                    }
+                    Log.d("TAG", list.toString());
+                }
+            }
+        });
         return list;
     }
 
