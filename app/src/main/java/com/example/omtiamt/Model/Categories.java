@@ -13,7 +13,7 @@ public class Categories {
     @PrimaryKey
     String id;
     String categoryName;
-    Picture categoryPicture;
+    String categoryPicture;
     List<Product> products;
 
     public Categories() {
@@ -35,11 +35,11 @@ public class Categories {
         this.categoryName = categoryName;
     }
 
-    public Picture getCategoryPicture() {
+    public String getCategoryPicture() {
         return categoryPicture;
     }
 
-    public void setCategoryPicture(Picture categoryPicture) {
+    public void setCategoryPicture(String categoryPicture) {
         this.categoryPicture = categoryPicture;
     }
 
@@ -51,10 +51,14 @@ public class Categories {
         this.products = products;
     }
 
-    public Categories(String id, String categoryName, Picture categoryPicture, List<Product> products) {
+    public Categories(String id, String categoryName, String categoryPicture, List<Product> products) {
         this.id = id;
         this.categoryName = categoryName;
         this.categoryPicture = categoryPicture;
         this.products = products;
+    }
+    public Categories(String categoryName, String categoryPicture) {
+        this.categoryName = categoryName;
+        this.categoryPicture = categoryPicture;
     }
 }

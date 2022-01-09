@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +36,7 @@ import java.util.List;
 public class homePageFragment extends Fragment {
     List<String> catData;
     View view;
+    FragmentContainerView fragmentConView;
     FirebaseAuth mAuth;
     FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
 
@@ -69,7 +71,13 @@ public void onStart() {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         HashMap<String,String> catHash = new HashMap<String,String>();
-        catHash = getCatNameAndPictures();
+        /*catHash = getCatNameAndPictures();
+        Fragment fragment = new Fragment();
+        fragment = new Category_List_Fragment();
+        fragmentConView = view.findViewById(R.id.fragmentContainerView2);
+
+         */
+
         return inflater.inflate(R.layout.fragment_home_page, container, false);
 
     }

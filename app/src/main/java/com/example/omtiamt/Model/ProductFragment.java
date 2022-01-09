@@ -1,5 +1,6 @@
 package com.example.omtiamt.Model;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -61,6 +62,7 @@ public class ProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_product, container, false);
     }
 }
