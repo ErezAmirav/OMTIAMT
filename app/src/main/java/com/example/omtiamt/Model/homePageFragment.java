@@ -28,6 +28,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class homePageFragment extends Fragment {
     List<String> catData;
     View view;
     FirebaseAuth mAuth;
+    FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
 
     public homePageFragment() {
         // Required empty public constructor
@@ -66,13 +68,12 @@ public void onStart() {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        List<String> catName= new LinkedList<String>();
-        catName = getCatName();
-        String name = "name";
+        HashMap<String,String> catHash = new HashMap<String,String>();
+        catHash = getCatNameAndPictures();
         return inflater.inflate(R.layout.fragment_home_page, container, false);
 
     }
-    FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+
     //Get all Categories Names
     public List<String> getCatName()
     {
@@ -93,6 +94,27 @@ public void onStart() {
             }
         });
         return list;
+    }
+    //Get all Categories Names and Pictures at HashMap
+    public HashMap<String,String> getCatNameAndPictures()
+    {
+        HashMap<String,String> catHash = new HashMap<String,String>();
+        CollectionReference applicationsRef = rootRef.collection("Category");
+        rootRef.collection("Category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String id = document.getId();
+                        DocumentReference applicationIdRef = applicationsRef.document(id);
+                        String name = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        catHash.put(name,picture);
+                    }
+                }
+            }
+        });
+        return catHash;
     }
 
     }
