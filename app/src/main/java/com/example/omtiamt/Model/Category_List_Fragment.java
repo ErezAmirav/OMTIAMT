@@ -26,9 +26,9 @@ import java.util.List;
 
 public class Category_List_Fragment extends Fragment {
     View view;
-    List<String> catData;
-    FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-    HashMap<String,String> catHash = new HashMap<String,String>();;
+    RecyclerView catRV;
+    HashMap<String,String> catHash = new HashMap<String,String>();
+    CategorylistAdapter catAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,33 +39,19 @@ public class Category_List_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category__list_, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerview_Categories);
+        catRV = view.findViewById(R.id.recyclerview_Categories);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        getCatNameAndPictures();
+        catRV.setLayoutManager(layoutManager);
+        catHash = model.instance.getCatNameAndPictures();
+        int i = 0;
 
-        CategorylistAdapter categorylistAdapter = new CategorylistAdapter(catHash);
-        recyclerView.setAdapter(categorylistAdapter);
+        catAdapter = new CategorylistAdapter(catHash);
+        catRV.setAdapter(catAdapter);
+
         return view;
     }
-    public interface MyCallback {
-        void onCallback(List<Event> eventList);
-    }
-    public void getCatNameAndPictures(  ) {
-        CollectionReference applicationsRef = rootRef.collection("Category");
-        rootRef.collection("Category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String id = document.getId();
-                        DocumentReference applicationIdRef = applicationsRef.document(id);
-                        String name = document.getString("Name");
-                        String picture = document.getString("Picture");
-                        catHash.put(name, picture);
-                    }
 
-                }
-            }
+
+
 
 }

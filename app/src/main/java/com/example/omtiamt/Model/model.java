@@ -2,9 +2,9 @@ package com.example.omtiamt.Model;
 
 import android.os.Handler;
 import android.os.Looper;
-
+import android.widget.ImageView;
 import androidx.core.os.HandlerCompat;
-
+import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -16,8 +16,7 @@ public class model {
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     ModelFirebase modelFirebase = new ModelFirebase();
 
-    private model() {
-    }
+    private model() { }
 
     public interface GetAllUsersListener {
         void onComplete(List<Users> user);
@@ -25,10 +24,6 @@ public class model {
 
     public void getAllUsers(GetAllUsersListener listener) {
         modelFirebase.getAllUsers(listener);
-    }
-
-    public interface GetAllCategoriesListener {
-        void onComplete(List<Categories> categories);
     }
 
     public List<String> getAllCategoriesName() {
@@ -52,7 +47,6 @@ public class model {
         modelFirebase.addProduct(product, listener);
     }
 
-
     public Users getUsersById(String userId) {
         modelFirebase.getUsersById(userId);
         return null;
@@ -61,11 +55,22 @@ public class model {
     public void registerNewUser(String email, String password) {
         modelFirebase.registerNewUser(email, password);
     }
+
     public boolean checkEmail(String email) {
         return modelFirebase.checkEmail(email);
     }
-    public List<String> getCategoryNames(){ return modelFirebase.getCatName(); }
-    public HashMap<String,String> getCatNameAndPictures() { return modelFirebase.getCatNameAndPictures(); }
+
+    public List<String> getCategoryNames() {
+        return modelFirebase.getCatName();
+    }
+
+    public HashMap<String, String> getCatNameAndPictures() {
+        return modelFirebase.getCatNameAndPictures();
+    }
+
+    public void urlToImg(String url, ImageView img) {
+        Picasso.with(img.getContext()).load(url).into(img);
+    }
 
 }
 

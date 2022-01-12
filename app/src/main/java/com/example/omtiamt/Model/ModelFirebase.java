@@ -2,26 +2,14 @@ package com.example.omtiamt.Model;
 
 
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.example.omtiamt.Login;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,40 +92,41 @@ public class ModelFirebase {
     public List<String> getCatName() {
         List<String> list = new ArrayList<>();
         CollectionReference applicationsRef = db.collection("Category");
-        db.collection("Category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String id = document.getId();
-                        DocumentReference applicationIdRef = applicationsRef.document(id);
-                        String name = document.getString("Name");
-                        list.add(name);
-                    }
-                    Log.d("TAG", list.toString());
+        db.collection("Category").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String id = document.getId();
+                    DocumentReference applicationIdRef = applicationsRef.document(id);
+                    String name = document.getString("Name");
+                    list.add(name);
                 }
+                Log.d("TAG", list.toString());
             }
         });
         return list;
     }
-    public HashMap<String,String> getCatNameAndPictures()
+    public HashMap<String,String> catHash = new HashMap<>();
+    public HashMap<String, String> getCatNameAndPictures()
     {
-        HashMap<String,String> catHash = new HashMap<String,String>();
-        CollectionReference applicationsRef = db.collection("Category");
-        db.collection("Category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String id = document.getId();
-                        DocumentReference applicationIdRef = applicationsRef.document(id);
-                        String name = document.getString("Name");
-                        String picture = document.getString("Picture");
-                        catHash.put(name,picture);
-                    }
+        db.collection("Category").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String id = document.getId();
+                    String name = document.getString("Name");
+                    String picture = document.getString("Picture");
+                    catHash.put(name,picture);
                 }
             }
         });
         return catHash;
     }
+
+    public HashMap<String,String> catHashTest = new HashMap<String,String>();
+
+    private HashMap<String,String> isFinish(HashMap<String, String> catHash, HashMap<String,String> inputHash) {
+        inputHash = catHash;
+        return inputHash;
+    }
+
+
 }

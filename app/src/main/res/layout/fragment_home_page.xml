@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView2"
+        android:id="@+id/category_rv_id"
         android:name="com.example.omtiamt.Model.Category_List_Fragment"
         android:layout_width="335dp"
         android:layout_height="323dp"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragmentContainerView2"
+        app:layout_constraintTop_toBottomOf="@+id/category_rv_id"
         app:layout_constraintVertical_bias="1.0" />
 
 

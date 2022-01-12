@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.omtiamt.Model.Category_List_Fragment;
 import com.example.omtiamt.Model.ModelFirebase;
 import com.example.omtiamt.Model.NewProductFragment;
 import com.example.omtiamt.Model.ProductFragment;
@@ -104,7 +105,7 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(Login.this, "Welcome Back "+ mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
+                        fragmentTransaction.replace(R.id.body_container, new Category_List_Fragment()).commit();
                         navigationView.setVisibility(View.VISIBLE);
 
                     } else {
