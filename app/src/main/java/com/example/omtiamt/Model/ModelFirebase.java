@@ -90,14 +90,7 @@ public class ModelFirebase {
     public void getUsersById(String userId) {
     }
 
-    public List<String> getCategoriesName() {
-        List<String> list = new LinkedList<String>();
-        DatabaseReference mRef = FirebaseDatabase.getInstance().getReferenceFromUrl("https://console.firebase.google.com/u/0/project/omtiamt-ie/firestore/data/Category/");
-        // ^^^^^
-        list.add(mRef.child("Category").orderByChild("Name").toString());
 
-        return list;
-    }
 
     boolean check;
 
