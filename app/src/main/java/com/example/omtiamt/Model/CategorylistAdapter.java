@@ -24,11 +24,13 @@ import java.util.Map;
 
 public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapter.CategoryViewHolder> {
 
-    private HashMap<String,String> categoryMap;
-    URL url;
-    public CategorylistAdapter(HashMap<String, String> categoryMap) {
+    public void setCategoryMap(HashMap<String, String> categoryMap) {
         this.categoryMap = categoryMap;
     }
+
+    private HashMap<String,String> categoryMap = new HashMap<>();
+    URL url;
+
 
     @NonNull
     @Override
@@ -41,13 +43,19 @@ public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapte
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         //categoryMap = model.instance.getCatNameAndPictures();
 
-        for (Map.Entry<String, String> entry : categoryMap.entrySet()) {
+       /* for (Map.Entry<String, String> entry : categoryMap.entrySet()) {
             String keyName = entry.getKey();
             String valuePic = entry.getValue();
             holder.nameTextView.setText(keyName);
             model.instance.urlToImg(valuePic, holder.picture);
 
-        }
+        }*/
+        Map.Entry<String,String> entry = categoryMap.entrySet().iterator().next();
+        String key = entry.getKey();
+        String value = entry.getValue();
+        Picasso.with(holder.picture.getContext()).load(value).into(holder.picture);
+        holder.nameTextView.setText(key);
+
     }
     @Override
     public int getItemCount() {
@@ -60,8 +68,8 @@ public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapte
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameTextView = itemView.findViewById(R.id.category_name_id);
-            picture = itemView.findViewById(R.id.category_image_id);
+            nameTextView = itemView.findViewById(R.id.choose_category_name);
+            picture = itemView.findViewById(R.id.choose_category_image);
 
         }
     }

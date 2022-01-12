@@ -64,14 +64,20 @@ public class model {
         return modelFirebase.getCatName();
     }
 
-    public HashMap<String, String> getCatNameAndPictures() {
+    /*public HashMap<String, String> getCatNameAndPictures() {
         return modelFirebase.getCatNameAndPictures();
-    }
+    }*/
 
     public void urlToImg(String url, ImageView img) {
         Picasso.with(img.getContext()).load(url).into(img);
     }
-
+    public interface GetCatNameAndPictures {
+        void onComplete(HashMap<String,String> catHash);
+    }
+    public HashMap<String, String> getCatNameAndPictures(HashMap<String,String> catHash, GetCatNameAndPictures listener) {
+        modelFirebase.getCatNameAndPictures(catHash,listener);
+        return null;
+    }
 }
 
 

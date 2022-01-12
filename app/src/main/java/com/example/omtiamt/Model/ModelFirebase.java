@@ -106,7 +106,7 @@ public class ModelFirebase {
         return list;
     }
     public HashMap<String,String> catHash = new HashMap<>();
-    public HashMap<String, String> getCatNameAndPictures()
+    public void getCatNameAndPictures(HashMap<String,String> catHash, model.GetCatNameAndPictures listener)
     {
         db.collection("Category").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -116,9 +116,9 @@ public class ModelFirebase {
                     String picture = document.getString("Picture");
                     catHash.put(name,picture);
                 }
+                listener.onComplete(catHash);
             }
         });
-        return catHash;
     }
 
     public HashMap<String,String> catHashTest = new HashMap<String,String>();

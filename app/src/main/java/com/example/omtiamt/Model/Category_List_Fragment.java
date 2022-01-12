@@ -1,5 +1,6 @@
 package com.example.omtiamt.Model;
 
+import android.annotation.SuppressLint;
 import android.media.metrics.Event;
 import android.os.Bundle;
 
@@ -27,7 +28,7 @@ import java.util.List;
 public class Category_List_Fragment extends Fragment {
     View view;
     RecyclerView catRV;
-    HashMap<String,String> catHash = new HashMap<String,String>();
+    HashMap<String,String> myCatHash = new HashMap<String,String>();
     CategorylistAdapter catAdapter;
 
     @Override
@@ -42,16 +43,19 @@ public class Category_List_Fragment extends Fragment {
         catRV = view.findViewById(R.id.recyclerview_Categories);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         catRV.setLayoutManager(layoutManager);
-        catHash = model.instance.getCatNameAndPictures();
-        int i = 0;
+        model.instance.getCatNameAndPictures(myCatHash, new model.GetCatNameAndPictures() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onComplete(HashMap<String, String> catHash) {
+             catAdapter.setCategoryMap(catHash);
+             catAdapter.notifyDataSetChanged();
+            }
+        });
 
-        catAdapter = new CategorylistAdapter(catHash);
+        catAdapter = new CategorylistAdapter();
         catRV.setAdapter(catAdapter);
 
         return view;
     }
-
-
-
 
 }
