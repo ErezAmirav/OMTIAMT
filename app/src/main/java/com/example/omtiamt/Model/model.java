@@ -32,7 +32,7 @@ public class model {
     }
 
     public List<String> getAllCategoriesName() {
-        return modelFirebase.getCategoriesName();
+        return modelFirebase.getCategoryname();
     }
 
     public interface AddUsersListener {

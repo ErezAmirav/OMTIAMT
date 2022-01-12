@@ -15,7 +15,7 @@
         android:text="@string/hello_blank_fragment" />
 
     <TextView
-        android:id="@+id/textcategory_id"
+        android:id="@+id/Textview_Categoryname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/aldrich"
@@ -27,13 +27,13 @@
         tools:layout_editor_absoluteY="16dp" />
 
     <ImageView
-        android:id="@+id/Categoryimage_id"
+        android:id="@+id/TextView_Category_Picture"
         android:layout_width="117dp"
         android:layout_height="57dp"
         android:layout_marginTop="44dp"
         android:src="@drawable/babies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textcategory_id" />
+        app:layout_constraintTop_toTopOf="@+id/Textview_Categoryname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
