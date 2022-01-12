@@ -17,11 +17,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,7 @@ public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     public void getAllUsers(model.GetAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
                 .get()
@@ -71,7 +75,7 @@ public class ModelFirebase {
 
     }
 
-    public void registerNewUser(String email,String password) {
+    public void registerNewUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -95,11 +99,52 @@ public class ModelFirebase {
         return list;
     }
 
-        boolean check;
+    boolean check;
+
     public boolean checkEmail(String email) {
         mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
             check = !task.getResult().getSignInMethods().isEmpty();
         });
         return check;
+    }
+
+    public List<String> getCatName() {
+        List<String> list = new ArrayList<>();
+        CollectionReference applicationsRef = db.collection("Category");
+        db.collection("Category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String id = document.getId();
+                        DocumentReference applicationIdRef = applicationsRef.document(id);
+                        String name = document.getString("Name");
+                        list.add(name);
+                    }
+                    Log.d("TAG", list.toString());
+                }
+            }
+        });
+        return list;
+    }
+    public HashMap<String,String> getCatNameAndPictures()
+    {
+        HashMap<String,String> catHash = new HashMap<String,String>();
+        CollectionReference applicationsRef = db.collection("Category");
+        db.collection("Category").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String id = document.getId();
+                        DocumentReference applicationIdRef = applicationsRef.document(id);
+                        String name = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        catHash.put(name,picture);
+                    }
+                }
+            }
+        });
+        return catHash;
     }
 }

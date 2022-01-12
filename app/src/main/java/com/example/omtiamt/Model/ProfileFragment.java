@@ -86,6 +86,7 @@ public class ProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        // Show Current User Email
         email = view.findViewById(R.id.profile_email_id);
         userEmail = " " + mAuth.getCurrentUser().getEmail();
         email.setText(userEmail);

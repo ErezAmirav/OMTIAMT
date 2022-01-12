@@ -5,6 +5,7 @@ import android.os.Looper;
 
 import androidx.core.os.HandlerCompat;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -63,6 +64,8 @@ public class model {
     public boolean checkEmail(String email) {
         return modelFirebase.checkEmail(email);
     }
+    public List<String> getCategoryNames(){ return modelFirebase.getCatName(); }
+    public HashMap<String,String> getCatNameAndPictures() { return modelFirebase.getCatNameAndPictures(); }
 
 }
 
