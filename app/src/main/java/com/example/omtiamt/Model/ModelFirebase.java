@@ -10,6 +10,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,8 @@ import java.util.Map;
 public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public void getAllUsers(model.GetAllUsersListener listener) {
@@ -130,6 +133,7 @@ public class ModelFirebase {
         inputHash = catHash;
         return inputHash;
     }
+
 
 
 }
