@@ -85,7 +85,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newproduct_name_id4" />
+            app:layout_constraintTop_toBottomOf="@+id/adress_EditText" />
 
         <TextView
             android:id="@+id/textView18"
@@ -136,7 +136,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <EditText
-            android:id="@+id/newproduct_name_id3"
+            android:id="@+id/details_product_editText"
             android:layout_width="223dp"
             android:layout_height="39dp"
             android:layout_marginStart="24dp"
@@ -152,7 +152,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
         <EditText
-            android:id="@+id/newproduct_name_id4"
+            android:id="@+id/adress_EditText"
             android:layout_width="251dp"
             android:layout_height="58dp"
             android:layout_marginStart="24dp"
@@ -178,7 +178,7 @@
             android:onClick="uploadPhoto"
             android:text="Upload Photo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/newproduct_name_id3" />
+            app:layout_constraintTop_toTopOf="@+id/details_product_editText" />
 
         <Button
             android:id="@+id/publish_product_btn"
@@ -194,7 +194,7 @@
             app:layout_constraintEnd_toStartOf="@+id/upload_photo_btn"
             app:layout_constraintHorizontal_bias="0.516"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newproduct_name_id3" />
+            app:layout_constraintTop_toBottomOf="@+id/details_product_editText" />
 
         <ImageView
             android:id="@+id/image_preview"

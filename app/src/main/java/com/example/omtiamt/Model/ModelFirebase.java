@@ -58,7 +58,7 @@ public class ModelFirebase {
         Map<String, Object> json = product.toJson();
         String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
         json.put("id", NewDocument);
-        db.collection(Users.COLLECTION_NAME)
+        db.collection(Product.COLLECTION_NAME)
                 .document(NewDocument)
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())

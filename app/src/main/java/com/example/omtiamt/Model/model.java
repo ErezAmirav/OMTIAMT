@@ -42,7 +42,6 @@ public class model {
         modelFirebase.addUser(user, listener);
     }
 
-
     public void addProduct(Product product, AddProductListener listener) {
         modelFirebase.addProduct(product, listener);
     }

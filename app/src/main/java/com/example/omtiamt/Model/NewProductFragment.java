@@ -3,6 +3,8 @@ package com.example.omtiamt.Model;
 import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -11,8 +13,10 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +24,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.omtiamt.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -36,7 +43,9 @@ import java.util.List;
 public class NewProductFragment extends Fragment implements AdapterView.OnItemSelectedListener {
     View view;
     Spinner catList;
-    TextView TextViewcatChoose;
+    EditText namePro;
+    EditText addressPro;
+    EditText detailsPro;
     Button uploadPhotoBtn;
     Button publishBtn;
     FirebaseStorage storage;
@@ -44,6 +53,9 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     PopupMenu popUpPhoto;
     ImageView prevImage;
     Bitmap imageBitmap;
+    private FirebaseAuth mAuth;
+    String emailUser;
+    FirebaseUser currentUser;
 
     private final int PICK_IMAGE_REQUEST = 22;
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -63,22 +75,27 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         uploadPhotoBtn = view.findViewById(R.id.upload_photo_btn);
         publishBtn = view.findViewById(R.id.publish_product_btn);
         prevImage = view.findViewById(R.id.image_preview);
-
+        namePro = view.findViewById(R.id.newproduct_name_id);
+        addressPro = view.findViewById(R.id.adress_EditText);
+        detailsPro = view.findViewById(R.id.details_product_editText);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),R.array.names, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catList.setAdapter(adapter);
         catList.setOnItemSelectedListener(this);
+        publishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                publishProduct();
+            }
+        });
 
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
 
         return view;
     }
 
-    public void getCategoryName(){
-        List<String> list = new LinkedList<String>();
-        list = model.instance.getAllCategoriesName();
-
-    }
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -95,7 +112,21 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
     }
 
-    public void publishProduct(View view) {
+
+    public void publishProduct() {
+        String id = "";
+        String picture = "";
+        String name = namePro.getText().toString();
+        String category = catList.getSelectedItem().toString();
+        String address = addressPro.getText().toString();
+        String details = detailsPro.getText().toString();
+        emailUser = mAuth.getCurrentUser().getEmail();
+        String user =  emailUser;
+        Product product = new Product(id,name,category,address,details,user, true,picture);
+        model.instance.addProduct(product, () -> {
+            restertpage();
+        });
+
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -127,4 +158,27 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
             }
         }
     }
+    public void restertpage()
+    {
+        popupMessage();
+        namePro.setText("");
+        addressPro.setText("");
+        detailsPro.setText("");
+
+    }
+    public void popupMessage(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
+        alertDialogBuilder.setMessage("The Product is added!");
+        alertDialogBuilder.setIcon(R.drawable.additem);
+        alertDialogBuilder.setTitle("Succsus");
+        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
 }

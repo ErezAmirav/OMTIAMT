@@ -52,4 +52,12 @@
             android:id="@+id/action_registerFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/newProductFragment"
+        android:name="com.example.omtiamt.Model.NewProductFragment"
+        android:label="NewProductFragment" >
+        <action
+            android:id="@+id/action_newProductFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
+    </fragment>
 </navigation>
