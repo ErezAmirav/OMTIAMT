@@ -19,7 +19,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapter.CategoryViewHolder> {
@@ -28,7 +31,7 @@ public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapte
         this.categoryMap = categoryMap;
     }
 
-    private HashMap<String,String> categoryMap = new HashMap<>();
+    private HashMap<String,String> categoryMap = new LinkedHashMap<>();
     URL url;
 
 
@@ -50,11 +53,19 @@ public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapte
             model.instance.urlToImg(valuePic, holder.picture);
 
         }*/
-        Map.Entry<String,String> entry = categoryMap.entrySet().iterator().next();
-        String key = entry.getKey();
-        String value = entry.getValue();
-        Picasso.with(holder.picture.getContext()).load(value).into(holder.picture);
-        holder.nameTextView.setText(key);
+        //            Map.Entry<String, String> entry = categoryMap.entrySet().iterator().next();
+        for (Map.Entry<String, String> entry : categoryMap.entrySet()) {
+            String tmp = (new ArrayList<>(categoryMap.keySet())).get(position);
+            String key = entry.getKey();
+
+            String value = entry.getValue();
+            if (tmp.equals(key)){
+            Picasso.with(holder.picture.getContext()).load(value).into(holder.picture);
+            holder.nameTextView.setText(key);
+
+            }
+        }
+
 
     }
     @Override

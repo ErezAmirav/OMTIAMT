@@ -3,6 +3,9 @@ package com.example.omtiamt.Model;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ public class homePageFragment extends Fragment {
     FirebaseAuth mAuth;
     List<String> list;
     FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
+
 
 
     public homePageFragment() {
@@ -55,7 +59,12 @@ public class homePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         List<String> catList = model.instance.getCategoryNames();
 
-        return inflater.inflate(R.layout.fragment_home_page, container, false);
+
+        Fragment categorylist = new Category_List_Fragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.category_fragment_viewer, categorylist).commit();
+
+        return view;
 
 
     }

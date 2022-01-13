@@ -10,7 +10,6 @@
     tools:context=".Model.homePageFragment">
 
 
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="445dp"
@@ -41,21 +40,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/category_rv_id"
-        android:name="com.example.omtiamt.Model.Category_List_Fragment"
-        android:layout_width="335dp"
-        android:layout_height="323dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="166dp"
         android:layout_height="152dp"
         android:layout_marginStart="122dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="123dp"
         android:layout_marginBottom="60dp"
         android:src="@drawable/omtiamt"
@@ -63,8 +53,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category_rv_id"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/category_fragment_viewer" />
+
+
+    <fragment
+        android:id="@+id/category_fragment_viewer"
+        android:name="com.example.omtiamt.Model.Category_List_Fragment"
+        android:layout_width="374dp"
+        android:layout_height="303.5dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+    </fragment>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

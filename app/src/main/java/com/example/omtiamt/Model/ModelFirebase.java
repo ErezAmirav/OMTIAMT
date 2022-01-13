@@ -116,6 +116,9 @@ public class ModelFirebase {
                     String picture = document.getString("Picture");
                     catHash.put(name,picture);
                 }
+                String name = "View All";
+                String pic = "https://i.ibb.co/nbTM1X5/viewall.png";
+                catHash.put(name,pic);
                 listener.onComplete(catHash);
             }
         });

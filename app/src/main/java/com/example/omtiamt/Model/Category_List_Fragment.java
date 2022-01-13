@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,8 +42,10 @@ public class Category_List_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category__list_, container, false);
         catRV = view.findViewById(R.id.recyclerview_Categories);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+      //  RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(),3);
         catRV.setLayoutManager(layoutManager);
+
         model.instance.getCatNameAndPictures(myCatHash, new model.GetCatNameAndPictures() {
             @SuppressLint("NotifyDataSetChanged")
             @Override

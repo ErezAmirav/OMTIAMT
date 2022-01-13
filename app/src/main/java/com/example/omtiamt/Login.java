@@ -105,7 +105,7 @@ public class Login extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(Login.this, "Welcome Back "+ mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.body_container, new Category_List_Fragment()).commit();
+                        fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
                         navigationView.setVisibility(View.VISIBLE);
 
                     } else {
