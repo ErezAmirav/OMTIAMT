@@ -1,5 +1,8 @@
 package com.example.omtiamt.Model;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.fonts.Font;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,7 +39,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
         view = inflater.inflate(R.layout.fragment_new_product, container, false);
         catList = view.findViewById(R.id.choose_category_id);
-        TextViewcatChoose = view.findViewById(R.id.Textview_catChoose);
+        //TextViewcatChoose = view.findViewById(R.id.Textview_catChoose);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),R.array.names, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catList.setAdapter(adapter);
@@ -50,10 +53,13 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String cateChoose = parent.getItemAtPosition(position).toString();
-        TextViewcatChoose.setText(cateChoose);
+       // TextViewcatChoose.setText(cateChoose);
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
+
 
     }
 

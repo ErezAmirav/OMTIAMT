@@ -119,24 +119,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <EditText
-            android:id="@+id/Textview_catChoose"
-            android:layout_width="251dp"
-            android:layout_height="58dp"
-            android:layout_marginStart="9dp"
-            android:layout_marginTop="120dp"
-            android:backgroundTint="#FFFFFF"
-            android:backgroundTintMode="add"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:shadowColor="#FFFFFF"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.099"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
         <Spinner
             android:id="@+id/choose_category_id"
             android:layout_width="251dp"
