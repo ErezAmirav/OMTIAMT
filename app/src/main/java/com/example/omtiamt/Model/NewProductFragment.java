@@ -87,7 +87,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         publishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                publishProduct();
+                popupMessageSure(namePro.getText().toString());
             }
         });
 
@@ -160,13 +160,13 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     }
     public void restertpage()
     {
-        popupMessage();
+        popupMessageEnd();
         namePro.setText("");
         addressPro.setText("");
         detailsPro.setText("");
 
     }
-    public void popupMessage(){
+    public void popupMessageEnd(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
         alertDialogBuilder.setMessage("The Product is added!");
         alertDialogBuilder.setIcon(R.drawable.additem);
@@ -175,6 +175,30 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+    public void popupMessageSure(String name){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
+        alertDialogBuilder.setMessage("Are you sure to add this " + "" + name + "?");
+        alertDialogBuilder.setIcon(R.drawable.additem);
+        alertDialogBuilder.setTitle("New Product");
+        alertDialogBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+            }
+        });
+        alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                publishProduct();
+
             }
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
