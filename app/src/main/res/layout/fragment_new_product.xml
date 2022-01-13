@@ -119,13 +119,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <EditText
+        <Spinner
             android:id="@+id/choose_category_id"
             android:layout_width="251dp"
             android:layout_height="58dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="9dp"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="#00FFFFFF"
             android:backgroundTintMode="add"
             android:ems="10"
             android:inputType="textPersonName"
