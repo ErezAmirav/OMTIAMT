@@ -55,7 +55,6 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -72,7 +71,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         detailsPro = view.findViewById(R.id.details_product_editText);
         mAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(),R.array.names, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.names, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catList.setAdapter(adapter);
         catList.setOnItemSelectedListener(this);
@@ -89,14 +88,10 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String cateChoose = parent.getItemAtPosition(position).toString();
         ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
-
-
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) { }
 
 
     public void publishProduct() {
@@ -107,10 +102,9 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         String address = addressPro.getText().toString();
         String details = detailsPro.getText().toString();
         emailUser = mAuth.getCurrentUser().getEmail();
-        String user =  emailUser;
-        Product product = new Product(id,name,category,address,details,user, true,picture);
+        String user = emailUser;
+        Product product = new Product(id, name, category, address, details, user, true, picture);
         model.instance.addProduct(product, this::restartPage);
-
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -118,10 +112,10 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         popUpPhoto = new PopupMenu(NewProductFragment.this.getContext(), view);
         popUpPhoto.getMenuInflater().inflate(R.menu.upload_photo_popup, popUpPhoto.getMenu());
         popUpPhoto.setOnMenuItemClickListener(item -> {
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.item_open_camera:
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePictureIntent,REQUEST_IMAGE_CAPTURE);
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 case R.id.item_gallery:
 
 
@@ -131,38 +125,40 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         });
         popUpPhoto.show();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE){
-            if (resultCode == RESULT_OK){
+        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+            if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 prevImage.setImageBitmap(imageBitmap);
             }
         }
     }
-    public void restartPage()
-    {
+
+    public void restartPage() {
         popupMessageEnd();
         namePro.setText("");
         addressPro.setText("");
         detailsPro.setText("");
-
     }
-    public void popupMessageEnd(){
+
+    public void popupMessageEnd() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
-        alertDialogBuilder.setMessage("The Product is added!");
+        alertDialogBuilder.setMessage("Product added!");
         alertDialogBuilder.setIcon(R.drawable.additem);
         alertDialogBuilder.setTitle("Success");
-        alertDialogBuilder.setNegativeButton("ok", (dialogInterface, i) -> {
+        alertDialogBuilder.setNegativeButton("Ok", (dialogInterface, i) -> {
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-    public void popupMessageSure(String name){
+
+    public void popupMessageSure(String name) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
-        alertDialogBuilder.setMessage("Are you sure to add this " + "" + name + "?");
+        alertDialogBuilder.setMessage("Are you sure you want to add this " + "" + name + "?");
         alertDialogBuilder.setIcon(R.drawable.additem);
         alertDialogBuilder.setTitle("New Product");
         alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
@@ -170,5 +166,4 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-
 }

@@ -52,13 +52,12 @@ public class Login extends AppCompatActivity {
     ImageButton logout;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
+    ImageButton test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //hide navbar
-        //hide status bar
         mAuth = FirebaseAuth.getInstance();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         SignName = findViewById(R.id.username_id);
@@ -86,46 +85,37 @@ public class Login extends AppCompatActivity {
         });
         // Register Button
         Register = findViewById(login_clickhere_id);
-        Register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.body_container, new RegisterFragment()).commit();
-            }
-
+        Register.setOnClickListener(v -> {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.body_container, new RegisterFragment()).commit();
         });
     }
 
     public void login_btn(View view) {
         String email = SignName.getText().toString();
         String password = SignPassword.getText().toString();
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(Login.this, "Welcome Back "+ mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
-                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
-                        navigationView.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(Login.this, "Welcome Back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.body_container, new homePageFragment()).commit();
+                navigationView.setVisibility(View.VISIBLE);
 
-                    } else {
-                        String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
-                        switch (errorCode) {
+            } else {
+                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                switch (errorCode) {
 
-                            case "ERROR_WRONG_PASSWORD":
-                                SignPassword.setError("Incorrect Password");
-                                SignPassword.requestFocus();
-                                break;
+                    case "ERROR_WRONG_PASSWORD":
+                        SignPassword.setError("Incorrect Email/Password");
+                        SignPassword.requestFocus();
+                        break;
 
-                            case "ERROR_USER_NOT_FOUND":
-                                SignName.setError("Email doesn't exist");
-                                SignName.requestFocus();
-                                break;
-                        }
-
-                    }
+                    case "ERROR_USER_NOT_FOUND":
+                        SignName.setError("Email doesn't exist");
+                        SignName.requestFocus();
+                        break;
                 }
-            });
+            }
+        });
     }
-
 }
