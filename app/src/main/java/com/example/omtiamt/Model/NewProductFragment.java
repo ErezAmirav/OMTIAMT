@@ -4,21 +4,16 @@ import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.fonts.Font;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,9 +30,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.LinkedList;
-import java.util.List;
 
 
 public class NewProductFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -84,12 +76,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catList.setAdapter(adapter);
         catList.setOnItemSelectedListener(this);
-        publishBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupMessageSure(namePro.getText().toString());
-            }
-        });
+        publishBtn.setOnClickListener(v -> popupMessageSure(namePro.getText().toString()));
 
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
 
@@ -101,7 +88,6 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String cateChoose = parent.getItemAtPosition(position).toString();
-       // TextViewcatChoose.setText(cateChoose);
         ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#FFFFFF"));
 
 
@@ -123,9 +109,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         emailUser = mAuth.getCurrentUser().getEmail();
         String user =  emailUser;
         Product product = new Product(id,name,category,address,details,user, true,picture);
-        model.instance.addProduct(product, () -> {
-            restertpage();
-        });
+        model.instance.addProduct(product, this::restartPage);
 
     }
 
@@ -158,7 +142,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
             }
         }
     }
-    public void restertpage()
+    public void restartPage()
     {
         popupMessageEnd();
         namePro.setText("");
@@ -170,12 +154,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
         alertDialogBuilder.setMessage("The Product is added!");
         alertDialogBuilder.setIcon(R.drawable.additem);
-        alertDialogBuilder.setTitle("Succsus");
-        alertDialogBuilder.setNegativeButton("ok", new DialogInterface.OnClickListener(){
-
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
+        alertDialogBuilder.setTitle("Success");
+        alertDialogBuilder.setNegativeButton("ok", (dialogInterface, i) -> {
         });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
@@ -185,22 +165,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         alertDialogBuilder.setMessage("Are you sure to add this " + "" + name + "?");
         alertDialogBuilder.setIcon(R.drawable.additem);
         alertDialogBuilder.setTitle("New Product");
-        alertDialogBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener(){
-
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-
-            }
-        });
-        alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener(){
-
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                publishProduct();
-
-            }
-        });
+        alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> publishProduct());
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
