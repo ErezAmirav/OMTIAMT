@@ -6,7 +6,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -24,12 +26,15 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.io.InputStream;
 
 
 public class NewProductFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -49,8 +54,9 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     String emailUser;
     FirebaseUser currentUser;
 
-    private final int PICK_IMAGE_REQUEST = 22;
+
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_OPEN_GALLERY = 2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,7 +123,9 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 case R.id.item_gallery:
-
+                    Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
+                    openGalleryIntent.setType("image/*");
+                    startActivityForResult(openGalleryIntent, REQUEST_OPEN_GALLERY);
 
                 default:
                     return false;
@@ -135,6 +143,20 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
                 imageBitmap = (Bitmap) extras.get("data");
                 prevImage.setImageBitmap(imageBitmap);
             }
+        } else if (requestCode == REQUEST_OPEN_GALLERY){
+            if (resultCode == RESULT_OK){
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imgStream = getContext().getContentResolver().openInputStream(imageUri);
+                    imageBitmap = BitmapFactory.decodeStream(imgStream);
+                    prevImage.setImageBitmap(imageBitmap);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(NewProductFragment.this.getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+
+            }
         }
     }
 
@@ -150,8 +172,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         alertDialogBuilder.setMessage("Product added!");
         alertDialogBuilder.setIcon(R.drawable.additem);
         alertDialogBuilder.setTitle("Success");
-        alertDialogBuilder.setNegativeButton("Ok", (dialogInterface, i) -> {
-        });
+        alertDialogBuilder.setNegativeButton("Ok", (dialogInterface, i) -> { });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }

@@ -1,5 +1,6 @@
 package com.example.omtiamt.Model;
 
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
@@ -76,6 +77,12 @@ public class model {
     public HashMap<String, String> getCatNameAndPictures(HashMap<String,String> catHash, GetCatNameAndPictures listener) {
         modelFirebase.getCatNameAndPictures(catHash,listener);
         return null;
+    }
+    public interface SaveImageListener{
+        void onComplete(String url);
+    }
+    public void saveImage(Bitmap imgBitmap, String imgName, SaveImageListener listener){
+
     }
 }
 
