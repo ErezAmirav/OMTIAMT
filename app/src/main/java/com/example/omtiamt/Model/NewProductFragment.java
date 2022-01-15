@@ -82,9 +82,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         catList.setAdapter(adapter);
         catList.setOnItemSelectedListener(this);
         publishBtn.setOnClickListener(v -> popupMessageSure(namePro.getText().toString()));
-
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
-
         return view;
     }
 
@@ -97,7 +95,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) { }
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
 
 
     public void publishProduct() {
@@ -109,10 +108,10 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         String userEmail = mAuth.getCurrentUser().getEmail();
 
         Product product = new Product(id, name, category, address, details, userEmail, true, null);
-        if (imageBitmap != null){
+        if (imageBitmap != null) {
             model.instance.saveImage(imageBitmap, name + ".jpg", url -> {
                 product.setProductPicUrl(url);
-                model.instance.addProduct(product, this ::restartPage);
+                model.instance.addProduct(product, this::restartPage);
             });
         } else {
             model.instance.addProduct(product, this::restartPage);
@@ -149,8 +148,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
                 imageBitmap = (Bitmap) extras.get("data");
                 prevImage.setImageBitmap(imageBitmap);
             }
-        } else if (requestCode == REQUEST_OPEN_GALLERY){
-            if (resultCode == RESULT_OK){
+        } else if (requestCode == REQUEST_OPEN_GALLERY) {
+            if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imgStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -160,7 +159,6 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
                     e.printStackTrace();
                     Toast.makeText(NewProductFragment.this.getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
-
             }
         }
     }
