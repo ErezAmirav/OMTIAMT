@@ -54,7 +54,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     String emailUser;
     FirebaseUser currentUser;
 
-
+    private static final int REQUEST_CAMERA = 1;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_OPEN_GALLERY = 2;
 
@@ -102,15 +102,21 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
     public void publishProduct() {
         String id = "";
-        String picture = "";
         String name = namePro.getText().toString();
         String category = catList.getSelectedItem().toString();
         String address = addressPro.getText().toString();
         String details = detailsPro.getText().toString();
-        emailUser = mAuth.getCurrentUser().getEmail();
-        String user = emailUser;
-        Product product = new Product(id, name, category, address, details, user, true, picture);
-        model.instance.addProduct(product, this::restartPage);
+        String userEmail = mAuth.getCurrentUser().getEmail();
+
+        Product product = new Product(id, name, category, address, details, userEmail, true, null);
+        if (imageBitmap != null){
+            model.instance.saveImage(imageBitmap, name + ".jpg", url -> {
+                product.setProductPicUrl(url);
+                model.instance.addProduct(product, this ::restartPage);
+            });
+        } else {
+            model.instance.addProduct(product, this::restartPage);
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -121,7 +127,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
             switch (item.getItemId()) {
                 case R.id.item_open_camera:
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    startActivityForResult(takePictureIntent, REQUEST_CAMERA);
                 case R.id.item_gallery:
                     Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
                     openGalleryIntent.setType("image/*");
@@ -150,7 +156,6 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
                     final InputStream imgStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imgStream);
                     prevImage.setImageBitmap(imageBitmap);
-
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(NewProductFragment.this.getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
@@ -165,6 +170,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         namePro.setText("");
         addressPro.setText("");
         detailsPro.setText("");
+        prevImage.setImageBitmap(null);
     }
 
     public void popupMessageEnd() {

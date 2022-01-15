@@ -1,8 +1,14 @@
 package com.example.omtiamt.Model;
 
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -11,7 +17,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -135,5 +144,20 @@ public class ModelFirebase {
     }
 
 
+    public void saveImg(Bitmap imgBitmap, String imgName, model.SaveImageListener listener) {
+        StorageReference storageReference = storage.getReference();
+        StorageReference imgRef = storageReference.child("/product_photos" + imgName);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imgBitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[] data = baos.toByteArray();
 
+        UploadTask uploadTask = imgRef.putBytes(data);
+        uploadTask.addOnFailureListener(e ->
+                listener.onComplete(null))
+                .addOnSuccessListener(taskSnapshot ->
+                imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
+            Uri downloadUri = uri;
+            listener.onComplete(downloadUri.toString());
+        }));
+    }
 }

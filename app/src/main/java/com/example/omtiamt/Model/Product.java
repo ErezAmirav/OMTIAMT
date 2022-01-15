@@ -21,8 +21,15 @@ public class Product {
     String category;
     Boolean isAvailable;
     String loaction;
-    String productPicture;
+    //String productPicture;
     String Details;
+
+    public String getProductPicUrl() {
+        return productPicUrl;
+    }
+
+    private String productPicUrl;
+
 
     public Product(String id, String name, String category, String address, String details, String user, boolean isAvailable,String picture) {
         this.id = id;
@@ -31,7 +38,7 @@ public class Product {
         this.category = category;
         this.isAvailable = isAvailable;
         this.loaction = address;
-        this.productPicture = picture;
+        //this.productPicture = picture;
         this.Details = details;
     }
 
@@ -83,13 +90,13 @@ public class Product {
         this.loaction = loaction;
     }
 
-    public String getProductPicture() {
+ /*   public String getProductPicture() {
         return productPicture;
     }
 
     public void setProductPicture(String productPicture) {
         this.productPicture = productPicture;
-    }
+    }*/
 
     public String getDetails() {
         return Details;
@@ -99,6 +106,9 @@ public class Product {
         Details = details;
     }
 
+    public void setProductPicUrl (String url){
+        this.productPicUrl = url;
+    }
 
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<>();
@@ -106,25 +116,26 @@ public class Product {
         json.put("User",user);
         json.put("Category", category);
         json.put("name", productName);
-        json.put("Picture", productPicture);
+       // json.put("Picture", productPicture);
+        json.put("Picture",productPicUrl);
         json.put("Location", loaction);
         json.put("Details", Details);
         json.put("isAvailable", isAvailable);
         return json;
     }
-    /*public static Product create(Map<String, Object> json) {
+ /*    public static Product create(Map<String, Object> json) {
         String id = (String) json.get("id");
         Users user = (Users) json.get("User");
         Categories category = (Categories) json.get("Category");
-        String productname = (String) json.get("name");
+        String productName = (String) json.get("name");
         String email = (String) json.get("email");
         String location = (String) json.get("Location");
-        String picture = (String) json.get("Picture");
+        String pictureUrl = (String) json.get("Picture");
         String details = (String) json.get("Details");
-        Product product = new Product(id,user,productname,category,true,location,picture,details);
+        Product product = new Product(id,user,productName,category,true,location,pictureUrl,details);
         return  product;
     }
-    */
+*/
 }
 
 

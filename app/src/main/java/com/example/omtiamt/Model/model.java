@@ -82,7 +82,7 @@ public class model {
         void onComplete(String url);
     }
     public void saveImage(Bitmap imgBitmap, String imgName, SaveImageListener listener){
-
+        modelFirebase.saveImg (imgBitmap, imgName, listener);
     }
 }
 
