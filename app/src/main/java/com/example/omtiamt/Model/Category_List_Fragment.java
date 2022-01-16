@@ -37,6 +37,7 @@ public class Category_List_Fragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,13 +47,9 @@ public class Category_List_Fragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(),3);
         catRV.setLayoutManager(layoutManager);
 
-        model.instance.getCatNameAndPictures(myCatHash, new model.GetCatNameAndPictures() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onComplete(HashMap<String, String> catHash) {
-             catAdapter.setCategoryMap(catHash);
-             catAdapter.notifyDataSetChanged();
-            }
+        model.instance.getCatNameAndPictures(myCatHash, catHash -> {
+         catAdapter.setCategoryMap(catHash);
+         catAdapter.notifyDataSetChanged();
         });
 
         catAdapter = new CategorylistAdapter();
@@ -60,5 +57,4 @@ public class Category_List_Fragment extends Fragment {
 
         return view;
     }
-
 }

@@ -33,10 +33,10 @@ public class ModelFirebase {
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    public HashMap<String,String> catHash = new HashMap<>();
-    public HashMap<String,String> catOrderByname = new HashMap<>();
-    public HashMap<String,String> allMyProducts = new HashMap<>();
-    public HashMap<String,String> theProductsIWant = new HashMap<>();
+    public HashMap<String, String> catHash = new HashMap<>();
+    public HashMap<String, String> catOrderByname = new HashMap<>();
+    public HashMap<String, String> allMyProducts = new HashMap<>();
+    public HashMap<String, String> theProductsIWant = new HashMap<>();
 
     public void getAllUsers(model.GetAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
@@ -52,7 +52,6 @@ public class ModelFirebase {
                     }
                     listener.onComplete(list);
                 });
-
     }
 
     public void addUser(Users user, model.AddUsersListener listener) {
@@ -64,7 +63,6 @@ public class ModelFirebase {
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
-
     }
 
     public void addProduct(Product product, model.AddProductListener listener) {
@@ -76,7 +74,6 @@ public class ModelFirebase {
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
-
     }
 
     public void registerNewUser(String email, String password) {
@@ -93,7 +90,6 @@ public class ModelFirebase {
 
     public void getUsersById(String userId) {
     }
-
 
 
     boolean check;
@@ -123,31 +119,30 @@ public class ModelFirebase {
     }
 
     //get all categories names and pictures
-    public void getCatNameAndPictures(HashMap<String,String> catHash, model.GetCatNameAndPictures listener)
-    {
+    public void getCatNameAndPictures(HashMap<String, String> catHash, model.GetCatNameAndPictures listener) {
         db.collection("Category").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String id = document.getId();
                     String name = document.getString("Name");
                     String picture = document.getString("Picture");
-                    catHash.put(name,picture);
+                    catHash.put(name, picture);
                 }
                 String name = "View All";
                 String pic = "https://i.ibb.co/nbTM1X5/viewall.png";
-                catHash.put(name,pic);
+                catHash.put(name, pic);
                 listener.onComplete(catHash);
             }
         });
     }
+
     //get all the products by the name of category
-    public void getProductsByCat(HashMap<String,String> catHash,String nameCat, model.GetProductsByCat listener)
-    {
+    public void getProductsByCat(HashMap<String, String> catHash, String nameCat, model.GetProductsByCat listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String Category = document.getString("Category");
-                    if(Category.equals(nameCat)) {
+                    if (Category.equals(nameCat)) {
                         String id = document.getId();
                         String userName = document.getString("User");
                         String name = document.getString("Name");
@@ -169,13 +164,12 @@ public class ModelFirebase {
         });
     }
 
-    public void getmyProducts(HashMap<String,String> catHash,String myName, model.GetmyProducts listener)
-    {
+    public void getMyProducts(HashMap<String, String> catHash, String myName, model.GetmyProducts listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String userName = document.getString("User");
-                    if(userName.equals(myName)) {
+                    if (userName.equals(myName)) {
                         String id = document.getId();
                         String name = document.getString("Name");
                         String picture = document.getString("Picture");
@@ -194,13 +188,13 @@ public class ModelFirebase {
             }
         });
     }
-    public void getTheProductsIWant(HashMap<String,String> catHash,String myName, model.GetTheProductsIWant listener)
-    {
+
+    public void getTheProductsIWant(HashMap<String, String> catHash, String myName, model.GetTheProductsIWant listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String userBuy = document.getString("UserBuy");
-                    if(userBuy.equals(myName)) {
+                    if (userBuy.equals(myName)) {
                         String id = document.getId();
                         String name = document.getString("Name");
                         String userName = document.getString("User");
@@ -223,9 +217,9 @@ public class ModelFirebase {
     }
 
 
-    public HashMap<String,String> catHashTest = new HashMap<String,String>();
+    public HashMap<String, String> catHashTest = new HashMap<String, String>();
 
-    private HashMap<String,String> isFinish(HashMap<String, String> catHash, HashMap<String,String> inputHash) {
+    private HashMap<String, String> isFinish(HashMap<String, String> catHash, HashMap<String, String> inputHash) {
         inputHash = catHash;
         return inputHash;
     }
@@ -235,16 +229,16 @@ public class ModelFirebase {
         StorageReference storageReference = storage.getReference();
         StorageReference imgRef = storageReference.child("/product_photos" + imgName);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        imgBitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = imgRef.putBytes(data);
         uploadTask.addOnFailureListener(e ->
                 listener.onComplete(null))
                 .addOnSuccessListener(taskSnapshot ->
-                imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
-            Uri downloadUri = uri;
-            listener.onComplete(downloadUri.toString());
-        }));
+                        imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUri = uri;
+                            listener.onComplete(downloadUri.toString());
+                        }));
     }
 }

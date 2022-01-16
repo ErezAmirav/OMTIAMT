@@ -4,8 +4,11 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
+
 import androidx.core.os.HandlerCompat;
+
 import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -17,7 +20,8 @@ public class model {
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     ModelFirebase modelFirebase = new ModelFirebase();
 
-    private model() { }
+    private model() {
+    }
 
     public interface GetAllUsersListener {
         void onComplete(List<Users> user);
@@ -71,43 +75,48 @@ public class model {
     public void urlToImg(String url, ImageView img) {
         Picasso.with(img.getContext()).load(url).into(img);
     }
+
     public interface GetCatNameAndPictures {
-        void onComplete(HashMap<String,String> catHash);
+        void onComplete(HashMap<String, String> catHash);
     }
-    public HashMap<String, String> getCatNameAndPictures(HashMap<String,String> catHash, GetCatNameAndPictures listener) {
-        modelFirebase.getCatNameAndPictures(catHash,listener);
+
+    public HashMap<String, String> getCatNameAndPictures(HashMap<String, String> catHash, GetCatNameAndPictures listener) {
+        modelFirebase.getCatNameAndPictures(catHash, listener);
         return null;
     }
 
     public interface GetProductsByCat {
-        void onComplete(HashMap<String,String> catHash);
+        void onComplete(HashMap<String, String> catHash);
     }
-    public HashMap<String, String> getProductsByCat(HashMap<String,String> catHash,String nameCat, GetProductsByCat listener) {
-        modelFirebase.getProductsByCat(catHash,nameCat,listener);
+
+    public HashMap<String, String> getProductsByCat(HashMap<String, String> catHash, String nameCat, GetProductsByCat listener) {
+        modelFirebase.getProductsByCat(catHash, nameCat, listener);
         return null;
     }
 
-
-
-    public interface SaveImageListener{
+    public interface SaveImageListener {
         void onComplete(String url);
     }
-    public void saveImage(Bitmap imgBitmap, String imgName, SaveImageListener listener){
-        modelFirebase.saveImg (imgBitmap, imgName, listener);
+
+    public void saveImage(Bitmap imgBitmap, String imgName, SaveImageListener listener) {
+        modelFirebase.saveImg(imgBitmap, imgName, listener);
     }
 
     public interface GetmyProducts {
-        void onComplete(HashMap<String,String> catHash);
+        void onComplete(HashMap<String, String> catHash);
     }
-    public HashMap<String, String> getmyProducts(HashMap<String,String> catHash,String myName, GetmyProducts listener) {
-        modelFirebase.getmyProducts(catHash,myName,listener);
+
+    public HashMap<String, String> getmyProducts(HashMap<String, String> catHash, String myName, GetmyProducts listener) {
+        modelFirebase.getMyProducts(catHash, myName, listener);
         return null;
     }
+
     public interface GetTheProductsIWant {
-        void onComplete(HashMap<String,String> catHash);
+        void onComplete(HashMap<String, String> catHash);
     }
-    public HashMap<String, String> getTheProductsIWant(HashMap<String,String> catHash,String myName, GetTheProductsIWant listener) {
-        modelFirebase.getTheProductsIWant(catHash,myName,listener);
+
+    public HashMap<String, String> getTheProductsIWant(HashMap<String, String> catHash, String myName, GetTheProductsIWant listener) {
+        modelFirebase.getTheProductsIWant(catHash, myName, listener);
         return null;
     }
 }

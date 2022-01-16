@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class ProfileFragment extends Fragment {
     ImageButton settingsMenu;
     PopupMenu popupMenu;
     AlertDialog.Builder alert;
+    Button myProductsBtn;
+    Button savedProductsBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,6 +88,14 @@ public class ProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         mAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        myProductsBtn = view.findViewById(R.id.profile_my_products_btn);
+        savedProductsBtn = view.findViewById(R.id.profile_saved_products_btn);
+
+        myProductsBtn.setOnClickListener(v ->
+                myProducts(v));
+
+        savedProductsBtn.setOnClickListener(v ->
+                savedProducts(v));
 
         // Show Current User Email
         email = view.findViewById(R.id.profile_email_id);
@@ -127,5 +138,13 @@ public class ProfileFragment extends Fragment {
             popupMenu.show();
         });
         return view;
+    }
+
+    public void myProducts(View view) {
+
+    }
+
+    public void savedProducts(View view) {
+
     }
 }

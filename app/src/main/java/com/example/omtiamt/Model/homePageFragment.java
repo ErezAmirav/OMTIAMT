@@ -2,19 +2,23 @@ package com.example.omtiamt.Model;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.omtiamt.Login;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
 public class homePageFragment extends Fragment {
@@ -23,7 +27,6 @@ public class homePageFragment extends Fragment {
     FirebaseAuth mAuth;
     List<String> list;
     FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-
 
 
     public homePageFragment() {
@@ -41,8 +44,6 @@ public class homePageFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mAuth = FirebaseAuth.getInstance();
-
-
     }
 
     public void onStart() {
@@ -60,13 +61,10 @@ public class homePageFragment extends Fragment {
         List<String> catList = model.instance.getCategoryNames();
 
 
-        Fragment categorylist = new Category_List_Fragment();
+        Fragment categoryList = new Category_List_Fragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.category_fragment_viewer, categorylist).commit();
+        transaction.replace(R.id.category_fragment_viewer, categoryList).commit();
 
         return view;
-
-
     }
-
 }
