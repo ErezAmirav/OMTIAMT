@@ -78,6 +78,17 @@ public class model {
         modelFirebase.getCatNameAndPictures(catHash,listener);
         return null;
     }
+
+    public interface GetProductsByCat {
+        void onComplete(HashMap<String,String> catHash);
+    }
+    public HashMap<String, String> getProductsByCat(HashMap<String,String> catHash,String nameCat, GetCatNameAndPictures listener) {
+        modelFirebase.getProductsByCat(catHash,nameCat,listener);
+        return null;
+    }
+
+
+
     public interface SaveImageListener{
         void onComplete(String url);
     }

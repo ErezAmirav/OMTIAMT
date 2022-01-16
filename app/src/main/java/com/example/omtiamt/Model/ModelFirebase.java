@@ -33,6 +33,8 @@ public class ModelFirebase {
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public HashMap<String,String> catHash = new HashMap<>();
+    public HashMap<String,String> catOrderByname = new HashMap<>();
 
     public void getAllUsers(model.GetAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
@@ -103,8 +105,8 @@ public class ModelFirebase {
 
     public List<String> getCatName() {
         List<String> list = new ArrayList<>();
-        CollectionReference applicationsRef = db.collection("Category");
-        db.collection("Category").get().addOnCompleteListener(task -> {
+        CollectionReference applicationsRef = db.collection(Categories.COLLECTION_NAME);
+        db.collection(Categories.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String id = document.getId();
@@ -117,7 +119,8 @@ public class ModelFirebase {
         });
         return list;
     }
-    public HashMap<String,String> catHash = new HashMap<>();
+
+    //get all categories names and pictures
     public void getCatNameAndPictures(HashMap<String,String> catHash, model.GetCatNameAndPictures listener)
     {
         db.collection("Category").get().addOnCompleteListener(task -> {
@@ -135,6 +138,33 @@ public class ModelFirebase {
             }
         });
     }
+    //get all the products by the name of category
+    public void getProductsByCat(HashMap<String,String> catHash,String nameCat, model.GetCatNameAndPictures listener)
+    {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String Category = document.getString("Category");
+                    if(Category.equals(nameCat)) {
+                        String id = document.getId();
+                        String name = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String location = document.getString("Location");
+                        Boolean isAvailable = document.getBoolean("isAvailable");
+                        catOrderByname.put("id", id);
+                        catOrderByname.put("Name", name);
+                        catOrderByname.put("Details", details);
+                        catOrderByname.put("Picture", picture);
+                        catOrderByname.put("Location", location);
+                        catOrderByname.put("isAvailable", isAvailable.toString());
+                    }
+                }
+                listener.onComplete(catHash);
+            }
+        });
+    }
+
 
     public HashMap<String,String> catHashTest = new HashMap<String,String>();
 
