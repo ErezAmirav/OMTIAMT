@@ -82,7 +82,7 @@ public class model {
     public interface GetProductsByCat {
         void onComplete(HashMap<String,String> catHash);
     }
-    public HashMap<String, String> getProductsByCat(HashMap<String,String> catHash,String nameCat, GetCatNameAndPictures listener) {
+    public HashMap<String, String> getProductsByCat(HashMap<String,String> catHash,String nameCat, GetProductsByCat listener) {
         modelFirebase.getProductsByCat(catHash,nameCat,listener);
         return null;
     }
@@ -94,6 +94,21 @@ public class model {
     }
     public void saveImage(Bitmap imgBitmap, String imgName, SaveImageListener listener){
         modelFirebase.saveImg (imgBitmap, imgName, listener);
+    }
+
+    public interface GetmyProducts {
+        void onComplete(HashMap<String,String> catHash);
+    }
+    public HashMap<String, String> getmyProducts(HashMap<String,String> catHash,String myName, GetmyProducts listener) {
+        modelFirebase.getmyProducts(catHash,myName,listener);
+        return null;
+    }
+    public interface GetTheProductsIWant {
+        void onComplete(HashMap<String,String> catHash);
+    }
+    public HashMap<String, String> getTheProductsIWant(HashMap<String,String> catHash,String myName, GetTheProductsIWant listener) {
+        modelFirebase.getTheProductsIWant(catHash,myName,listener);
+        return null;
     }
 }
 

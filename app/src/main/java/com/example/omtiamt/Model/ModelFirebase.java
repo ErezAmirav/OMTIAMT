@@ -35,6 +35,8 @@ public class ModelFirebase {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public HashMap<String,String> catHash = new HashMap<>();
     public HashMap<String,String> catOrderByname = new HashMap<>();
+    public HashMap<String,String> allMyProducts = new HashMap<>();
+    public HashMap<String,String> theProductsIWant = new HashMap<>();
 
     public void getAllUsers(model.GetAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
@@ -139,7 +141,7 @@ public class ModelFirebase {
         });
     }
     //get all the products by the name of category
-    public void getProductsByCat(HashMap<String,String> catHash,String nameCat, model.GetCatNameAndPictures listener)
+    public void getProductsByCat(HashMap<String,String> catHash,String nameCat, model.GetProductsByCat listener)
     {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -147,17 +149,72 @@ public class ModelFirebase {
                     String Category = document.getString("Category");
                     if(Category.equals(nameCat)) {
                         String id = document.getId();
+                        String userName = document.getString("User");
                         String name = document.getString("Name");
                         String picture = document.getString("Picture");
                         String details = document.getString("Details");
                         String location = document.getString("Location");
-                        Boolean isAvailable = document.getBoolean("isAvailable");
+                        String isAvailable = document.getString("isAvailable");
                         catOrderByname.put("id", id);
                         catOrderByname.put("Name", name);
+                        catOrderByname.put("User", userName);
                         catOrderByname.put("Details", details);
                         catOrderByname.put("Picture", picture);
                         catOrderByname.put("Location", location);
-                        catOrderByname.put("isAvailable", isAvailable.toString());
+                        catOrderByname.put("isAvailable", isAvailable);
+                    }
+                }
+                listener.onComplete(catHash);
+            }
+        });
+    }
+
+    public void getmyProducts(HashMap<String,String> catHash,String myName, model.GetmyProducts listener)
+    {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String userName = document.getString("User");
+                    if(userName.equals(myName)) {
+                        String id = document.getId();
+                        String name = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String location = document.getString("Location");
+                        String isAvailable = document.getString("isAvailable");
+                        allMyProducts.put("id", id);
+                        allMyProducts.put("Name", name);
+                        allMyProducts.put("Details", details);
+                        allMyProducts.put("Picture", picture);
+                        allMyProducts.put("Location", location);
+                        allMyProducts.put("isAvailable", isAvailable);
+                    }
+                }
+                listener.onComplete(catHash);
+            }
+        });
+    }
+    public void getTheProductsIWant(HashMap<String,String> catHash,String myName, model.GetTheProductsIWant listener)
+    {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String userBuy = document.getString("UserBuy");
+                    if(userBuy.equals(myName)) {
+                        String id = document.getId();
+                        String name = document.getString("Name");
+                        String userName = document.getString("User");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String location = document.getString("Location");
+                        String isAvailable = document.getString("isAvailable");
+                        allMyProducts.put("id", id);
+                        allMyProducts.put("Name", name);
+                        allMyProducts.put("User", userName);
+                        allMyProducts.put("Details", details);
+                        allMyProducts.put("Picture", picture);
+                        allMyProducts.put("Location", location);
+                        allMyProducts.put("isAvailable", isAvailable);
                     }
                 }
                 listener.onComplete(catHash);
