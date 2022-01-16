@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -142,9 +143,14 @@ public class ProfileFragment extends Fragment {
 
     public void myProducts(View view) {
 
+        Fragment myProductsList = new MyProductsListFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.my_products_list_viewer, myProductsList).commit();
     }
 
     public void savedProducts(View view) {
-
+        Fragment savedProductsList = new MySavedProductsListFragment();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.my_products_list_viewer, savedProductsList).commit();
     }
 }
