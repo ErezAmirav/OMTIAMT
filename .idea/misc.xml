@@ -11,6 +11,7 @@
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_main.xml" value="0.28804347826086957" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_register.xml" value="0.25729166666666664" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_test.xml" value="0.25625" />
+        <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/details_popup.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_activity_base.xml" value="0.2269021739130435" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_activity_register.xml" value="0.2713541666666667" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_category.xml" value="0.2269021739130435" />
@@ -26,6 +27,8 @@
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_readmore_product.xml" value="0.2269021739130435" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_register.xml" value="0.25" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_welcome.xml" value="0.1816123188405797" />
+        <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/menu/bottom_navigation.xml" value="0.15885416666666666" />
+        <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/menu/details_popup.xml" value="0.15885416666666666" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/menu/settings_popup.xml" value="0.25" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/menu/upload_photo_popup.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_base.xml" value="0.1" />

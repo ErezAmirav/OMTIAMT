@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/wallpaper"
-    >
+    android:background="@drawable/wallpaper">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -135,7 +134,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-        <EditText
+        <TextView
             android:id="@+id/details_product_editText"
             android:layout_width="223dp"
             android:layout_height="39dp"
@@ -144,8 +143,10 @@
             android:backgroundTint="#FFFFFF"
             android:backgroundTintMode="add"
             android:ems="10"
+            android:fontFamily="@font/aldrich"
             android:inputType="textPersonName"
             android:shadowColor="#FFFFFF"
+            android:text="Tap to write full details"
             android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF"
             app:layout_constraintStart_toStartOf="parent"
@@ -206,7 +207,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.879"
-            app:srcCompat="@android:drawable/screen_background_dark" />
+            app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="226dp"
+            android:layout_height="5dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="25dp"
+            android:background="@color/white"
+            android:backgroundTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/upload_photo_btn"
+            app:layout_constraintEnd_toStartOf="@+id/image_preview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_product_editText" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="241dp"
+            android:layout_height="5dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/white"
+            android:backgroundTint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/textView18"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/choose_category_id" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

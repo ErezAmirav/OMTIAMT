@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +44,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     Spinner catList;
     EditText namePro;
     EditText addressPro;
-    EditText detailsPro;
+    TextView detailsPro;
     Button uploadPhotoBtn;
     Button publishBtn;
     FirebaseStorage storage;
@@ -53,8 +55,10 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     private FirebaseAuth mAuth;
     String emailUser;
     FirebaseUser currentUser;
+    AlertDialog.Builder dialogBuilder;
+    private String myText;
 
-    private static final int REQUEST_CAMERA = 1;
+
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_OPEN_GALLERY = 2;
 
@@ -75,6 +79,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         namePro = view.findViewById(R.id.newproduct_name_id);
         addressPro = view.findViewById(R.id.adress_EditText);
         detailsPro = view.findViewById(R.id.details_product_editText);
+        detailsPro.setOnClickListener(v -> popUpDetails());
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.names, android.R.layout.simple_spinner_item);
@@ -84,6 +90,23 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         publishBtn.setOnClickListener(v -> popupMessageSure(namePro.getText().toString()));
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
         return view;
+    }
+
+    private void popUpDetails() {
+        dialogBuilder = new AlertDialog.Builder(NewProductFragment.this.getContext());
+        dialogBuilder.setTitle("Full Details");
+
+        final EditText fullDetails = new EditText(NewProductFragment.this.getContext());
+        fullDetails.setInputType(InputType.TYPE_CLASS_TEXT);
+        dialogBuilder.setView(fullDetails);
+
+        dialogBuilder.setPositiveButton("Confirm", (dialog, which) -> {
+            myText = fullDetails.getText().toString();
+            detailsPro.setText(myText);
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        dialogBuilder.show();
     }
 
 
@@ -126,7 +149,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
             switch (item.getItemId()) {
                 case R.id.item_open_camera:
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                 case R.id.item_gallery:
                     Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
                     openGalleryIntent.setType("image/*");
@@ -148,7 +171,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
                 imageBitmap = (Bitmap) extras.get("data");
                 prevImage.setImageBitmap(imageBitmap);
             }
-        } else if (requestCode == REQUEST_OPEN_GALLERY) {
+        }
+        if (requestCode == REQUEST_OPEN_GALLERY) {
             if (resultCode == RESULT_OK) {
                 try {
                     final Uri imageUri = data.getData();
