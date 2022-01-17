@@ -25,5 +25,23 @@
         android:id="@+id/homePageFragment"
         android:name="com.example.omtiamt.Model.homePageFragment"
         android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePageFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.omtiamt.Model.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/category_List_Fragment"
+        android:name="com.example.omtiamt.Model.Category_List_Fragment"
+        android:label="fragment_category__list_"
+        tools:layout="@layout/fragment_category__list_" >
+        <action
+            android:id="@+id/action_category_List_Fragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
 </navigation>

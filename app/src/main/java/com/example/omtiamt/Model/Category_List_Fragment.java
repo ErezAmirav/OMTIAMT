@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,12 +51,12 @@ public class Category_List_Fragment extends Fragment {
         catAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                for (Map.Entry<String, String> entry : myCatHash.entrySet()) {
                     String tmp = (new ArrayList<>(myCatHash.keySet())).get(position);
                     Toast.makeText(view.getContext(), "Welcome Back " + tmp, Toast.LENGTH_LONG).show();
-
+                Navigation.findNavController(view).navigate(R.id.action_homePageFragment_to_categoryFragment);
                 }
-            }
+
+
         });
         return view;
     }
