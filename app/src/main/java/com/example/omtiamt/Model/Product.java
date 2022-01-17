@@ -21,9 +21,18 @@ public class Product {
     String category;
     Boolean isAvailable;
     String loaction;
-    //String productPicture;
+    String productPicture;
     String Details;
     String userBuy;
+
+    public Product(String id, String userName, String name, String picture, String details, String location) {
+        this.id = id;
+        this.user = userName;
+        this.productName = name;
+        this.productPicture = picture;
+        this.Details = details;
+        this.loaction = location;
+    }
 
     public String getProductPicUrl() {
         return productPicUrl;

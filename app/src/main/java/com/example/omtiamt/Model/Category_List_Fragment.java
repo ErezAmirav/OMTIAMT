@@ -52,7 +52,6 @@ public class Category_List_Fragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                     String tmp = (new ArrayList<>(myCatHash.keySet())).get(position);
-                    Toast.makeText(view.getContext(), "Welcome Back " + tmp, Toast.LENGTH_LONG).show();
                 Navigation.findNavController(view).navigate(homePageFragmentDirections.actionHomePageFragmentToCategoryFragment(tmp));
                 }
 

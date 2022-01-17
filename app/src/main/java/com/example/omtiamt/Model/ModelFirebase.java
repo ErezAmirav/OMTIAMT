@@ -36,6 +36,7 @@ public class ModelFirebase {
     public HashMap<String, String> catHash = new HashMap<>();
     public HashMap<String, String> catOrderByname = new HashMap<>();
     public HashMap<String, String> allMyProducts = new HashMap<>();
+    List<Product> ListOfProduct = new LinkedList<>();
     public HashMap<String, String> theProductsIWant = new HashMap<>();
 
     public void getAllUsers(model.GetAllUsersListener listener) {
@@ -137,7 +138,7 @@ public class ModelFirebase {
     }
 
     //get all the products by the name of category
-    public void getProductsByCat(HashMap<String, String> catHash, String nameCat, model.GetProductsByCat listener) {
+    public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.GetProductsByCat listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -149,17 +150,12 @@ public class ModelFirebase {
                         String picture = document.getString("Picture");
                         String details = document.getString("Details");
                         String location = document.getString("Location");
-                        String isAvailable = document.getString("isAvailable");
-                        catOrderByname.put("id", id);
-                        catOrderByname.put("Name", name);
-                        catOrderByname.put("User", userName);
-                        catOrderByname.put("Details", details);
-                        catOrderByname.put("Picture", picture);
-                        catOrderByname.put("Location", location);
-                        catOrderByname.put("isAvailable", isAvailable);
+                        Product product = new Product(id,userName,name,picture,details,location);
+                        ListOfProduct.add(product);
+
                     }
                 }
-                listener.onComplete(catHash);
+                listener.onComplete(ListOfProduct);
             }
         });
     }
