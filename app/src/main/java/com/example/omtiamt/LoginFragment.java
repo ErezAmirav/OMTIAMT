@@ -1,64 +1,121 @@
 package com.example.omtiamt;
 
+import static com.example.omtiamt.R.id.login_clickhere_id;
+
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.omtiamt.Model.NewProductFragment;
+import com.example.omtiamt.Model.ProfileFragment;
+import com.example.omtiamt.Model.RegisterFragment;
+import com.example.omtiamt.Model.homePageFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseUser;
+
+
 public class LoginFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    View view;
+    TextView Register;
+    EditText SignName;
+    EditText SignPassword;
+    ImageButton connect;
+    BottomNavigationView navigationView;
+    ImageButton logout;
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    ImageButton test;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
+
+
+    }
+    /*
+
+
+
+         */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false);
+         view = inflater.inflate(R.layout.fragment_login, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        SignName = view.findViewById(R.id.username_id);
+        SignPassword = view.findViewById(R.id.password_id);
+        navigationView = view.findViewById(R.id.bottom_navigation_id);
+        navigationView.setSelectedItemId(R.id.nav_home);
+        navigationView.setVisibility(View.GONE);
+        navigationView.setOnNavigationItemSelectedListener(item -> {
+            Fragment fragment = null;
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    fragment = new homePageFragment();
+                    break;
+
+                case R.id.nav_add:
+                    fragment = new NewProductFragment();
+                    break;
+
+                case R.id.nav_profile:
+                    fragment = new ProfileFragment();
+                    break;
+            }
+            //getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
+            return true;
+
+        });
+        Register = view.findViewById(R.id.login_clickhere_id);
+        Register.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
+        });
+        connect = view.findViewById(R.id.login_btn_id);
+        connect.setOnClickListener(v -> {
+            login();
+        });
+
+         return view;
+    }
+
+    private void login() {
+        String email = SignName.getText().toString();
+        String password = SignPassword.getText().toString();
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this.getContext(), "Welcome Back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
+                navigationView.setVisibility(View.VISIBLE);
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
+
+            } else {
+                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                switch (errorCode) {
+
+                    case "ERROR_WRONG_PASSWORD":
+                        SignPassword.setError("Incorrect Email/Password");
+                        SignPassword.requestFocus();
+                        break;
+
+                    case "ERROR_USER_NOT_FOUND":
+                        SignName.setError("Email doesn't exist");
+                        SignName.requestFocus();
+                        break;
+                }
+            }
+        });
     }
 }

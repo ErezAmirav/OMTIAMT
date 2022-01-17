@@ -12,10 +12,18 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.omtiamt.Model.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/homePageFragment"
+        android:name="com.example.omtiamt.Model.homePageFragment"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" />
 </navigation>
