@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.omtiamt.Model.BaseActivity;
 import com.example.omtiamt.Model.NewProductFragment;
 import com.example.omtiamt.Model.ProfileFragment;
 import com.example.omtiamt.Model.RegisterFragment;
@@ -46,11 +47,6 @@ public class LoginFragment extends Fragment {
 
 
     }
-    /*
-
-
-
-         */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,28 +54,6 @@ public class LoginFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         SignName = view.findViewById(R.id.username_id);
         SignPassword = view.findViewById(R.id.password_id);
-        navigationView = view.findViewById(R.id.bottom_navigation_id);
-        navigationView.setSelectedItemId(R.id.nav_home);
-        navigationView.setVisibility(View.GONE);
-        navigationView.setOnNavigationItemSelectedListener(item -> {
-            Fragment fragment = null;
-            switch (item.getItemId()) {
-                case R.id.nav_home:
-                    fragment = new homePageFragment();
-                    break;
-
-                case R.id.nav_add:
-                    fragment = new NewProductFragment();
-                    break;
-
-                case R.id.nav_profile:
-                    fragment = new ProfileFragment();
-                    break;
-            }
-            //getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
-            return true;
-
-        });
         Register = view.findViewById(R.id.login_clickhere_id);
         Register.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
@@ -98,8 +72,9 @@ public class LoginFragment extends Fragment {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this.getContext(), "Welcome Back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
-                navigationView.setVisibility(View.VISIBLE);
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
+
+
 
             } else {
                 String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
