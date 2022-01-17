@@ -53,7 +53,7 @@ public class Category_List_Fragment extends Fragment {
             public void onItemClick(View v, int position) {
                     String tmp = (new ArrayList<>(myCatHash.keySet())).get(position);
                     Toast.makeText(view.getContext(), "Welcome Back " + tmp, Toast.LENGTH_LONG).show();
-                Navigation.findNavController(view).navigate(R.id.action_homePageFragment_to_categoryFragment);
+                Navigation.findNavController(view).navigate(homePageFragmentDirections.actionHomePageFragmentToCategoryFragment(tmp));
                 }
 
 
