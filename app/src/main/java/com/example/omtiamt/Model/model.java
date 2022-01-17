@@ -86,11 +86,11 @@ public class model {
     }
 
     public interface GetProductsByCat {
-        void onComplete(HashMap<String, String> catHash);
+        void onComplete(List<Product> ListOfProduct);
     }
 
-    public HashMap<String, String> getProductsByCat(HashMap<String, String> catHash, String nameCat, GetProductsByCat listener) {
-        modelFirebase.getProductsByCat(catHash, nameCat, listener);
+    public HashMap<String, String> getProductsByCat(List<Product> ListOfProduct, String nameCat, GetProductsByCat listener) {
+        modelFirebase.getProductsByCat(ListOfProduct, nameCat, listener);
         return null;
     }
 

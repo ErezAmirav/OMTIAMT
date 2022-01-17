@@ -58,12 +58,7 @@ public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapte
             Picasso.with(holder.picture.getContext()).load(value).into(holder.picture);
             holder.nameTextView.setText(key);
             }
-
-
         }
-
-
-
     }
     @Override
     public int getItemCount() {
