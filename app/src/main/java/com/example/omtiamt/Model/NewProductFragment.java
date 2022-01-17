@@ -150,14 +150,17 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
                 case R.id.item_open_camera:
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                    break;
                 case R.id.item_gallery:
                     Intent openGalleryIntent = new Intent(Intent.ACTION_PICK);
                     openGalleryIntent.setType("image/*");
                     startActivityForResult(openGalleryIntent, REQUEST_OPEN_GALLERY);
+                    break;
 
                 default:
                     return false;
             }
+            return false;
         });
         popUpPhoto.show();
     }
