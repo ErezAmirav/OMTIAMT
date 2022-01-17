@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -15,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.omtiamt.Login;
+import com.example.omtiamt.LoginFragment;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,7 +81,7 @@ public class RegisterFragment extends Fragment {
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(RegisterFragment.this.getContext(), "Register Succsesful", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(RegisterFragment.this.getContext(),Login.class));
+                startActivity(new Intent(RegisterFragment.this.getContext(), LoginFragment.class));
             }
             else
                 Toast.makeText(RegisterFragment.this.getContext(), "The Passwords don't match", Toast.LENGTH_LONG).show();
@@ -94,10 +92,6 @@ public class RegisterFragment extends Fragment {
     public void onStart() {
         super.onStart();
         currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Toast.makeText(RegisterFragment.this.getContext(), "Current User Online", Toast.LENGTH_LONG).show();
-        } else
-            Toast.makeText(RegisterFragment.this.getContext(), "User Offline", Toast.LENGTH_LONG).show();
     }
 
     public void logout_btn2(View view) {

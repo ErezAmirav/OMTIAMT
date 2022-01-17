@@ -2,7 +2,6 @@ package com.example.omtiamt.Model;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,7 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.omtiamt.Login;
+import com.example.omtiamt.LoginFragment;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -118,7 +116,7 @@ public class ProfileFragment extends Fragment {
                         alert.setPositiveButton("Yes", (dialog, which) -> {
                             currentUser.delete();
                             Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(ProfileFragment.this.getContext(), Login.class));
+                            startActivity(new Intent(ProfileFragment.this.getContext(), LoginFragment.class));
                         });
                         alert.setNegativeButton("No", (dialog, which) -> {
                             Toast.makeText(ProfileFragment.this.getContext(), "Aborted", Toast.LENGTH_LONG).show();
@@ -129,7 +127,7 @@ public class ProfileFragment extends Fragment {
                     case R.id.item_logout:
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(ProfileFragment.this.getContext(), Login.class));
+                        startActivity(new Intent(ProfileFragment.this.getContext(), LoginFragment.class));
                         return true;
 
                     default:

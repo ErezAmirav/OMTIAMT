@@ -15,9 +15,6 @@
             android:name=".Model.BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".Login"
-            android:exported="false" />
-        <activity
             android:name=".Loading_Screen"
             android:exported="true">
             <intent-filter>
