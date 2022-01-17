@@ -39,11 +39,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-            String userName = ListOfProduct.get(position).getProductName();
-            String name = ListOfProduct.get(position).getUser();
-            String picture = ListOfProduct.get(position).getProductPicUrl();
+            String userName = ListOfProduct.get(position).getUser();
+            String name = ListOfProduct.get(position).getProductName();
+            String pictureUrl = ListOfProduct.get(position).getProductPicture();
             String location = ListOfProduct.get(position).getLoaction();
-            Picasso.with(holder.picture.getContext()).load(picture).into(holder.picture);
+            Picasso.with(holder.picture.getContext()).load(pictureUrl).resize(300,300).into(holder.picture);
+
             holder.namePTextView.setText(name);
             holder.userTextView.setText(userName);
             holder.adressTextView.setText(location);
@@ -66,12 +67,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             adressTextView = itemView.findViewById(R.id.city_txt);
             userTextView = itemView.findViewById(R.id.email_view);
             picture = itemView.findViewById(R.id.product_image);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    listener.onItemClick(v, pos);
-                }
+            itemView.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                listener.onItemClick(v, pos);
             });
         }
     }

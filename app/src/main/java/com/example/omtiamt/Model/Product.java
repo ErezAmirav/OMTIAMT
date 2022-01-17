@@ -34,11 +34,6 @@ public class Product {
         this.loaction = location;
     }
 
-    public String getProductPicUrl() {
-        return productPicUrl;
-    }
-
-    private String productPicUrl;
 
 
     public Product(String id, String name, String category, String address, String details, String user, boolean isAvailable,String picture,String userBuy) {
@@ -101,13 +96,13 @@ public class Product {
         this.loaction = loaction;
     }
 
- /*   public String getProductPicture() {
+    public String getProductPicture() {
         return productPicture;
     }
 
     public void setProductPicture(String productPicture) {
         this.productPicture = productPicture;
-    }*/
+    }
 
     public String getDetails() {
         return Details;
@@ -118,7 +113,7 @@ public class Product {
     }
 
     public void setProductPicUrl (String url){
-        this.productPicUrl = url;
+        this.productPicture = url;
     }
 
     public Map<String, Object> toJson() {
@@ -128,7 +123,7 @@ public class Product {
         json.put("Category", category);
         json.put("Name", productName);
        // json.put("Picture", productPicture);
-        json.put("Picture",productPicUrl);
+        json.put("Picture",productPicture);
         json.put("Location", loaction);
         json.put("Details", Details);
         json.put("isAvailable", isAvailable);

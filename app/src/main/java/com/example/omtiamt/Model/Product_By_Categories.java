@@ -45,7 +45,7 @@ public class Product_By_Categories extends Fragment {
         });
         proAdapter = new ProductListAdapter();
         proRV.setAdapter(proAdapter);
-
+        proRV.setHasFixedSize(true);
         return view;
     }
 }
