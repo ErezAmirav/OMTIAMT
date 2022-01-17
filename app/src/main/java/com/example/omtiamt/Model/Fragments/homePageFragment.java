@@ -1,4 +1,4 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.omtiamt.LoginFragment;
+import com.example.omtiamt.Model.Recylers.Category_List_Fragment;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

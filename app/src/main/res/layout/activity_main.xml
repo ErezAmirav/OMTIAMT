@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/loading_wallpaper"
     android:foregroundTint="#702E2E"
-    tools:context=".Loading_Screen">
+    tools:context=".Model.Activity.Loading_Screen">
 
     <ImageView
         android:id="@+id/imageView"

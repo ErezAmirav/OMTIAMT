@@ -6,7 +6,7 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.omtiamt.LoginFragment"
+        android:name="com.example.omtiamt.Model.Fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.omtiamt.Model.RegisterFragment"
+        android:name="com.example.omtiamt.Model.Fragments.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/homePageFragment"
-        android:name="com.example.omtiamt.Model.homePageFragment"
+        android:name="com.example.omtiamt.Model.Fragments.homePageFragment"
         android:label="fragment_home_page"
         tools:layout="@layout/fragment_home_page" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.example.omtiamt.Model.CategoryFragment"
+        android:name="com.example.omtiamt.Model.Fragments.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" >
         <argument
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/category_List_Fragment"
-        android:name="com.example.omtiamt.Model.Category_List_Fragment"
+        android:name="com.example.omtiamt.Model.Recylers.Category_List_Fragment"
         android:label="fragment_category__list_"
         tools:layout="@layout/fragment_category__list_" />
 </navigation>

@@ -1,10 +1,9 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Fragments;
 
 import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,6 +29,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.omtiamt.Model.Classes.Product;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

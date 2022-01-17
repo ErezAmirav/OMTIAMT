@@ -1,4 +1,4 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Recylers;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.example.omtiamt.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MySavedProductsListFragment#newInstance} factory method to
+ * Use the {@link CategoryItemFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MySavedProductsListFragment extends Fragment {
+public class CategoryItemFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class MySavedProductsListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MySavedProductsListFragment() {
+    public CategoryItemFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class MySavedProductsListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MySavedProductsListFragment.
+     * @return A new instance of fragment CategoryItemFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MySavedProductsListFragment newInstance(String param1, String param2) {
-        MySavedProductsListFragment fragment = new MySavedProductsListFragment();
+    public static CategoryItemFragment newInstance(String param1, String param2) {
+        CategoryItemFragment fragment = new CategoryItemFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class MySavedProductsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_saved_products_list, container, false);
+        return inflater.inflate(R.layout.fragment_category_item, container, false);
     }
 }

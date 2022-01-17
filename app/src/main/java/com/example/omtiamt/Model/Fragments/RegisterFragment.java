@@ -1,4 +1,4 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.omtiamt.LoginFragment;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,8 +43,6 @@ public class RegisterFragment extends Fragment {
         inputConfirmPassword = view.findViewById(R.id.confirmpassword_register_id);
 
         btnSaveUser.setOnClickListener(v -> {
-            fragment =  new WelcomeFragment();
-
             // Checks if Email field is not empty
             if (TextUtils.isEmpty(inputEmail.getText().toString())) {
                 inputEmail.setError("Email Field Cannot Be Empty");

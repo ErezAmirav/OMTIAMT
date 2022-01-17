@@ -1,14 +1,16 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
-import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.omtiamt.Model.Fragments.NewProductFragment;
+import com.example.omtiamt.Model.Fragments.homePageFragment;
+import com.example.omtiamt.Model.Fragments.ProfileFragment;
 import com.example.omtiamt.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

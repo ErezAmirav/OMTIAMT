@@ -12,10 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OMTIAMT">
         <activity
-            android:name=".Model.BaseActivity"
+            android:name=".Model.Activity.BaseActivity"
             android:exported="false" />
         <activity
-            android:name=".Loading_Screen"
+            android:name=".Model.Activity.Loading_Screen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

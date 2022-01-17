@@ -1,27 +1,19 @@
-package com.example.omtiamt;
-
-import static com.example.omtiamt.R.id.login_clickhere_id;
+package com.example.omtiamt.Model.Fragments;
 
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.omtiamt.Model.BaseActivity;
-import com.example.omtiamt.Model.NewProductFragment;
-import com.example.omtiamt.Model.ProfileFragment;
-import com.example.omtiamt.Model.RegisterFragment;
-import com.example.omtiamt.Model.homePageFragment;
+import com.example.omtiamt.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;

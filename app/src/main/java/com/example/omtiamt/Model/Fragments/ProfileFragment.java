@@ -1,4 +1,4 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -17,7 +17,8 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.omtiamt.LoginFragment;
+import com.example.omtiamt.Model.Recylers.MyProductsListFragment;
+import com.example.omtiamt.Model.Recylers.MySavedProductsListFragment;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -1,14 +1,14 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Data;
 
 
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.omtiamt.Model.Classes.Categories;
+import com.example.omtiamt.Model.Classes.Product;
+import com.example.omtiamt.Model.Classes.Users;
+import com.example.omtiamt.Model.Data.model;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;

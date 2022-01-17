@@ -1,4 +1,4 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Recylers;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -11,13 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
+import com.example.omtiamt.Model.Fragments.homePageFragment;
+import com.example.omtiamt.Model.Data.model;
+import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
+import com.example.omtiamt.Model.Recylers.CategorylistAdapter;
+import com.example.omtiamt.Model.Recylers.OnItemClickListener;
 import com.example.omtiamt.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Category_List_Fragment extends Fragment {
     View view;

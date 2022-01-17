@@ -1,11 +1,12 @@
-package com.example.omtiamt;
+package com.example.omtiamt.Model.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.omtiamt.Model.BaseActivity;
+import com.example.omtiamt.Model.Activity.BaseActivity;
+import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

@@ -1,4 +1,4 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Recylers;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,18 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
     OnItemClickListener listener;

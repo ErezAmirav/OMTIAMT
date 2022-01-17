@@ -1,4 +1,4 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Data;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -7,6 +7,8 @@ import android.widget.ImageView;
 
 import androidx.core.os.HandlerCompat;
 
+import com.example.omtiamt.Model.Classes.Product;
+import com.example.omtiamt.Model.Classes.Users;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;

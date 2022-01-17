@@ -1,6 +1,4 @@
-package com.example.omtiamt.Model;
-
-import android.graphics.Picture;
+package com.example.omtiamt.Model.Classes;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

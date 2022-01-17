@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="#000000"
     android:backgroundTint="#000000"
-    tools:context=".Model.ChooseCategoryFragment">
+    tools:context=".Model.Recylers.ChooseCategoryFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

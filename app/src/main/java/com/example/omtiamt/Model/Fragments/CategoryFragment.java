@@ -1,4 +1,4 @@
-package com.example.omtiamt.Model;
+package com.example.omtiamt.Model.Fragments;
 
 import android.os.Bundle;
 
