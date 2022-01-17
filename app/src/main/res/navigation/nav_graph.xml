@@ -3,61 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/registerFragment">
-
-    <activity
-        android:id="@+id/login"
-        android:name="com.example.omtiamt.Login"
-        android:label="activity_login"
-        tools:layout="@layout/activity_login" />
-    <activity
-        android:id="@+id/loading_Screen"
-        android:name="com.example.omtiamt.Loading_Screen"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+    app:startDestination="@id/category_List_Fragment">
+    <fragment
+        android:id="@+id/category_List_Fragment"
+        android:name="com.example.omtiamt.Model.Category_List_Fragment"
+        android:label="fragment_category__list_"
+        tools:layout="@layout/fragment_category__list_" >
+        <action
+            android:id="@+id/action_category_List_Fragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <argument
+            android:name="NameCat"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.example.omtiamt.Model.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" >
-        <action
-            android:id="@+id/action_categoryFragment_to_readmoreProductFragment"
-            app:destination="@id/readmoreProductFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/homePageFragment"
-        android:name="com.example.omtiamt.Model.homePageFragment"
-        android:label="fragment_home_page"
-        tools:layout="@layout/fragment_home_page" >
-        <action
-            android:id="@+id/action_homePageFragment_to_categoryFragment"
-            app:destination="@id/categoryFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/readmoreProductFragment"
-        android:name="com.example.omtiamt.Model.ReadmoreProductFragment"
-        android:label="fragment_readmore_product"
-        tools:layout="@layout/fragment_readmore_product" />
-    <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.example.omtiamt.Model.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" />
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.omtiamt.Model.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_registerFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/newProductFragment"
-        android:name="com.example.omtiamt.Model.NewProductFragment"
-        android:label="NewProductFragment" >
-        <action
-            android:id="@+id/action_newProductFragment_to_homePageFragment"
-            app:destination="@id/homePageFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_category" />
 </navigation>
