@@ -39,7 +39,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             String userName = ListOfProduct.get(position).getUser();
             String name = ListOfProduct.get(position).getProductName();
             String pictureUrl = ListOfProduct.get(position).getProductPicture();
-            String location = ListOfProduct.get(position).getLoaction();
+            String location = ListOfProduct.get(position).getLocation();
             Picasso.with(holder.picture.getContext()).load(pictureUrl).resize(300,300).into(holder.picture);
             holder.namePTextView.setText(name);
             holder.userTextView.setText(userName);

@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.omtiamt.Model.Recylers.Product_By_Categories;
+import com.example.omtiamt.Model.Recylers.ProductByCategories;
 import com.example.omtiamt.R;
 
 
 public class CategoryFragment extends Fragment {
-    TextView TextViewname;
+    TextView TextViewName;
     View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,16 +24,13 @@ public class CategoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_category, container, false);
         String Name = CategoryFragmentArgs.fromBundle(getArguments()).getNameCategory();
-        TextViewname = view.findViewById(R.id.category_name_id);
-        TextViewname.setText(Name);
-        Product_By_Categories fragment =(Product_By_Categories) getChildFragmentManager().findFragmentById(R.id.productByCat);
+        TextViewName = view.findViewById(R.id.category_name_id);
+        TextViewName.setText(Name);
+        ProductByCategories fragment = (ProductByCategories) getChildFragmentManager().findFragmentById(R.id.productByCat);
         fragment.setCategory(Name);
 
-
         return view;
-
     }
 }

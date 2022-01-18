@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Model.Recylers.MySavedProductsListFragment">
+    tools:context=".Model.Recylers.mySavedProductsListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/saved_products_list_recycle"

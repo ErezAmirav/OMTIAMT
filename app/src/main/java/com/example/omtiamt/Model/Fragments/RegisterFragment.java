@@ -48,12 +48,12 @@ public class RegisterFragment extends Fragment {
                 inputEmail.setError("Email Field Cannot Be Empty");
                 inputEmail.requestFocus();
             }
-            if(model.instance.checkEmail(inputEmail.getText().toString())) {
+            if (model.instance.checkEmail(inputEmail.getText().toString())) {
                 inputEmail.setError("Email already exist");
                 inputEmail.requestFocus();
             }
             // Checks if Password field is not empty
-             if (TextUtils.isEmpty(inputPassword.getText().toString())) {
+            if (TextUtils.isEmpty(inputPassword.getText().toString())) {
                 inputPassword.setError("Password Field Cannot Be Empty");
                 inputPassword.requestFocus();
             }
@@ -75,13 +75,12 @@ public class RegisterFragment extends Fragment {
 
             // Checks if Password and Confirm Password fields match
             else if
-                (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())){
+            (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())) {
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(RegisterFragment.this.getContext(), "Register Succsesful", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(RegisterFragment.this.getContext(), LoginFragment.class));
-            }
-            else
+            } else
                 Toast.makeText(RegisterFragment.this.getContext(), "The Passwords don't match", Toast.LENGTH_LONG).show();
         });
         return view;
@@ -101,6 +100,4 @@ public class RegisterFragment extends Fragment {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }
-
-
 }

@@ -23,9 +23,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment {
     View view;
-    TextView Register;
-    EditText SignName;
-    EditText SignPassword;
+    TextView register;
+    EditText signName;
+    EditText signPassword;
     ImageButton connect;
     BottomNavigationView navigationView;
     ImageButton logout;
@@ -52,23 +52,20 @@ public class LoginFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_login, container, false);
         mAuth = FirebaseAuth.getInstance();
-        SignName = view.findViewById(R.id.username_id);
-        SignPassword = view.findViewById(R.id.password_id);
-        Register = view.findViewById(R.id.login_clickhere_id);
-        Register.setOnClickListener(v -> {
-            Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment);
-        });
-        connect = view.findViewById(R.id.login_btn_id);
-        connect.setOnClickListener(v -> {
-            login();
-        });
+        signName = view.findViewById(R.id.username_id);
+        signPassword = view.findViewById(R.id.password_id);
 
+        register = view.findViewById(R.id.login_clickhere_id);
+        register.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment));
+
+        connect = view.findViewById(R.id.login_btn_id);
+        connect.setOnClickListener(v -> login());
         return view;
     }
 
     private void login() {
-        String email = SignName.getText().toString();
-        String password = SignPassword.getText().toString();
+        String email = signName.getText().toString();
+        String password = signPassword.getText().toString();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this.getContext(), "Welcome Back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
@@ -78,13 +75,13 @@ public class LoginFragment extends Fragment {
                 switch (errorCode) {
 
                     case "ERROR_WRONG_PASSWORD":
-                        SignPassword.setError("Incorrect Email/Password");
-                        SignPassword.requestFocus();
+                        signPassword.setError("Incorrect Email/Password");
+                        signPassword.requestFocus();
                         break;
 
                     case "ERROR_USER_NOT_FOUND":
-                        SignName.setError("Email doesn't exist");
-                        SignName.requestFocus();
+                        signName.setError("Email doesn't exist");
+                        signName.requestFocus();
                         break;
                 }
             }

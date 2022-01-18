@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapter.CategoryViewHolder> {
+public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapter.CategoryViewHolder> {
     OnItemClickListener listener;
     public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
@@ -29,7 +29,6 @@ public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapte
 
     private HashMap<String,String> categoryMap = new LinkedHashMap<>();
     URL url;
-
 
     @NonNull
     @Override
@@ -51,6 +50,7 @@ public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapte
             }
         }
     }
+
     @Override
     public int getItemCount() {
         return categoryMap.size();
@@ -64,14 +64,10 @@ public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapte
             super(itemView);
             nameTextView = itemView.findViewById(R.id.choose_category_name);
             picture = itemView.findViewById(R.id.choose_category_image);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    listener.onItemClick(v, pos);
-                }
+            itemView.setOnClickListener(v -> {
+                int pos = getAdapterPosition();
+                listener.onItemClick(v, pos);
             });
         }
     }
-
 }

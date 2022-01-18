@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Classes.Product;
-import com.example.omtiamt.Model.Fragments.CategoryFragmentArgs;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,9 +47,9 @@ public class ProductFragment extends Fragment {
         TextView_details = view.findViewById(R.id.product_details_id);
         ImageViewProduct = view.findViewById(R.id.product_image_id);
         TextView_user = view.findViewById(R.id.product_username_id);
-        model.instance.GetProduct(id,product,pro -> {
+        model.instance.getProduct(id,product, pro -> {
             Textview_productName.setText(product.getProductName());
-            Textview_adress.setText(product.getLoaction());
+            Textview_adress.setText(product.getLocation());
             TextView_details.setText(product.getDetails());
             Picasso.with(this.getContext()).load(product.getProductPicture()).resize(300,300).into(ImageViewProduct);
             TextView_user.setText(product.getUser());
