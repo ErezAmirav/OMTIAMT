@@ -190,12 +190,13 @@ public class ModelFirebase {
                         String name = document.getString("Name");
                         String picture = document.getString("Picture");
                         String details = document.getString("Details");
+                        String category = document.getString("Category");
                         String location = document.getString("Location");
-                        Product product = new Product(id, userName, name, picture, details, location);
+                        Product product = new Product(id, userName,category, name, picture, details, location);
                         ListOfProduct.add(product);
                     }
-                    String Category = document.getString("Category");
-                    if (Category.equals(nameCat)) {
+                    String category = document.getString("Category");
+                    if (category.equals(nameCat)) {
                         String buy = document.getString("UserBuy");
                         if (buy.equals("nobody")) {
                             String id = document.getId();
@@ -204,7 +205,7 @@ public class ModelFirebase {
                             String picture = document.getString("Picture");
                             String details = document.getString("Details");
                             String location = document.getString("Location");
-                            Product product = new Product(id, userName, name, picture, details, location);
+                            Product product = new Product(id, userName,category, name, picture, details, location);
                             ListOfProduct.add(product);
                         }
                     }

@@ -57,6 +57,7 @@ public class ProductByCategories extends Fragment {
         model.instance.getProductsByCat(listOfProduct, nameCat, catHash -> {
             proAdapter.setCategoryMap(listOfProduct);
             proAdapter.notifyDataSetChanged();
+            proAdapter.enableCategory(nameCat);
         });
     }
 

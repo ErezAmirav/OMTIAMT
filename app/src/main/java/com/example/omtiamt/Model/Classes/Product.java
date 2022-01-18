@@ -46,6 +46,16 @@ public class Product {
         this.userBuy = userBuy;
     }
 
+    public Product(String id, String userName, String category, String name, String picture, String details, String location) {
+        this.id = id;
+        this.user = userName;
+        this.category = category;
+        this.productName = name;
+        this.productPicture = picture;
+        this.details = details;
+        this.location = location;
+    }
+
     public String getUserBuy() {
         return userBuy;
     }
