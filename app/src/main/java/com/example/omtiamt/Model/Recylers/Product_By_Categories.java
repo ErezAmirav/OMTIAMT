@@ -29,13 +29,12 @@ public class Product_By_Categories extends Fragment {
     HashMap<String,String> catOrderByname = new HashMap<String,String>();
     List<Product> ListOfProduct = new LinkedList<>();
     ProductListAdapter proAdapter;
-    String Name;
+    String nameCat;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,13 +42,11 @@ public class Product_By_Categories extends Fragment {
         proRV = view.findViewById(R.id.product_by_cat_rv);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         proRV.setLayoutManager(layoutManager);
-        model.instance.getProductsByCat(ListOfProduct,"Mobile", catHash -> {
-            proAdapter.setCategoryMap(ListOfProduct);
-            proAdapter.notifyDataSetChanged();
-        });
         proAdapter = new ProductListAdapter();
         proRV.setAdapter(proAdapter);
-
+        if(nameCat != null){
+            updateDisplay();
+        }
         proAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -59,5 +56,21 @@ public class Product_By_Categories extends Fragment {
         });
         return view;
     }
+    @SuppressLint("NotifyDataSetChanged")
+    public void updateDisplay()
+    {
+        model.instance.getProductsByCat(ListOfProduct,nameCat, catHash -> {
+            proAdapter.setCategoryMap(ListOfProduct);
+            proAdapter.notifyDataSetChanged();
+        });
+    }
 
+    public void setCategory(String name) {
+        nameCat = name;
+        if(view != null)
+        {
+            updateDisplay();
+        }
+
+    }
 }

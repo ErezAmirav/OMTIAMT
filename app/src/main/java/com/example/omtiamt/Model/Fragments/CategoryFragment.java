@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.omtiamt.Model.Recylers.Product_By_Categories;
 import com.example.omtiamt.R;
 
 
@@ -28,6 +29,10 @@ public class CategoryFragment extends Fragment {
         String Name = CategoryFragmentArgs.fromBundle(getArguments()).getNameCategory();
         TextViewname = view.findViewById(R.id.category_name_id);
         TextViewname.setText(Name);
+        Product_By_Categories fragment =(Product_By_Categories) getChildFragmentManager().findFragmentById(R.id.productByCat);
+        fragment.setCategory(Name);
+
+
         return view;
 
     }

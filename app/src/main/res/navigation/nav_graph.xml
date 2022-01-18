@@ -29,9 +29,7 @@
         <action
             android:id="@+id/action_homePageFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
-        <argument
-            android:name="NameCategory"
-            app:argType="string" />
+        <argument android:name="CurrentUser" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -69,4 +67,12 @@
         tools:layout="@layout/fragment_product" >
         <argument android:name="Product_id" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.omtiamt.Model.Fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment" />
 </navigation>
