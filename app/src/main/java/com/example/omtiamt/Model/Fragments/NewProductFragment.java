@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,20 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catList.setAdapter(adapter);
         catList.setOnItemSelectedListener(this);
-        publishBtn.setOnClickListener(v -> popupMessageSure(namePro.getText().toString()));
+        publishBtn.setOnClickListener(v ->{
+                if (TextUtils.isEmpty(namePro.getText().toString())){
+                    namePro.setError("Name Field Cannot Be Empty");
+                    namePro.requestFocus();
+                } else if (TextUtils.isEmpty(addressPro.getText().toString())){
+                    addressPro.setError("Address Field Cannot Be Empty");
+                    addressPro.requestFocus();
+                } else if (TextUtils.isEmpty(detailsPro.getText().toString())
+                        || detailsPro.getText().toString().equals("Tap to write full details")){
+                    detailsPro.setError("Details Field Cannot Be Empty");
+                    detailsPro.requestFocus();
+                } else
+                    popupMessageSure(namePro.getText().toString());
+                });
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
         return view;
     }
@@ -132,6 +146,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         String address = addressPro.getText().toString();
         String details = detailsPro.getText().toString();
         String userEmail = mAuth.getCurrentUser().getEmail();
+
+
 
         Product product = new Product(id, name, category, address, details, userEmail, true, null, "nobody");
         if (imageBitmap != null) {

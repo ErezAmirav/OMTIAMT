@@ -78,33 +78,19 @@ public class ProductFragment extends Fragment {
                 iWantItBtn.setVisibility(View.GONE);
             }
         });
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        editBtn.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(ProductFragmentDirections.actionProductFragmentToEditProductFragment
-                        (product.getProductName(),product.getProductPicture(),product.getDetails(),
-                                product.getLocation(),product.getCategory(),product.getId()));
-            }
-        });
-        iWantItBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupMessageSureTake(product.getProductName(),id,email);
-            }
-        });
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupMessageSureDelete(product.getProductName(),id);
+                (product.getProductName(),product.getProductPicture(),product.getDetails(),
+                        product.getLocation(),product.getCategory(),product.getId())));
 
-            }
-        });
-        dontNeedIt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupMessageSureDontNeed(id,product.getProductName());
-            }
-        });
+        iWantItBtn.setOnClickListener(v ->
+                popupMessageSureTake(product.getProductName(),id,email));
+
+        deleteBtn.setOnClickListener(v ->
+                popupMessageSureDelete(product.getProductName(),id));
+
+        dontNeedIt.setOnClickListener(v ->
+                popupMessageSureDontNeed(id,product.getProductName()));
         return view;
     }
 
@@ -160,12 +146,12 @@ public class ProductFragment extends Fragment {
             alertDialogBuilder.setIcon(R.drawable.additem);
             alertDialogBuilder.setTitle("Delete item");
             alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
-            alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> DontNeedit(id));
+            alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> dontNeedit(id));
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
         }
 
-    private void DontNeedit(String id) {
+    private void dontNeedit(String id) {
         model.instance.DontNeedit(id,() -> {
             Toast.makeText(this.getContext(), "Feel free to look for new products", Toast.LENGTH_LONG).show();
             Navigation.findNavController(view).navigate(R.id.action_productFragment_to_homePageFragment);
