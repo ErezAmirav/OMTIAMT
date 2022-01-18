@@ -179,7 +179,7 @@ android:background="@drawable/wallpaper">
             app:layout_constraintTop_toBottomOf="@+id/image_preview" />
 
         <Button
-            android:id="@+id/publish_product_btn"
+            android:id="@+id/btn_edit_product"
             android:layout_width="137dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

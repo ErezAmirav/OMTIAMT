@@ -43,6 +43,10 @@ public class model {
     public interface getProductListener {
         void onComplete(Product product);
     }
+    public interface setProductListener {
+        void onComplete(Product product);
+    }
+
 
     public void addUser(Users user, addUsersListener listener) {
         modelFirebase.addUser(user, listener);
@@ -77,9 +81,6 @@ public class model {
         return modelFirebase.getCatNameAndPictures();
     }*/
 
-    public void urlToImg(String url, ImageView img) {
-        Picasso.with(img.getContext()).load(url).into(img);
-    }
 
     public interface getCatNameAndPictures {
         void onComplete(HashMap<String, String> catHash);
@@ -123,6 +124,20 @@ public class model {
     public HashMap<String, String> getTheProductsIWant(HashMap<String, String> catHash, String myName, getTheProductsIWant listener) {
         modelFirebase.getTheProductsIWant(catHash, myName, listener);
         return null;
+    }
+    public interface deleteProduct {
+        void onComplete();
+    }
+
+    public void DeleteProduct(String id, deleteProduct listener) {
+        modelFirebase.DeleteProduct(id, listener);
+    }
+    public interface setProduct {
+        void onComplete();
+    }
+
+    public void SetProduct(String idProduct,String nameProduuct,String addressProduct,String detailsProduct,String pictureUrl, setProduct listener) {
+        modelFirebase.SetProduct(idProduct,nameProduuct,addressProduct,detailsProduct,pictureUrl, listener);
     }
 }
 

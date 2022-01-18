@@ -77,7 +77,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         view = inflater.inflate(R.layout.fragment_new_product, container, false);
         catList = view.findViewById(R.id.choose_category_id);
         uploadPhotoBtn = view.findViewById(R.id.upload_photo_btn);
-        publishBtn = view.findViewById(R.id.publish_product_btn);
+        publishBtn = view.findViewById(R.id.btn_edit_product);
         prevImage = view.findViewById(R.id.image_preview);
         namePro = view.findViewById(R.id.newproduct_name_id);
         addressPro = view.findViewById(R.id.adress_EditText);
@@ -133,7 +133,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         String details = detailsPro.getText().toString();
         String userEmail = mAuth.getCurrentUser().getEmail();
 
-        Product product = new Product(id, name, category, address, details, userEmail, true, null, null);
+        Product product = new Product(id, name, category, address, details, userEmail, true, null, "nobody");
         if (imageBitmap != null) {
             model.instance.saveImage(imageBitmap, name + ".jpg", url -> {
                 product.setProductPicUrl(url);

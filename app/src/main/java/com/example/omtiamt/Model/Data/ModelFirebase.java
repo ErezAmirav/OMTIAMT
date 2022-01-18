@@ -135,25 +135,13 @@ public class ModelFirebase {
             }
         });
     }
-
-    public void getProduct(String id, Product product, model.getProductListener listener)
-    {
+    //get Product with id
+    public void getProduct(String id, Product product, model.getProductListener listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String Category = document.getString("id");
                     if (Category.equals(id)) {
-                        /*String id = document.getId();
-                        Boolean isAvailable = document.getBoolean("isAvailable");
-                        String userName = document.getString("User");
-                        String category = document.getString("Category");
-                        String name = document.getString("Name");
-                        String picture = document.getString("Picture");
-                        String details = document.getString("Details");
-                        String location = document.getString("Location");
-                        Product myp = new Product(id,name,category,location,details,userName,isAvailable,picture,null);
-
-                         */
                         product.setId(document.getId());
                         product.setAvailable(document.getBoolean("isAvailable"));
                         product.setUser(document.getString("User"));
@@ -162,15 +150,35 @@ public class ModelFirebase {
                         product.setProductPicUrl(document.getString("Picture"));
                         product.setDetails(document.getString("Details"));
                         product.setLocation(document.getString("Location"));
+                        product.setUserBuy(document.getString("UserBuy"));
 
                     }
                 }
                 listener.onComplete(product);
             }
         });
+/*
+        public void SetProductBuy(String id, String userbuy, model.setProductListener listener)
+        {
+            db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String idProduct = document.getString("id");
+                        if (idProduct.equals(id)) {
+
+
+
+                        }
+                    }
+                    listener.onComplete();
+                }
+            });
+        }
 
     }
 
+ */
+    }
     //get all the products by the name of category
     public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.getProductsByCat listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
@@ -270,5 +278,37 @@ public class ModelFirebase {
                             Uri downloadUri = uri;
                             listener.onComplete(downloadUri.toString());
                         }));
+    }
+
+    public void DeleteProduct(String id, model.deleteProduct listener) {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot myDocument : task.getResult()) {
+                    String idCat = myDocument.getString("id");
+                    if (idCat.equals(id)) {
+                        db.collection(Product.COLLECTION_NAME).document(idCat).delete();
+                    }
+                }
+                listener.onComplete();
+            }
+        });
+        }
+
+    public void SetProduct(String idProduct, String nameProduuct, String addressProduct, String detailsProduct,String pictureUrl, model.setProduct listener) {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot myDocument : task.getResult()) {
+                    String idCat = myDocument.getString("id");
+                    if (idCat.equals(idProduct)) {
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("Name",nameProduuct);
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("Details",detailsProduct);
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("Picture",pictureUrl);
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("Location",addressProduct);
+
+                    }
+                }
+                listener.onComplete();
+            }
+        });
     }
 }

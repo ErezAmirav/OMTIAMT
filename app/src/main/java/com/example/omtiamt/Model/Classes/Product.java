@@ -46,6 +46,14 @@ public class Product {
         this.userBuy = userBuy;
     }
 
+    public String getUserBuy() {
+        return userBuy;
+    }
+
+    public void setUserBuy(String userBuy) {
+        this.userBuy = userBuy;
+    }
+
     public Product() {
 
     }

@@ -1,5 +1,6 @@
 package com.example.omtiamt.Model.Recylers;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,10 +12,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Classes.Product;
-import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,6 +34,7 @@ public class ProductFragment extends Fragment {
     Button editBtn;
     Button deleteBtn;
     Button iWantItBtn;
+    Button dontNeedIt;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class ProductFragment extends Fragment {
         editBtn = view.findViewById(R.id.btn_edit_product);
         iWantItBtn = view.findViewById(R.id.btn_i_want_it);
         deleteBtn = view.findViewById(R.id.btn_delete_product);
+        dontNeedIt = view.findViewById(R.id.btn_dont_need);
+        dontNeedIt.setVisibility(View.GONE);
         NotYourProduct();
         addressTV = view.findViewById(R.id.product_city_id);
         detailsTV = view.findViewById(R.id.product_details_id);
@@ -62,16 +66,36 @@ public class ProductFragment extends Fragment {
             Picasso.with(this.getContext()).load(product.getProductPicture()).resize(300, 300).into(productImgV);
             userTV.setText(product.getUser());
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            String userBuy = product.getUserBuy();
             String email = currentUser.getEmail();
             if (product.getUser().equals(email)) {
                 ItsYourProduct();
+            }
+            if(product.getUserBuy().equals(email))
+            {
+                dontNeedIt.setVisibility(View.VISIBLE);
+                iWantItBtn.setVisibility(View.GONE);
             }
         });
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(ProductFragmentDirections.actionProductFragmentToEditProductFragment
-                        (product.getProductName(),product.getProductPicture(),product.getDetails(),product.getLocation(),product.getCategory()));
+                        (product.getProductName(),product.getProductPicture(),product.getDetails(),
+                                product.getLocation(),product.getCategory(),product.getId()));
+            }
+        });
+        iWantItBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMessageSureTake(product.getProductName(),id);
+            }
+        });
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMessageSureDelete(product.getProductName(),id);
+
             }
         });
         return view;
@@ -89,4 +113,35 @@ public class ProductFragment extends Fragment {
         deleteBtn.setVisibility(View.GONE);
         viewYourProductTV.setVisibility(View.GONE);
     }
+    public void popupMessageSureTake(String name,String id) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
+        alertDialogBuilder.setMessage("Are you sure you want to take this " + "" + name + "?");
+        alertDialogBuilder.setIcon(R.drawable.additem);
+        alertDialogBuilder.setTitle("Congratulations!");
+        alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> AddBuytoProduct(id));
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+    public void popupMessageSureDelete(String name,String id) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
+        alertDialogBuilder.setMessage("Are you sure you want to delete this " + "" + name + "?");
+        alertDialogBuilder.setIcon(R.drawable.additem);
+        alertDialogBuilder.setTitle("Delete item");
+        alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> DeleteMyProduct(id));
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void DeleteMyProduct(String id) {
+        model.instance.DeleteProduct(id,()->{
+            Toast.makeText(this.getContext(), "Product deleted", Toast.LENGTH_LONG).show();
+            Navigation.findNavController(view).navigate(R.id.action_productFragment_to_homePageFragment);
+        });
+    }
+
+    private void AddBuytoProduct(String id) {
+
+}
 }
