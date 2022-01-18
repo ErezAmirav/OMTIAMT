@@ -47,7 +47,7 @@ public class BaseActivity extends AppCompatActivity {
 
         });
     }
-    private void hidetabbar() {
+    public void hidetabbar() {
         navigationView.setVisibility(View.GONE);
     }
     public void showTabbar(){

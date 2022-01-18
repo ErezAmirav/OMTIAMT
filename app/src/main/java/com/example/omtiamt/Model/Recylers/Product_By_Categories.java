@@ -53,7 +53,7 @@ public class Product_By_Categories extends Fragment {
         proAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                String tmp = ListOfProduct.get(position).toString();
+                String tmp = ListOfProduct.get(position).getId();
                 Navigation.findNavController(view).navigate(CategoryFragmentDirections.actionCategoryFragmentToProductFragment(tmp));
             }
         });

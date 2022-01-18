@@ -7,61 +7,64 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.example.omtiamt.Model.Data.model;
+import com.example.omtiamt.Model.Classes.Product;
+import com.example.omtiamt.Model.Fragments.CategoryFragmentArgs;
 import com.example.omtiamt.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ProductFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ProductFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProductFargment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProductFragment newInstance(String param1, String param2) {
-        ProductFragment fragment = new ProductFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    View view;
+    TextView Textview_productName;
+    TextView Textview_adress;
+    TextView TextView_details;
+    TextView TextView_user;
+    ImageView ImageViewProduct;
+    TextView TextViewYourProduct;
+    FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_product, container, false);
+        String id = ProductFragmentArgs.fromBundle(getArguments()).getProductId();
+        Product product = new Product();
+        Textview_productName = view.findViewById(R.id.productname_id);
+        TextViewYourProduct = view.findViewById(R.id.is_yours_id);
+        TextViewYourProduct.setVisibility(View.GONE);
+        Textview_adress = view.findViewById(R.id.product_city_id);
+        TextView_details = view.findViewById(R.id.product_details_id);
+        ImageViewProduct = view.findViewById(R.id.product_image_id);
+        TextView_user = view.findViewById(R.id.product_username_id);
+        model.instance.GetProduct(id,product,pro -> {
+            Textview_productName.setText(product.getProductName());
+            Textview_adress.setText(product.getLoaction());
+            TextView_details.setText(product.getDetails());
+            Picasso.with(this.getContext()).load(product.getProductPicture()).resize(300,300).into(ImageViewProduct);
+            TextView_user.setText(product.getUser());
+            String email = mAuth.getCurrentUser().getEmail();
+            if(product.getUser().equals(email))
+            {
+                yourProductvoid();
+            }
+        });
+        return view;
+    }
 
-        return inflater.inflate(R.layout.fragment_product, container, false);
+    private void yourProductvoid() {
+        TextViewYourProduct.setVisibility(View.VISIBLE);
+
     }
 }
