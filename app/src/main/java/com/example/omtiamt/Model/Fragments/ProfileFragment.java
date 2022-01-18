@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,7 +118,7 @@ public class ProfileFragment extends Fragment {
                         alert.setPositiveButton("Yes", (dialog, which) -> {
                             currentUser.delete();
                             Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(ProfileFragment.this.getContext(), LoginFragment.class));
+                            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
                         });
                         alert.setNegativeButton("No", (dialog, which) -> {
                             Toast.makeText(ProfileFragment.this.getContext(), "Aborted", Toast.LENGTH_LONG).show();
@@ -125,9 +127,9 @@ public class ProfileFragment extends Fragment {
                         return true;
 
                     case R.id.item_logout:
+                        Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(ProfileFragment.this.getContext(), LoginFragment.class));
                         return true;
 
                     default:
