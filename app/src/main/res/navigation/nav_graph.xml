@@ -99,4 +99,13 @@
             android:id="@+id/action_editProductFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/loadingScreenFragment"
+        android:name="com.example.omtiamt.Model.Fragments.LoadingScreenFragment"
+        android:label="fragment_loading_screen"
+        tools:layout="@layout/fragment_loading_screen" >
+        <action
+            android:id="@+id/action_loadingScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
