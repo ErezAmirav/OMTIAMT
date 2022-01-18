@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@drawable/wallpaper">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:orientation="vertical"
+        tools:context=".Model.Fragments.EditProductFragment">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="221dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/aldrich"
+            android:text="Edit Product"
+            android:textAlignment="textStart"
+
+            android:textColor="#FFFFFF"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="131dp"
+            android:layout_height="113dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="9dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/omtiamt_no_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/aldrich"
+            android:text="Product Name:"
+            android:textColor="#FF5722"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.073"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="36dp"
+            android:fontFamily="@font/aldrich"
+            android:text="Category:"
+            android:textColor="#FF5722"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newproduct_name_id" />
+
+        <TextView
+            android:id="@+id/textViewCategoryName"
+            android:layout_width="237dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="148dp"
+            android:fontFamily="@font/aldrich"
+            android:text="Category:"
+            android:textColor="#FF5722"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/image_preview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/imageView8"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/aldrich"
+            android:text="Details:"
+            android:textColor="#FF5722"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/adress_EditText" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:fontFamily="@font/aldrich"
+            android:text="Address:"
+            android:textColor="#FF5722"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="361dp" />
+
+        <EditText
+            android:id="@+id/newproduct_name_id"
+            android:layout_width="251dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="9dp"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="add"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:shadowColor="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <EditText
+            android:id="@+id/adress_EditText"
+            android:layout_width="251dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="9dp"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="add"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:shadowColor="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+        <EditText
+            android:id="@+id/details_product_editText"
+            android:layout_width="251dp"
+            android:layout_height="58dp"
+            android:backgroundTint="#FFFFFF"
+            android:backgroundTintMode="add"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:shadowColor="#FFFFFF"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/publish_product_btn"
+            app:layout_constraintTop_toBottomOf="@+id/adress_EditText"
+            app:layout_constraintVertical_bias="0.734"
+            tools:layout_editor_absoluteX="19dp" />
+
+        <Button
+            android:id="@+id/upload_photo_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#FF5722"
+            android:fontFamily="@font/aldrich"
+            android:onClick="uploadPhoto"
+            android:text="Edit Photo"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="583dp" />
+
+        <Button
+            android:id="@+id/publish_product_btn"
+            android:layout_width="137dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="80dp"
+            android:backgroundTint="#FF5722"
+            android:fontFamily="@font/aldrich"
+            android:onClick="publishProduct"
+            android:text="Edit"
+            app:layout_constraintEnd_toStartOf="@+id/upload_photo_btn"
+            app:layout_constraintHorizontal_bias="0.516"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="586dp" />
+
+        <ImageView
+            android:id="@+id/image_preview"
+            android:layout_width="118dp"
+            android:layout_height="92dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.927"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.879"
+            app:srcCompat="@android:drawable/screen_background_dark_transparent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
