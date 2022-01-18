@@ -48,6 +48,10 @@ public class Product {
         this.userBuy = userBuy;
     }
 
+    public Product() {
+
+    }
+
     public String getId() {
         return id;
     }
