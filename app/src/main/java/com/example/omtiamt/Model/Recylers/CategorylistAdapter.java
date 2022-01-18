@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-interface OnItemClickListener{
-    void onItemClick(View v,int position);
-}
+
 public class CategorylistAdapter extends RecyclerView.Adapter<CategorylistAdapter.CategoryViewHolder> {
     OnItemClickListener listener;
     public void setOnItemClickListener(OnItemClickListener listener){

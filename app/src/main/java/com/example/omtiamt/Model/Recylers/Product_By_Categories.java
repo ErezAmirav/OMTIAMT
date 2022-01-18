@@ -1,23 +1,18 @@
 package com.example.omtiamt.Model.Recylers;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
-import com.example.omtiamt.Model.Fragments.CategoryFragmentArgs;
 import com.example.omtiamt.Model.Fragments.CategoryFragmentDirections;
 import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
 import com.example.omtiamt.R;
@@ -26,8 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class Product_By_Categories extends Fragment {
@@ -56,10 +49,12 @@ public class Product_By_Categories extends Fragment {
         });
         proAdapter = new ProductListAdapter();
         proRV.setAdapter(proAdapter);
-        proAdapter.setOnProClickListener(new OnProClickListener() {
+
+        proAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onProitemClick(View v, int position) {
-                String s = "";
+            public void onItemClick(View v, int position) {
+                String tmp = ListOfProduct.get(position).toString();
+                Navigation.findNavController(view).navigate(CategoryFragmentDirections.actionCategoryFragmentToProductFragment(tmp));
             }
         });
         return view;

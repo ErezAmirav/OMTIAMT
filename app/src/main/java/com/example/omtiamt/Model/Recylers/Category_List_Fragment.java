@@ -52,8 +52,13 @@ public class Category_List_Fragment extends Fragment {
         catAdapter = new CategorylistAdapter();
         catRV.setAdapter(catAdapter);
 
-        catAdapter.setOnItemClickListener((OnItemClickListener) Navigation.createNavigateOnClickListener(R.id.action_categoryFragment_to_productFragment));
-
+        catAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                String tmp = (new ArrayList<>(myCatHash.keySet())).get(position);
+                Navigation.findNavController(view).navigate(homePageFragmentDirections.actionHomePageFragmentToCategoryFragment(tmp));
+            }
+        });
         return view;
     }
 }

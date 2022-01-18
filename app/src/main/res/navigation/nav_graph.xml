@@ -32,9 +32,6 @@
         <argument
             android:name="NameCategory"
             app:argType="string" />
-        <action
-            android:id="@+id/actionHomePageFragmentToProductByCategories"
-            app:destination="@id/product_By_Categories" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -47,6 +44,9 @@
         <action
             android:id="@+id/action_categoryFragment_to_productFragment"
             app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/category_List_Fragment"
@@ -61,13 +61,10 @@
         <argument
             android:name="nameCategory"
             app:argType="string" />
-        <action
-            android:id="@+id/action_product_By_Categories_to_productFragment"
-            app:destination="@id/productFragment" />
     </fragment>
     <fragment
         android:id="@+id/productFragment"
-        android:name="com.example.omtiamt.Model.Fragments.ProductFragment"
+        android:name="com.example.omtiamt.Model.Recylers.ProductFragment"
         android:label="fragment_product"
         tools:layout="@layout/fragment_product" >
         <argument android:name="Product_id" />

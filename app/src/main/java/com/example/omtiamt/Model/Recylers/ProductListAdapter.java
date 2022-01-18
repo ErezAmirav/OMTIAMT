@@ -16,12 +16,9 @@ import com.squareup.picasso.Picasso;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
-interface OnProClickListener{
-    void onProitemClick(View v, int position);
-}
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
-    OnProClickListener listener;
-    public void setOnProClickListener(OnProClickListener listener){
+    OnItemClickListener listener;
+    public void setOnItemClickListener(OnItemClickListener listener){
         this.listener = listener;
     }
     public void setCategoryMap(List<Product> ListOfProduct) {
@@ -60,7 +57,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         public TextView userTextView;
         public ImageView picture;
 
-        public ProductViewHolder(@NonNull View itemView,OnProClickListener listener) {
+        public ProductViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             namePTextView = itemView.findViewById(R.id.title_id);
             adressTextView = itemView.findViewById(R.id.city_txt);
@@ -70,7 +67,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 @Override
                 public void onClick(View v) {
                     int pos = getAdapterPosition();
-                    listener.onProitemClick(v, pos);
+                    listener.onItemClick(v, pos);
                 }
             });
         }
