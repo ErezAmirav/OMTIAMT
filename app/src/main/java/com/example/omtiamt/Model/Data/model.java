@@ -147,6 +147,21 @@ public class model {
     public void SignOut(signOut listener) {
         modelFirebase.SignOut(listener);
     }
+    public interface setTakenProduct {
+        void onComplete();
+    }
+
+    public void setTakenProduct(String idProduct,String nameTaker, setTakenProduct listener) {
+        modelFirebase.SetTakenProduct(idProduct,nameTaker, listener);
+    }
+    public interface dontNeedit {
+        void onComplete();
+    }
+
+    public void DontNeedit(String idProduct, dontNeedit listener) {
+        modelFirebase.DontNeedit(idProduct, listener);
+    }
+
 }
 
 

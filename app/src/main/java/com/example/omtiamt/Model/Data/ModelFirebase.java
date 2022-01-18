@@ -185,18 +185,20 @@ public class ModelFirebase {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String Category = document.getString("Category");
                     if (Category.equals(nameCat)) {
-                        String id = document.getId();
-                        String userName = document.getString("User");
-                        String name = document.getString("Name");
-                        String picture = document.getString("Picture");
-                        String details = document.getString("Details");
-                        String location = document.getString("Location");
-                        Product product = new Product(id,userName,name,picture,details,location);
-                        ListOfProduct.add(product);
-
+                        String buy = document.getString("UserBuy");
+                        if (buy.equals("nobody")) {
+                            String id = document.getId();
+                            String userName = document.getString("User");
+                            String name = document.getString("Name");
+                            String picture = document.getString("Picture");
+                            String details = document.getString("Details");
+                            String location = document.getString("Location");
+                            Product product = new Product(id, userName, name, picture, details, location);
+                            ListOfProduct.add(product);
+                        }
                     }
+                    listener.onComplete(ListOfProduct);
                 }
-                listener.onComplete(ListOfProduct);
             }
         });
     }
@@ -314,5 +316,34 @@ public class ModelFirebase {
     public void SignOut(model.signOut listener) {
         FirebaseAuth.getInstance().signOut();
         int i = 1;
+    }
+
+    public void SetTakenProduct(String idProduct, String nameTaker, model.setTakenProduct listener) {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot myDocument : task.getResult()) {
+                    String idCat = myDocument.getString("id");
+                    if (idCat.equals(idProduct)) {
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("UserBuy",nameTaker);
+                    }
+                }
+                listener.onComplete();
+            }
+        });
+
+    }
+
+    public void DontNeedit(String idProduct, model.dontNeedit listener) {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot myDocument : task.getResult()) {
+                    String idCat = myDocument.getString("id");
+                    if (idCat.equals(idProduct)) {
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("UserBuy","noBody");
+                    }
+                }
+                listener.onComplete();
+            }
+        });
     }
 }

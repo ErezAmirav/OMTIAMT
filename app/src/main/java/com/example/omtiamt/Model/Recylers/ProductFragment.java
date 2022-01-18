@@ -35,6 +35,7 @@ public class ProductFragment extends Fragment {
     Button deleteBtn;
     Button iWantItBtn;
     Button dontNeedIt;
+    String email;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class ProductFragment extends Fragment {
             userTV.setText(product.getUser());
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
             String userBuy = product.getUserBuy();
-            String email = currentUser.getEmail();
+            email = currentUser.getEmail();
             if (product.getUser().equals(email)) {
                 ItsYourProduct();
             }
@@ -88,7 +89,7 @@ public class ProductFragment extends Fragment {
         iWantItBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupMessageSureTake(product.getProductName(),id);
+                popupMessageSureTake(product.getProductName(),id,email);
             }
         });
         deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +97,12 @@ public class ProductFragment extends Fragment {
             public void onClick(View v) {
                 popupMessageSureDelete(product.getProductName(),id);
 
+            }
+        });
+        dontNeedIt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMessageSureDontNeed(id,product.getProductName());
             }
         });
         return view;
@@ -113,13 +120,13 @@ public class ProductFragment extends Fragment {
         deleteBtn.setVisibility(View.GONE);
         viewYourProductTV.setVisibility(View.GONE);
     }
-    public void popupMessageSureTake(String name,String id) {
+    public void popupMessageSureTake(String name,String id,String email) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
         alertDialogBuilder.setMessage("Are you sure you want to take this " + "" + name + "?");
         alertDialogBuilder.setIcon(R.drawable.additem);
         alertDialogBuilder.setTitle("Congratulations!");
         alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
-        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> AddBuytoProduct(id));
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> AddBuytoProduct(id,email));
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
@@ -141,7 +148,27 @@ public class ProductFragment extends Fragment {
         });
     }
 
-    private void AddBuytoProduct(String id) {
+    private void AddBuytoProduct(String id,String email) {
+        model.instance.setTakenProduct(id, email, () -> {
+            Toast.makeText(this.getContext(), "Hope you enjoy", Toast.LENGTH_LONG).show();
+            Navigation.findNavController(view).navigate(R.id.action_productFragment_to_homePageFragment);
+        });
+    }
+        public void popupMessageSureDontNeed(String id,String name) {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
+            alertDialogBuilder.setMessage("Are you sure you don't need this " + "" + name + "?");
+            alertDialogBuilder.setIcon(R.drawable.additem);
+            alertDialogBuilder.setTitle("Delete item");
+            alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+            alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> DontNeedit(id));
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
 
-}
+    private void DontNeedit(String id) {
+        model.instance.DontNeedit(id,() -> {
+            Toast.makeText(this.getContext(), "Feel free to look for new products", Toast.LENGTH_LONG).show();
+            Navigation.findNavController(view).navigate(R.id.action_productFragment_to_homePageFragment);
+        });
+    }
 }

@@ -136,7 +136,7 @@ public class Product {
         json.put("Location", location);
         json.put("Details", details);
         json.put("isAvailable", isAvailable);
-        json.put("UserBuy", null);
+        json.put("UserBuy", "nobody");
         return json;
     }
 }
