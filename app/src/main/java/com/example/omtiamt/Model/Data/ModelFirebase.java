@@ -183,6 +183,17 @@ public class ModelFirebase {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
+                    if(nameCat.equals("View All"))
+                    {
+                        String id = document.getId();
+                        String userName = document.getString("User");
+                        String name = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String location = document.getString("Location");
+                        Product product = new Product(id, userName, name, picture, details, location);
+                        ListOfProduct.add(product);
+                    }
                     String Category = document.getString("Category");
                     if (Category.equals(nameCat)) {
                         String buy = document.getString("UserBuy");
