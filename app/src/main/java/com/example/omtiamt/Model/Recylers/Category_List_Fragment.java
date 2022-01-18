@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.omtiamt.Model.Data.model;
+import com.example.omtiamt.Model.Data.Model;
 import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
 import com.example.omtiamt.R;
 
@@ -40,7 +40,7 @@ public class Category_List_Fragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(),3);
         catRV.setLayoutManager(layoutManager);
 
-        model.instance.getCatNameAndPictures(myCatHash, catHash -> {
+        Model.instance.getCatNameAndPictures(myCatHash, catHash -> {
          catAdapter.setCategoryMap(catHash);
          catAdapter.notifyDataSetChanged();
         });

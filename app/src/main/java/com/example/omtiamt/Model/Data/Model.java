@@ -16,13 +16,13 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class model {
-    public static final model instance = new model();
+public class Model {
+    public static final Model instance = new Model();
     Executor executors = Executors.newFixedThreadPool(1);
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     ModelFirebase modelFirebase = new ModelFirebase();
 
-    private model() {
+    private Model() {
     }
 
     public interface getAllUsersListener {

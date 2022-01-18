@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Recylers.Category_List_Fragment;
-import com.example.omtiamt.Model.Data.model;
+import com.example.omtiamt.Model.Data.Model;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,7 +58,7 @@ public class homePageFragment extends Fragment {
         BaseActivity.showTabBar();
 
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        List<String> catList = model.instance.getCategoryNames();
+        List<String> catList = Model.instance.getCategoryNames();
 
         Fragment categoryList = new Category_List_Fragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
