@@ -3,6 +3,7 @@ package com.example.omtiamt.Model.Recylers;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Classes.Product;
+import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -63,6 +65,13 @@ public class ProductFragment extends Fragment {
             String email = currentUser.getEmail();
             if (product.getUser().equals(email)) {
                 ItsYourProduct();
+            }
+        });
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(ProductFragmentDirections.actionProductFragmentToEditProductFragment
+                        (product.getProductName(),product.getProductPicture(),product.getDetails(),product.getLocation(),product.getCategory()));
             }
         });
         return view;
