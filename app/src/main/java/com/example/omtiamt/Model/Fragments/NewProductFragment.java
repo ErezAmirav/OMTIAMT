@@ -133,7 +133,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         String details = detailsPro.getText().toString();
         String userEmail = mAuth.getCurrentUser().getEmail();
 
-        Product product = new Product(id, name, category, address, details, userEmail, true, null,null);
+        Product product = new Product(id, name, category, address, details, userEmail, true, null, null);
         if (imageBitmap != null) {
             model.instance.saveImage(imageBitmap, name + ".jpg", url -> {
                 product.setProductPicUrl(url);
@@ -206,7 +206,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         alertDialogBuilder.setMessage("Product added!");
         alertDialogBuilder.setIcon(R.drawable.additem);
         alertDialogBuilder.setTitle("Success");
-        alertDialogBuilder.setNegativeButton("Ok", (dialogInterface, i) -> { });
+        alertDialogBuilder.setNegativeButton("Ok", (dialogInterface, i) -> {
+        });
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }

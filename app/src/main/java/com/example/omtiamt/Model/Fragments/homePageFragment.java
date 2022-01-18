@@ -41,13 +41,11 @@ public class homePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mAuth = FirebaseAuth.getInstance();
     }
 
     public void onStart() {
         super.onStart();
-
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
             startActivity(new Intent(homePageFragment.this.getContext(), LoginFragment.class));
@@ -61,7 +59,6 @@ public class homePageFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         List<String> catList = model.instance.getCategoryNames();
-
 
         Fragment categoryList = new Category_List_Fragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();

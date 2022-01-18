@@ -14,20 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Fragments.CategoryFragmentDirections;
-import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
 import com.example.omtiamt.R;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class Product_By_Categories extends Fragment {
+public class ProductByCategories extends Fragment {
     View view;
     RecyclerView proRV;
-    HashMap<String,String> catOrderByname = new HashMap<String,String>();
-    List<Product> ListOfProduct = new LinkedList<>();
+    HashMap<String, String> catOrderByname = new HashMap<String, String>();
+    List<Product> listOfProduct = new LinkedList<>();
     ProductListAdapter proAdapter;
     String nameCat;
 
@@ -44,33 +42,28 @@ public class Product_By_Categories extends Fragment {
         proRV.setLayoutManager(layoutManager);
         proAdapter = new ProductListAdapter();
         proRV.setAdapter(proAdapter);
-        if(nameCat != null){
+        if (nameCat != null)
             updateDisplay();
-        }
-        proAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                String tmp = ListOfProduct.get(position).getId();
-                Navigation.findNavController(view).navigate(CategoryFragmentDirections.actionCategoryFragmentToProductFragment(tmp));
-            }
+
+        proAdapter.setOnItemClickListener((v, position) -> {
+            String tmp = listOfProduct.get(position).getId();
+            Navigation.findNavController(view).navigate(CategoryFragmentDirections.actionCategoryFragmentToProductFragment(tmp));
         });
         return view;
     }
+
     @SuppressLint("NotifyDataSetChanged")
-    public void updateDisplay()
-    {
-        model.instance.getProductsByCat(ListOfProduct,nameCat, catHash -> {
-            proAdapter.setCategoryMap(ListOfProduct);
+    public void updateDisplay() {
+        model.instance.getProductsByCat(listOfProduct, nameCat, catHash -> {
+            proAdapter.setCategoryMap(listOfProduct);
             proAdapter.notifyDataSetChanged();
         });
     }
 
     public void setCategory(String name) {
         nameCat = name;
-        if(view != null)
-        {
+        if (view != null) {
             updateDisplay();
         }
-
     }
 }

@@ -18,7 +18,7 @@ public class Product {
     String productName;
     String category;
     Boolean isAvailable;
-    String loaction;
+    String location;
     String productPicture;
     String details;
     String userBuy;
@@ -29,7 +29,7 @@ public class Product {
         this.productName = name;
         this.productPicture = picture;
         this.details = details;
-        this.loaction = location;
+        this.location = location;
     }
 
 
@@ -40,7 +40,7 @@ public class Product {
         this.productName = name;
         this.category = category;
         this.isAvailable = isAvailable;
-        this.loaction = address;
+        this.location = address;
         this.productPicture = picture;
         this.details = details;
         this.userBuy = userBuy;
@@ -90,12 +90,12 @@ public class Product {
         isAvailable = available;
     }
 
-    public String getLoaction() {
-        return loaction;
+    public String getLocation() {
+        return location;
     }
 
-    public void setLoaction(String loaction) {
-        this.loaction = loaction;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getProductPicture() {
@@ -125,7 +125,7 @@ public class Product {
         json.put("Category", category);
         json.put("Name", productName);
         json.put("Picture",productPicture);
-        json.put("Location", loaction);
+        json.put("Location", location);
         json.put("Details", details);
         json.put("isAvailable", isAvailable);
         json.put("UserBuy", null);

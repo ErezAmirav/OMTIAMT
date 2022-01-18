@@ -35,7 +35,7 @@ public class ModelFirebase {
     public HashMap<String, String> catHash = new HashMap<>();
     public HashMap<String, String> catOrderByname = new HashMap<>();
     public HashMap<String, String> allMyProducts = new HashMap<>();
-    List<Product> ListOfProduct = new LinkedList<>();
+    List<Product> listOfProduct = new LinkedList<>();
     public HashMap<String, String> theProductsIWant = new HashMap<>();
 
     public void getAllUsers(model.getAllUsersListener listener) {
@@ -119,7 +119,7 @@ public class ModelFirebase {
     }
 
     //get all categories names and pictures
-    public void getCatNameAndPictures(HashMap<String, String> catHash, model.GetCatNameAndPictures listener) {
+    public void getCatNameAndPictures(HashMap<String, String> catHash, model.getCatNameAndPictures listener) {
         db.collection("Category").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -161,7 +161,7 @@ public class ModelFirebase {
                         product.setProductName(document.getString("Name"));
                         product.setProductPicUrl(document.getString("Picture"));
                         product.setDetails(document.getString("Details"));
-                        product.setLoaction(document.getString("Location"));
+                        product.setLocation(document.getString("Location"));
 
                     }
                 }
@@ -172,7 +172,7 @@ public class ModelFirebase {
     }
 
     //get all the products by the name of category
-    public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.GetProductsByCat listener) {
+    public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.getProductsByCat listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -194,7 +194,7 @@ public class ModelFirebase {
         });
     }
 
-    public void getMyProducts(HashMap<String, String> catHash, String myName, model.GetmyProducts listener) {
+    public void getMyProducts(HashMap<String, String> catHash, String myName, model.getMyProducts listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -219,7 +219,7 @@ public class ModelFirebase {
         });
     }
 
-    public void getTheProductsIWant(HashMap<String, String> catHash, String myName, model.GetTheProductsIWant listener) {
+    public void getTheProductsIWant(HashMap<String, String> catHash, String myName, model.getTheProductsIWant listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -255,7 +255,7 @@ public class ModelFirebase {
     }
 
 
-    public void saveImg(Bitmap imgBitmap, String imgName, model.SaveImageListener listener) {
+    public void saveImg(Bitmap imgBitmap, String imgName, model.saveImageListener listener) {
         StorageReference storageReference = storage.getReference();
         StorageReference imgRef = storageReference.child("/product_photos" + imgName);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -12,12 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.omtiamt.Model.Fragments.CategoryFragmentArgs;
-import com.example.omtiamt.Model.Fragments.homePageFragment;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
-import com.example.omtiamt.Model.Recylers.CategorylistAdapter;
-import com.example.omtiamt.Model.Recylers.OnItemClickListener;
 import com.example.omtiamt.R;
 
 import java.util.ArrayList;
@@ -27,7 +23,7 @@ public class Category_List_Fragment extends Fragment {
     View view;
     RecyclerView catRV;
     HashMap<String,String> myCatHash = new HashMap<String,String>();
-    CategorylistAdapter catAdapter;
+    CategoryListAdapter catAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +45,7 @@ public class Category_List_Fragment extends Fragment {
          catAdapter.notifyDataSetChanged();
         });
 
-        catAdapter = new CategorylistAdapter();
+        catAdapter = new CategoryListAdapter();
         catRV.setAdapter(catAdapter);
 
         catAdapter.setOnItemClickListener(new OnItemClickListener() {

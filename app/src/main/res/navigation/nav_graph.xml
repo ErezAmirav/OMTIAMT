@@ -53,7 +53,7 @@
         tools:layout="@layout/fragment_category__list_" />
     <fragment
         android:id="@+id/product_By_Categories"
-        android:name="com.example.omtiamt.Model.Recylers.Product_By_Categories"
+        android:name="com.example.omtiamt.Model.Recylers.ProductByCategories"
         android:label="fragment_product__by__categories"
         tools:layout="@layout/fragment_product__by__categories" >
         <argument

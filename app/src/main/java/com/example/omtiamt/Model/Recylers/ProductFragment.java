@@ -54,9 +54,9 @@ public class ProductFragment extends Fragment {
         TextView_details = view.findViewById(R.id.product_details_id);
         ImageViewProduct = view.findViewById(R.id.product_image_id);
         TextView_user = view.findViewById(R.id.product_username_id);
-        model.instance.GetProduct(id,product,pro -> {
+        model.instance.getProduct(id,product, pro -> {
             Textview_productName.setText(product.getProductName());
-            Textview_adress.setText(product.getLoaction());
+            Textview_adress.setText(product.getLocation());
             TextView_details.setText(product.getDetails());
             Picasso.with(this.getContext()).load(product.getProductPicture()).resize(300,300).into(ImageViewProduct);
             TextView_user.setText(product.getUser());

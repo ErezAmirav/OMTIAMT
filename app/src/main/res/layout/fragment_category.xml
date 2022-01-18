@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/productByCat"
-        android:name="com.example.omtiamt.Model.Recylers.Product_By_Categories"
+        android:name="com.example.omtiamt.Model.Recylers.ProductByCategories"
         android:layout_width="362dp"
         android:layout_height="547dp"
         android:layout_alignParentStart="true"
