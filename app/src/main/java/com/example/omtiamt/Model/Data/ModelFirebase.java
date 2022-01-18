@@ -38,7 +38,7 @@ public class ModelFirebase {
     List<Product> listOfProduct = new LinkedList<>();
     public HashMap<String, String> theProductsIWant = new HashMap<>();
 
-    public void getAllUsers(Model.getAllUsersListener listener) {
+    public void getAllUsers(model.getAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -54,7 +54,7 @@ public class ModelFirebase {
                 });
     }
 
-    public void addUser(Users user, Model.addUsersListener listener) {
+    public void addUser(Users user, model.addUsersListener listener) {
         Map<String, Object> json = user.toJson();
         String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
         json.put("id", NewDocument);
@@ -65,7 +65,7 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
-    public void addProduct(Product product, Model.addProductListener listener) {
+    public void addProduct(Product product, model.addProductListener listener) {
         Map<String, Object> json = product.toJson();
         String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
         json.put("id", NewDocument);
@@ -119,7 +119,7 @@ public class ModelFirebase {
     }
 
     //get all categories names and pictures
-    public void getCatNameAndPictures(HashMap<String, String> catHash, Model.getCatNameAndPictures listener) {
+    public void getCatNameAndPictures(HashMap<String, String> catHash, model.getCatNameAndPictures listener) {
         db.collection("Category").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -136,7 +136,7 @@ public class ModelFirebase {
         });
     }
 
-    public void getProduct(String id, Product product, Model.getProductListener listener)
+    public void getProduct(String id, Product product, model.getProductListener listener)
     {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -172,7 +172,7 @@ public class ModelFirebase {
     }
 
     //get all the products by the name of category
-    public void getProductsByCat(List<Product> ListOfProduct, String nameCat, Model.getProductsByCat listener) {
+    public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.getProductsByCat listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -194,7 +194,7 @@ public class ModelFirebase {
         });
     }
 
-    public void getMyProducts(HashMap<String, String> catHash, String myName, Model.getMyProducts listener) {
+    public void getMyProducts(HashMap<String, String> catHash, String myName, model.getMyProducts listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -219,7 +219,7 @@ public class ModelFirebase {
         });
     }
 
-    public void getTheProductsIWant(HashMap<String, String> catHash, String myName, Model.getTheProductsIWant listener) {
+    public void getTheProductsIWant(HashMap<String, String> catHash, String myName, model.getTheProductsIWant listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -255,7 +255,7 @@ public class ModelFirebase {
     }
 
 
-    public void saveImg(Bitmap imgBitmap, String imgName, Model.saveImageListener listener) {
+    public void saveImg(Bitmap imgBitmap, String imgName, model.saveImageListener listener) {
         StorageReference storageReference = storage.getReference();
         StorageReference imgRef = storageReference.child("/product_photos" + imgName);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

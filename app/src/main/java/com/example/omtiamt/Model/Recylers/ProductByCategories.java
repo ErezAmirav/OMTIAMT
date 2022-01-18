@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.omtiamt.Model.Classes.Product;
-import com.example.omtiamt.Model.Data.Model;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Fragments.CategoryFragmentDirections;
 import com.example.omtiamt.R;
 
@@ -54,7 +54,7 @@ public class ProductByCategories extends Fragment {
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
-        Model.instance.getProductsByCat(listOfProduct, nameCat, catHash -> {
+        model.instance.getProductsByCat(listOfProduct, nameCat, catHash -> {
             proAdapter.setCategoryMap(listOfProduct);
             proAdapter.notifyDataSetChanged();
         });

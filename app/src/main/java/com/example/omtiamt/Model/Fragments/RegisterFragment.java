@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.omtiamt.Model.Data.Model;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,7 +48,7 @@ public class RegisterFragment extends Fragment {
                 inputEmail.setError("Email Field Cannot Be Empty");
                 inputEmail.requestFocus();
             }
-            if (Model.instance.checkEmail(inputEmail.getText().toString())) {
+            if (model.instance.checkEmail(inputEmail.getText().toString())) {
                 inputEmail.setError("Email already exist");
                 inputEmail.requestFocus();
             }
@@ -76,7 +76,7 @@ public class RegisterFragment extends Fragment {
             // Checks if Password and Confirm Password fields match
             else if
             (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())) {
-                Model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
+                model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(RegisterFragment.this.getContext(), "Register Succsesful", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(RegisterFragment.this.getContext(), LoginFragment.class));

@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +16,10 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Recylers.MyProductsListFragment;
-import com.example.omtiamt.Model.Recylers.MySavedProductsListFragment;
+import com.example.omtiamt.Model.Recylers.mySavedProductsListFragment;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -118,7 +119,7 @@ public class ProfileFragment extends Fragment {
                         alert.setPositiveButton("Yes", (dialog, which) -> {
                             currentUser.delete();
                             Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
+                            startActivity(new Intent(ProfileFragment.this.getContext(), LoginFragment.class));
                         });
                         alert.setNegativeButton("No", (dialog, which) -> {
                             Toast.makeText(ProfileFragment.this.getContext(), "Aborted", Toast.LENGTH_LONG).show();
@@ -127,9 +128,9 @@ public class ProfileFragment extends Fragment {
                         return true;
 
                     case R.id.item_logout:
-                        Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
                         FirebaseAuth.getInstance().signOut();
                         Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ProfileFragment.this.getContext(), LoginFragment.class));
                         return true;
 
                     default:
@@ -149,7 +150,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void savedProducts(View view) {
-        Fragment savedProductsList = new MySavedProductsListFragment();
+        Fragment savedProductsList = new mySavedProductsListFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.my_products_list_viewer, savedProductsList).commit();
     }

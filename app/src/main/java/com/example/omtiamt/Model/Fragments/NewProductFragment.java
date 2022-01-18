@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Classes.Product;
-import com.example.omtiamt.Model.Data.Model;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -135,12 +135,12 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
         Product product = new Product(id, name, category, address, details, userEmail, true, null, null);
         if (imageBitmap != null) {
-            Model.instance.saveImage(imageBitmap, name + ".jpg", url -> {
+            model.instance.saveImage(imageBitmap, name + ".jpg", url -> {
                 product.setProductPicUrl(url);
-                Model.instance.addProduct(product, this::restartPage);
+                model.instance.addProduct(product, this::restartPage);
             });
         } else {
-            Model.instance.addProduct(product, this::restartPage);
+            model.instance.addProduct(product, this::restartPage);
         }
     }
 

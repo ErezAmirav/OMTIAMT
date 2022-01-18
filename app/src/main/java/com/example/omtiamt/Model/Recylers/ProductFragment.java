@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.omtiamt.Model.Data.Model;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,7 +53,7 @@ public class ProductFragment extends Fragment {
         detailsTV = view.findViewById(R.id.product_details_id);
         productImgV = view.findViewById(R.id.product_image_id);
         userTV = view.findViewById(R.id.product_username_id);
-        Model.instance.getProduct(id, product, pro -> {
+        model.instance.getProduct(id, product, pro -> {
             productNameTV.setText(product.getProductName());
             addressTV.setText(product.getLocation());
             detailsTV.setText(product.getDetails());
