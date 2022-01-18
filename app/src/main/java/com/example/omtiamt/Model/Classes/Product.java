@@ -1,5 +1,8 @@
 package com.example.omtiamt.Model.Classes;
 
+import android.widget.EditText;
+import android.widget.TextView;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -54,6 +57,14 @@ public class Product {
         this.productPicture = picture;
         this.details = details;
         this.location = location;
+    }
+
+    public Product(String id, String name, String address, String details,String picture) {
+        this.id = id;
+        this.productName = name;
+        this.location = address;
+        this.details = details;
+        this.productPicture = picture;
     }
 
     public String getUserBuy() {

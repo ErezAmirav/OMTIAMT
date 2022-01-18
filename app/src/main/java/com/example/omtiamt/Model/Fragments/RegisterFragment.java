@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -79,7 +80,7 @@ public class RegisterFragment extends Fragment {
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(RegisterFragment.this.getContext(), "Register Succsesful", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(RegisterFragment.this.getContext(), LoginFragment.class));
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             } else
                 Toast.makeText(RegisterFragment.this.getContext(), "The Passwords don't match", Toast.LENGTH_LONG).show();
         });
