@@ -34,10 +34,14 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_base.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_login.xml" value="0.12708333333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/activity_test.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_category.xml" value="0.234375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_category__list_.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_home_page.xml" value="0.23854166666666668" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_new_product.xml" value="0.5182648401826484" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_product.xml" value="0.234375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_product__by__categories.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_readmore_product.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_register.xml" value="0.19375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_welcome.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/OMTIAMT/app/src/main/res/menu/bottom_navigation.xml" value="0.1796875" />

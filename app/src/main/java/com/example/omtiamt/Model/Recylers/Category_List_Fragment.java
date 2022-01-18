@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.omtiamt.Model.Fragments.CategoryFragmentArgs;
 import com.example.omtiamt.Model.Fragments.homePageFragment;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
@@ -50,15 +52,8 @@ public class Category_List_Fragment extends Fragment {
         catAdapter = new CategorylistAdapter();
         catRV.setAdapter(catAdapter);
 
-        catAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                    String tmp = (new ArrayList<>(myCatHash.keySet())).get(position);
-                Navigation.findNavController(view).navigate(homePageFragmentDirections.actionHomePageFragmentToCategoryFragment(tmp));
-                }
+        catAdapter.setOnItemClickListener((OnItemClickListener) Navigation.createNavigateOnClickListener(R.id.action_categoryFragment_to_productFragment));
 
-
-        });
         return view;
     }
 }

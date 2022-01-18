@@ -32,6 +32,9 @@
         <argument
             android:name="NameCategory"
             app:argType="string" />
+        <action
+            android:id="@+id/actionHomePageFragmentToProductByCategories"
+            app:destination="@id/product_By_Categories" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -41,10 +44,32 @@
         <argument
             android:name="nameCategory"
             app:argType="string" />
+        <action
+            android:id="@+id/action_categoryFragment_to_productFragment"
+            app:destination="@id/productFragment" />
     </fragment>
     <fragment
         android:id="@+id/category_List_Fragment"
         android:name="com.example.omtiamt.Model.Recylers.Category_List_Fragment"
         android:label="fragment_category__list_"
         tools:layout="@layout/fragment_category__list_" />
+    <fragment
+        android:id="@+id/product_By_Categories"
+        android:name="com.example.omtiamt.Model.Recylers.Product_By_Categories"
+        android:label="fragment_product__by__categories"
+        tools:layout="@layout/fragment_product__by__categories" >
+        <argument
+            android:name="nameCategory"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_product_By_Categories_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.omtiamt.Model.Fragments.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" >
+        <argument android:name="Product_id" />
+    </fragment>
 </navigation>

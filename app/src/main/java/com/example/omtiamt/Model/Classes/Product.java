@@ -43,7 +43,7 @@ public class Product {
         this.category = category;
         this.isAvailable = isAvailable;
         this.loaction = address;
-        //this.productPicture = picture;
+        this.productPicture = picture;
         this.Details = details;
         this.userBuy = userBuy;
     }
@@ -122,7 +122,6 @@ public class Product {
         json.put("User",user);
         json.put("Category", category);
         json.put("Name", productName);
-       // json.put("Picture", productPicture);
         json.put("Picture",productPicture);
         json.put("Location", loaction);
         json.put("Details", Details);
@@ -130,19 +129,6 @@ public class Product {
         json.put("UserBuy", null);
         return json;
     }
- /*    public static Product create(Map<String, Object> json) {
-        String id = (String) json.get("id");
-        Users user = (Users) json.get("User");
-        Categories category = (Categories) json.get("Category");
-        String productName = (String) json.get("name");
-        String email = (String) json.get("email");
-        String location = (String) json.get("Location");
-        String pictureUrl = (String) json.get("Picture");
-        String details = (String) json.get("Details");
-        Product product = new Product(id,user,productName,category,true,location,pictureUrl,details);
-        return  product;
-    }
-*/
 }
 
 

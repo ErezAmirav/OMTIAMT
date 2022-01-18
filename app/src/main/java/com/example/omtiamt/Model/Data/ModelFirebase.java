@@ -137,6 +137,41 @@ public class ModelFirebase {
         });
     }
 
+    public void getProduct(String id,Product product,model.GetProductListener listener)
+    {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String Category = document.getString("id");
+                    if (Category.equals(id)) {
+                        /*String id = document.getId();
+                        Boolean isAvailable = document.getBoolean("isAvailable");
+                        String userName = document.getString("User");
+                        String category = document.getString("Category");
+                        String name = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String location = document.getString("Location");
+                        Product myp = new Product(id,name,category,location,details,userName,isAvailable,picture,null);
+
+                         */
+                        product.setId(document.getId());
+                        product.setAvailable(document.getBoolean("isAvailable"));
+                        product.setUser(document.getString("User"));
+                        product.setCategory(document.getString("Category"));
+                        product.setProductName(document.getString("Name"));
+                        product.setProductPicUrl(document.getString("Picture"));
+                        product.setDetails(document.getString("Details"));
+                        product.setLoaction(document.getString("Location"));
+
+                    }
+                }
+                listener.onComplete(product);
+            }
+        });
+
+    }
+
     //get all the products by the name of category
     public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.GetProductsByCat listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {

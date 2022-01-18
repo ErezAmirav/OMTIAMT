@@ -16,9 +16,14 @@ import com.squareup.picasso.Picasso;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
-
+interface OnProClickListener{
+    void onProitemClick(View v, int position);
+}
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
-    OnItemClickListener listener;
+    OnProClickListener listener;
+    public void setOnProClickListener(OnProClickListener listener){
+        this.listener = listener;
+    }
     public void setCategoryMap(List<Product> ListOfProduct) {
         this.ListOfProduct = ListOfProduct;
     }
@@ -39,7 +44,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             String pictureUrl = ListOfProduct.get(position).getProductPicture();
             String location = ListOfProduct.get(position).getLoaction();
             Picasso.with(holder.picture.getContext()).load(pictureUrl).resize(300,300).into(holder.picture);
-
             holder.namePTextView.setText(name);
             holder.userTextView.setText(userName);
             holder.adressTextView.setText(location);
@@ -56,15 +60,18 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         public TextView userTextView;
         public ImageView picture;
 
-        public ProductViewHolder(@NonNull View itemView,OnItemClickListener listener) {
+        public ProductViewHolder(@NonNull View itemView,OnProClickListener listener) {
             super(itemView);
             namePTextView = itemView.findViewById(R.id.title_id);
             adressTextView = itemView.findViewById(R.id.city_txt);
             userTextView = itemView.findViewById(R.id.email_view);
             picture = itemView.findViewById(R.id.product_image);
-            itemView.setOnClickListener(v -> {
-                int pos = getAdapterPosition();
-                listener.onItemClick(v, pos);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    listener.onProitemClick(v, pos);
+                }
             });
         }
     }
