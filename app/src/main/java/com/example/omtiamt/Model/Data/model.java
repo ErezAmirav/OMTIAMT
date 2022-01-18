@@ -139,6 +139,14 @@ public class model {
     public void SetProduct(String idProduct,String nameProduuct,String addressProduct,String detailsProduct,String pictureUrl, setProduct listener) {
         modelFirebase.SetProduct(idProduct,nameProduuct,addressProduct,detailsProduct,pictureUrl, listener);
     }
+
+    public interface signOut {
+        void onComplete();
+    }
+
+    public void SignOut(signOut listener) {
+        modelFirebase.SignOut(listener);
+    }
 }
 
 

@@ -33,6 +33,14 @@ public class LoginFragment extends Fragment {
     FirebaseUser currentUser;
     ImageButton test;
 
+/*    @Override
+    public void onStart(){
+        super.onStart();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null){
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
+        }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,8 @@ public class LoginFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         signName = view.findViewById(R.id.username_id);
         signPassword = view.findViewById(R.id.password_id);
+
+
 
         register = view.findViewById(R.id.login_clickhere_id);
         register.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment));

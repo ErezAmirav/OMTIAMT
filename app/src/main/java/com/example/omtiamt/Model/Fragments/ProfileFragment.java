@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.omtiamt.Model.Activity.BaseActivity;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Recylers.MyProductsListFragment;
 import com.example.omtiamt.Model.Recylers.mySavedProductsListFragment;
 import com.example.omtiamt.R;
@@ -119,7 +121,7 @@ public class ProfileFragment extends Fragment {
                         alert.setPositiveButton("Yes", (dialog, which) -> {
                             currentUser.delete();
                             Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(ProfileFragment.this.getContext(), LoginFragment.class));
+                            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
                         });
                         alert.setNegativeButton("No", (dialog, which) -> {
                             Toast.makeText(ProfileFragment.this.getContext(), "Aborted", Toast.LENGTH_LONG).show();
@@ -128,9 +130,13 @@ public class ProfileFragment extends Fragment {
                         return true;
 
                     case R.id.item_logout:
-                        FirebaseAuth.getInstance().signOut();
-                        Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(ProfileFragment.this.getContext(), LoginFragment.class));
+                        //FirebaseAuth.getInstance().signOut();
+                        //currentUser = null;
+                        model.instance.SignOut(()->{
+                            Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
+                            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
+                        });
+
                         return true;
 
                     default:

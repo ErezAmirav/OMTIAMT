@@ -30,7 +30,6 @@ public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
-
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public HashMap<String, String> catHash = new HashMap<>();
     public HashMap<String, String> catOrderByname = new HashMap<>();
@@ -310,5 +309,10 @@ public class ModelFirebase {
                 listener.onComplete();
             }
         });
+    }
+
+    public void SignOut(model.signOut listener) {
+        FirebaseAuth.getInstance().signOut();
+        int i = 1;
     }
 }
