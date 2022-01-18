@@ -25,7 +25,7 @@ public class model {
     private model() {
     }
 
-    public interface GetAllUsersListener {
+    public interface getAllUsersListener {
         void onComplete(List<Users> user);
     }
 
@@ -33,22 +33,22 @@ public class model {
         return modelFirebase.getCatName();
     }
 
-    public interface AddUsersListener {
+    public interface addUsersListener {
         void onComplete();
     }
 
-    public interface AddProductListener {
+    public interface addProductListener {
         void onComplete();
     }
-    public interface GetProductListener {
+    public interface getProductListener {
         void onComplete(Product product);
     }
 
-    public void addUser(Users user, AddUsersListener listener) {
+    public void addUser(Users user, addUsersListener listener) {
         modelFirebase.addUser(user, listener);
     }
 
-    public void addProduct(Product product, AddProductListener listener) {
+    public void addProduct(Product product, addProductListener listener) {
         modelFirebase.addProduct(product, listener);
     }
 
@@ -56,7 +56,7 @@ public class model {
         modelFirebase.getUsersById(userId);
         return null;
     }
-    public Product GetProduct(String id,Product product,GetProductListener listener) {
+    public Product GetProduct(String id, Product product, getProductListener listener) {
         modelFirebase.getProduct(id,product,listener);
         return null;
     }

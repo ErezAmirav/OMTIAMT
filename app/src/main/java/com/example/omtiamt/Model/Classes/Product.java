@@ -1,7 +1,5 @@
 package com.example.omtiamt.Model.Classes;
 
-import android.graphics.Picture;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -22,7 +20,7 @@ public class Product {
     Boolean isAvailable;
     String loaction;
     String productPicture;
-    String Details;
+    String details;
     String userBuy;
 
     public Product(String id, String userName, String name, String picture, String details, String location) {
@@ -30,7 +28,7 @@ public class Product {
         this.user = userName;
         this.productName = name;
         this.productPicture = picture;
-        this.Details = details;
+        this.details = details;
         this.loaction = location;
     }
 
@@ -44,7 +42,7 @@ public class Product {
         this.isAvailable = isAvailable;
         this.loaction = address;
         this.productPicture = picture;
-        this.Details = details;
+        this.details = details;
         this.userBuy = userBuy;
     }
 
@@ -109,11 +107,11 @@ public class Product {
     }
 
     public String getDetails() {
-        return Details;
+        return details;
     }
 
     public void setDetails(String details) {
-        Details = details;
+        this.details = details;
     }
 
     public void setProductPicUrl (String url){
@@ -128,7 +126,7 @@ public class Product {
         json.put("Name", productName);
         json.put("Picture",productPicture);
         json.put("Location", loaction);
-        json.put("Details", Details);
+        json.put("Details", details);
         json.put("isAvailable", isAvailable);
         json.put("UserBuy", null);
         return json;

@@ -8,7 +8,6 @@ import android.util.Log;
 import com.example.omtiamt.Model.Classes.Categories;
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Classes.Users;
-import com.example.omtiamt.Model.Data.model;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,7 +38,7 @@ public class ModelFirebase {
     List<Product> ListOfProduct = new LinkedList<>();
     public HashMap<String, String> theProductsIWant = new HashMap<>();
 
-    public void getAllUsers(model.GetAllUsersListener listener) {
+    public void getAllUsers(model.getAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
                 .get()
                 .addOnCompleteListener(task -> {
@@ -55,7 +54,7 @@ public class ModelFirebase {
                 });
     }
 
-    public void addUser(Users user, model.AddUsersListener listener) {
+    public void addUser(Users user, model.addUsersListener listener) {
         Map<String, Object> json = user.toJson();
         String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
         json.put("id", NewDocument);
@@ -66,7 +65,7 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
-    public void addProduct(Product product, model.AddProductListener listener) {
+    public void addProduct(Product product, model.addProductListener listener) {
         Map<String, Object> json = product.toJson();
         String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
         json.put("id", NewDocument);
@@ -137,7 +136,7 @@ public class ModelFirebase {
         });
     }
 
-    public void getProduct(String id,Product product,model.GetProductListener listener)
+    public void getProduct(String id, Product product, model.getProductListener listener)
     {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
