@@ -29,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
@@ -71,6 +72,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        BaseActivity.showTabBar();
 
         view = inflater.inflate(R.layout.fragment_new_product, container, false);
         catList = view.findViewById(R.id.choose_category_id);

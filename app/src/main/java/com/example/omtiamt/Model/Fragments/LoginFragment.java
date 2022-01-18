@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,17 +33,24 @@ public class LoginFragment extends Fragment {
     FirebaseUser currentUser;
     ImageButton test;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        BaseActivity.hideTabBar();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        view = inflater.inflate(R.layout.fragment_login, container, false);
         mAuth = FirebaseAuth.getInstance();
         SignName = view.findViewById(R.id.username_id);
         SignPassword = view.findViewById(R.id.password_id);
@@ -55,7 +63,7 @@ public class LoginFragment extends Fragment {
             login();
         });
 
-         return view;
+        return view;
     }
 
     private void login() {
@@ -65,9 +73,6 @@ public class LoginFragment extends Fragment {
             if (task.isSuccessful()) {
                 Toast.makeText(this.getContext(), "Welcome Back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
                 Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
-
-
-
             } else {
                 String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
                 switch (errorCode) {

@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BaseActivity extends AppCompatActivity {
     NavController navCtl;
-    BottomNavigationView navigationView;
+    public static BottomNavigationView navigationView;
     public static final BaseActivity instance = new BaseActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class BaseActivity extends AppCompatActivity {
         navCtl = navHost.getNavController();
         navigationView = findViewById(R.id.bottom_navigation_id);
         navigationView.setSelectedItemId(R.id.nav_home);
-        showTabbar();
+
         navigationView.setOnNavigationItemSelectedListener(item -> {
             Fragment fragment = null;
             switch (item.getItemId()) {
@@ -44,13 +44,12 @@ public class BaseActivity extends AppCompatActivity {
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
             return true;
-
         });
     }
-    private void hidetabbar() {
+    public static void hideTabBar() {
         navigationView.setVisibility(View.GONE);
     }
-    public void showTabbar(){
+    public static void showTabBar(){
         navigationView.setVisibility(View.VISIBLE);
     }
 }
