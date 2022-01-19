@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class RegisterFragment extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
     Fragment fragment;
+    Button backBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +44,10 @@ public class RegisterFragment extends Fragment {
         inputPassword = view.findViewById(R.id.password_register_id);
         inputEmail = view.findViewById(R.id.email_register_id);
         inputConfirmPassword = view.findViewById(R.id.confirmpassword_register_id);
+        backBtn = view.findViewById(R.id.register_back_btn);
+
+        backBtn.setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp());
 
         btnSaveUser.setOnClickListener(v -> {
             // Checks if Email field is not empty
@@ -78,9 +84,9 @@ public class RegisterFragment extends Fragment {
             else if
             (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())) {
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(RegisterFragment.this.getContext(), "Register Succsesful", Toast.LENGTH_LONG).show();
-                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
+                Toast.makeText(RegisterFragment.this.getContext(), "Register Successful", Toast.LENGTH_LONG).show();
+
+                Navigation.findNavController(view).navigateUp();
             } else
                 Toast.makeText(RegisterFragment.this.getContext(), "The Passwords don't match", Toast.LENGTH_LONG).show();
         });
