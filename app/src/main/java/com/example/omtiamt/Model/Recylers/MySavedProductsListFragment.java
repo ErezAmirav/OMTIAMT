@@ -43,6 +43,9 @@ public class MySavedProductsListFragment extends Fragment {
         mySavedproRV.setLayoutManager(layoutManager);
         mySavedProAdapter = new MySavedProductListAdapter();
         mySavedproRV.setAdapter(mySavedProAdapter);
+        if (myName != null) {
+            updateDisplay();
+        }
         updateDisplay();
         return view;
     }
@@ -50,8 +53,15 @@ public class MySavedProductsListFragment extends Fragment {
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
         model.instance.GetProductsIwant(listOfMySavedProduct, myName, catHash -> {
-            mySavedProAdapter.setCategoryList(listOfMySavedProduct);
+            mySavedProAdapter.setCategoryList(catHash);
             mySavedProAdapter.notifyDataSetChanged();
         });
+    }
+
+    public void SetmyName(String userEmail2) {
+        myName = userEmail2;
+        if (view != null) {
+            updateDisplay();
+        }
     }
 }

@@ -285,28 +285,6 @@ public class ModelFirebase {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    String myName = document.getString("User");
-                    if (name.equals(myName)) {
-                        String id = document.getId();
-                        String userName = document.getString("User");
-                        String nameProduct = document.getString("Name");
-                        String picture = document.getString("Picture");
-                        String details = document.getString("Details");
-                        String category = document.getString("Category");
-                        String location = document.getString("Location");
-                        Product product = new Product(id, userName, category, nameProduct, picture, details, location);
-                        listOfMyProduct.add(product);
-                    }
-                }
-                listener.onComplete(listOfMyProduct);
-            }
-        });
-    }
-
-    public void GetProductsByMe(List<Product> listOfProductIwant, String name, model.getProductsByMe listener) {
-        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
                     String buy = document.getString("UserBuy");
                     if (name.equals(buy)) {
                         String id = document.getId();
@@ -321,6 +299,27 @@ public class ModelFirebase {
                     }
                 }
                 listener.onComplete(listOfProductIwant);
+            }
+        });
+    }
+
+    public void GetProductsByMe(List<Product> listOfProductIwant, String name, model.getProductsByMe listener) {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myName = document.getString("User");
+                    if (name.equals(myName)) {
+                        String id = document.getId();
+                        String nameProduct = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String category = document.getString("Category");
+                        String location = document.getString("Location");
+                        Product product = new Product(id, myName, category, nameProduct, picture, details, location);
+                        listOfMyProduct.add(product);
+                    }
+                }
+                listener.onComplete(listOfMyProduct);
             }
         });
     }

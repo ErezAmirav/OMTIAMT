@@ -25,8 +25,8 @@ public class MyProductListAdapter extends RecyclerView.Adapter<MyProductListAdap
         this.listener = listener;
     }
 
-    public void setCategoryList(List<Product> ListOfProduct) {
-        this.ListMyOfProduct = ListOfProduct;
+    public void setCategoryList(List<Product> ListMyOfProduct) {
+        this.ListMyOfProduct = ListMyOfProduct;
     }
 
     private List<Product> ListMyOfProduct = new LinkedList<>();

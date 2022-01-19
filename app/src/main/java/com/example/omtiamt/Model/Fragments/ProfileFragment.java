@@ -21,6 +21,7 @@ import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Recylers.MyProductsListFragment;
 import com.example.omtiamt.Model.Recylers.MySavedProductsListFragment;
+import com.example.omtiamt.Model.Recylers.ProductByCategories;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,11 +33,14 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
     String userEmail;
+    String userEmail2;
     ImageButton settingsMenu;
     PopupMenu popupMenu;
     AlertDialog.Builder alert;
     Button myProductsBtn;
     Button savedProductsBtn;
+    View fragmentMyProduct;
+    View fragmentProductIwant;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,17 +58,26 @@ public class ProfileFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         myProductsBtn = view.findViewById(R.id.profile_my_products_btn);
         savedProductsBtn = view.findViewById(R.id.profile_saved_products_btn);
-
-        myProductsBtn.setOnClickListener(v ->
-                myProducts(v));
-
-        savedProductsBtn.setOnClickListener(v ->
-                savedProducts(v));
-
         // Show Current User Email
         email = view.findViewById(R.id.profile_email_id);
         userEmail = " " + mAuth.getCurrentUser().getEmail();
+        userEmail2 = mAuth.getCurrentUser().getEmail();
         email.setText(userEmail);
+        MyProductsListFragment fragment = (MyProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productByMe);
+        fragment.SetmyName(userEmail2);
+        fragmentMyProduct = view.findViewById(R.id.productByMe);
+        fragmentMyProduct.setVisibility(View.GONE);
+
+        myProductsBtn.setOnClickListener(v -> {
+           // fragmentProductIwant.setVisibility(View.GONE);
+            fragmentMyProduct.setVisibility(View.VISIBLE);
+        });
+        savedProductsBtn.setOnClickListener(v -> {
+            //Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductIwantFragment(userEmail2));
+            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_productIWantFragment);
+        });
+
+
 
         // Settings Popup Menu
         settingsMenu = view.findViewById(R.id.profile_settings_id);
@@ -108,16 +121,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    public void myProducts(View view) {
-
-        Fragment myProductsList = new MyProductsListFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.my_products_list_viewer, myProductsList).commit();
-    }
-
     public void savedProducts(View view) {
-        Fragment savedProductsList = new MySavedProductsListFragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.my_products_list_viewer, savedProductsList).commit();
+
     }
 }

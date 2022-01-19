@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
-import com.google.firebase.auth.FirebaseAuth;
+
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,11 +26,11 @@ public class MyProductsListFragment extends Fragment {
     List<Product> listOfMyProduct = new LinkedList<>();
     MyProductListAdapter myProAdapter;
     String myName;
-    private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -39,20 +39,28 @@ public class MyProductsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_products_list, container, false);
         myProRV = view.findViewById(R.id.my_products_list_recycle);
-        myName = mAuth.getCurrentUser().getEmail();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         myProRV.setLayoutManager(layoutManager);
         myProAdapter = new MyProductListAdapter();
         myProRV.setAdapter(myProAdapter);
-        updateDisplay();
+        if (myName != null) {
+            updateDisplay();
+        }
         return view;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
         model.instance.GetProductsByMe(listOfMyProduct, myName, catHash -> {
-            myProAdapter.setCategoryList(listOfMyProduct);
+            myProAdapter.setCategoryList(catHash);
             myProAdapter.notifyDataSetChanged();
         });
+    }
+
+    public void SetmyName(String userEmail) {
+        myName = userEmail;
+        if (view != null) {
+            updateDisplay();
+        }
     }
 }

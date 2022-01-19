@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_productIWantFragment"
+            app:destination="@id/productIWantFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_profileFragment"
@@ -112,4 +115,9 @@
             android:id="@+id/action_loadingScreenFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/productIWantFragment"
+        android:name="com.example.omtiamt.Model.Fragments.ProductIWantFragment"
+        android:label="fragment_product_i_want"
+        tools:layout="@layout/fragment_product_i_want" />
 </navigation>
