@@ -303,4 +303,10 @@ public class ModelFirebase {
             }
         });
     }
+
+    public void IWasTookit(String idProduct, model.iWasTookit listener) {
+        db.collection(Product.COLLECTION_NAME).document(idProduct).delete();
+                listener.onComplete();
+
+    }
 }

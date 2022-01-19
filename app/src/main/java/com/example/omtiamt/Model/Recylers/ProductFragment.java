@@ -37,6 +37,7 @@ public class ProductFragment extends Fragment {
     Button dontNeedIt;
     String email;
     Button backBtn;
+    Button iTookitBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,12 +53,14 @@ public class ProductFragment extends Fragment {
         productNameTV = view.findViewById(R.id.productname_id);
         viewYourProductTV = view.findViewById(R.id.is_yours_id);
         editBtn = view.findViewById(R.id.btn_edit_product);
+        iTookitBtn = view.findViewById(R.id.btn_took_it);
         iWantItBtn = view.findViewById(R.id.btn_i_want_it);
         deleteBtn = view.findViewById(R.id.btn_delete_product);
         dontNeedIt = view.findViewById(R.id.btn_dont_need);
         backBtn = view.findViewById(R.id.product_back_btn);
         backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         dontNeedIt.setVisibility(View.GONE);
+        iTookitBtn.setVisibility(View.GONE);
         NotYourProduct();
         addressTV = view.findViewById(R.id.product_city_id);
         detailsTV = view.findViewById(R.id.product_details_id);
@@ -78,6 +81,7 @@ public class ProductFragment extends Fragment {
             if(product.getUserBuy().equals(email))
             {
                 dontNeedIt.setVisibility(View.VISIBLE);
+                iTookitBtn.setVisibility(View.VISIBLE);
                 iWantItBtn.setVisibility(View.GONE);
             }
         });
@@ -93,6 +97,8 @@ public class ProductFragment extends Fragment {
 
         dontNeedIt.setOnClickListener(v ->
                 popupMessageSureDontNeed(id,product.getProductName()));
+        iTookitBtn.setOnClickListener(v ->
+                popupMessageSureUwasTookit(id,product.getProductName()));
         return view;
     }
 
@@ -108,16 +114,24 @@ public class ProductFragment extends Fragment {
         deleteBtn.setVisibility(View.GONE);
         viewYourProductTV.setVisibility(View.GONE);
     }
-    public void popupMessageSureTake(String name,String id,String email) {
+    public void popupMessageSureUwasTookit(String id,String name) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
-        alertDialogBuilder.setMessage("Are you sure you want to take this " + "" + name + "?");
+        alertDialogBuilder.setMessage("Are you sure you was took this " + "" + name + "?");
         alertDialogBuilder.setIcon(R.drawable.additem);
         alertDialogBuilder.setTitle("Congratulations!");
         alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
-        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> AddBuytoProduct(id,email));
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> ITookit(id));
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
+    private void ITookit(String id) {
+        model.instance.ITookit(id,() -> {
+            Toast.makeText(this.getContext(), "Hope you Enjoy!", Toast.LENGTH_LONG).show();
+            Navigation.findNavController(view).navigate(R.id.action_productFragment_to_homePageFragment);
+        });
+    }
+
     public void popupMessageSureDelete(String name,String id) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
         alertDialogBuilder.setMessage("Are you sure you want to delete this " + "" + name + "?");
@@ -125,6 +139,16 @@ public class ProductFragment extends Fragment {
         alertDialogBuilder.setTitle("Delete item");
         alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> DeleteMyProduct(id));
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+    public void popupMessageSureTake(String name,String id,String email) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
+        alertDialogBuilder.setMessage("Are you sure you want to take this " + "" + name + "?");
+        alertDialogBuilder.setIcon(R.drawable.additem);
+        alertDialogBuilder.setTitle("Congratulations!");
+        alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> AddBuytoProduct(id,email));
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }

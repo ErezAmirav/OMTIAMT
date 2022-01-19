@@ -25,7 +25,6 @@ public class model {
     public interface deleteuser {
         void onComplete();
     }
-
     public void Deleteuser(deleteuser listener) {
         modelFirebase.Deleteuser(listener);
     }
@@ -76,9 +75,8 @@ public class model {
         void onComplete(HashMap<String, String> catHash);
     }
 
-    public HashMap<String, String> getCatNameAndPictures(HashMap<String, String> catHash, getCatNameAndPictures listener) {
+    public void getCatNameAndPictures(HashMap<String, String> catHash, getCatNameAndPictures listener) {
         modelFirebase.getCatNameAndPictures(catHash, listener);
-        return null;
     }
 
 
@@ -125,6 +123,15 @@ public class model {
     public void DontNeedit(String idProduct, dontNeedit listener) {
         modelFirebase.DontNeedit(idProduct, listener);
     }
+
+    public interface iWasTookit {
+        void onComplete();
+    }
+
+    public void ITookit(String idProduct, iWasTookit listener) {
+        modelFirebase.IWasTookit(idProduct, listener);
+    }
+
     public interface getProductsByCat {
         void onComplete(List<Product> ListOfProduct);
     }
@@ -144,9 +151,8 @@ public class model {
         void onComplete(List<Product> ListOfProduct);
     }
 
-    public HashMap<String, String> GetProductsByMe(List<Product> ListOfProduct, String name, getProductsByMe listener) {
+    public void GetProductsByMe(List<Product> ListOfProduct, String name, getProductsByMe listener) {
         modelFirebase.GetProductsByMe(ListOfProduct, name, listener);
-        return null;
     }
 
 }
