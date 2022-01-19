@@ -25,6 +25,15 @@ public class model {
     private model() {
     }
 
+    public interface deleteuser {
+        void onComplete();
+    }
+
+    public void Deleteuser(deleteuser listener) {
+        modelFirebase.Deleteuser(listener);
+    }
+
+
     public interface getAllUsersListener {
         void onComplete(List<Users> user);
     }

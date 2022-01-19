@@ -83,9 +83,14 @@ public class ProfileFragment extends Fragment {
                         alert.setTitle("Delete User");
                         alert.setMessage("Are You Sure ?");
                         alert.setPositiveButton("Yes", (dialog, which) -> {
+                            model.instance.Deleteuser(new model.deleteuser() {
+                                @Override
+                                public void onComplete() {
+                                    Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
+                                    Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
+                                }
+                            });
                             currentUser.delete();
-                            Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
                         });
                         alert.setNegativeButton("No", (dialog, which) -> {
                             Toast.makeText(ProfileFragment.this.getContext(), "Aborted", Toast.LENGTH_LONG).show();
@@ -110,7 +115,4 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    public void savedProducts(View view) {
-
-    }
 }
