@@ -53,11 +53,17 @@ public class ProductByCategories extends Fragment {
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
-        model.instance.getProductsByCat(listOfProduct, nameCat, catHash -> {
+        if (listOfProduct.isEmpty()) {
+            model.instance.getProductsByCat(listOfProduct, nameCat, catHash -> {
+                proAdapter.setCategoryMap(listOfProduct);
+                proAdapter.notifyDataSetChanged();
+                proAdapter.enableCategory(nameCat);
+            });
+        } else {
             proAdapter.setCategoryMap(listOfProduct);
             proAdapter.notifyDataSetChanged();
-            proAdapter.enableCategory(nameCat);
-        });
+            proAdapter.enableCategory(nameCat);}
+
     }
 
     public void setCategory(String name) {

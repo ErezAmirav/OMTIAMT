@@ -14,7 +14,7 @@ import com.example.omtiamt.R;
 
 
 public class CategoryFragment extends Fragment {
-    TextView TextViewName;
+    TextView nameTv;
     View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category, container, false);
         String Name = CategoryFragmentArgs.fromBundle(getArguments()).getNameCategory();
-        TextViewName = view.findViewById(R.id.category_name_id);
-        TextViewName.setText(Name);
+        nameTv = view.findViewById(R.id.category_name_id);
+        nameTv.setText(Name);
         ProductByCategories fragment = (ProductByCategories) getChildFragmentManager().findFragmentById(R.id.productByCat);
         fragment.setCategory(Name);
 
