@@ -4,15 +4,8 @@ package com.example.omtiamt.Model.Data;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
-
 import com.example.omtiamt.Model.Classes.Categories;
 import com.example.omtiamt.Model.Classes.Product;
-import com.example.omtiamt.Model.Classes.Users;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,11 +16,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,36 +31,9 @@ public class ModelFirebase {
     public HashMap<String, String> catOrderByname = new HashMap<>();
 
 
-    public void getAllUsers(model.getAllUsersListener listener) {
-        db.collection(Users.COLLECTION_NAME)
-                .get()
-                .addOnCompleteListener(task -> {
-                    List<Users> list = new LinkedList<Users>();
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot doc : task.getResult()) {
-                            Users user = Users.create(doc.getData());
-                            if (user != null)
-                                list.add(user);
-                        }
-                    }
-                    listener.onComplete(list);
-                });
-    }
-
-    public void addUser(Users user, model.addUsersListener listener) {
-        Map<String, Object> json = user.toJson();
-        String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
-        json.put("id", NewDocument);
-        db.collection(Users.COLLECTION_NAME)
-                .document(NewDocument)
-                .set(json)
-                .addOnSuccessListener(unused -> listener.onComplete())
-                .addOnFailureListener(e -> listener.onComplete());
-    }
-
     public void addProduct(Product product, model.addProductListener listener) {
         Map<String, Object> json = product.toJson();
-        String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId().toString();
+        String NewDocument = db.collection(Product.COLLECTION_NAME).document().getId().toString();
         json.put("id", NewDocument);
         db.collection(Product.COLLECTION_NAME)
                 .document(NewDocument)
@@ -275,7 +239,6 @@ public class ModelFirebase {
                 listener.onComplete();
             }
         });
-
     }
 
     public void DontNeedit(String idProduct, model.dontNeedit listener) {
