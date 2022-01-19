@@ -27,17 +27,14 @@ public class LoginFragment extends Fragment {
     EditText signName;
     EditText signPassword;
     ImageButton connect;
-    BottomNavigationView navigationView;
-    ImageButton logout;
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
-    ImageButton test;
 
 @Override
     public void onStart(){
         super.onStart();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null){
+        if (currentUser != null ){
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
         }
     }
@@ -45,6 +42,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 

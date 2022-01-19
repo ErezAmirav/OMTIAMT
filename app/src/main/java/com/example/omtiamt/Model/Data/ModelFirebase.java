@@ -299,7 +299,6 @@ public class ModelFirebase {
                         db.collection(Product.COLLECTION_NAME).document(id).delete();
                     }
                 }
-                currentUser.delete();
                 listener.onComplete();
             }
         });
