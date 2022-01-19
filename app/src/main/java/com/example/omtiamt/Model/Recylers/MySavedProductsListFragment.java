@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,8 +14,11 @@ import android.view.ViewGroup;
 
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
+import com.example.omtiamt.Model.Fragments.CategoryFragmentDirections;
+import com.example.omtiamt.Model.Fragments.ProductIWantFragmentArgs;
+import com.example.omtiamt.Model.Fragments.ProductIWantFragmentDirections;
+import com.example.omtiamt.Model.Fragments.ProfileFragmentDirections;
 import com.example.omtiamt.R;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,16 +45,19 @@ public class MySavedProductsListFragment extends Fragment {
         mySavedproRV.setLayoutManager(layoutManager);
         mySavedProAdapter = new MySavedProductListAdapter();
         mySavedproRV.setAdapter(mySavedProAdapter);
-        if (myName != null) {
+        if (myName != null)
             updateDisplay();
-        }
+        mySavedProAdapter.setOnItemClickListener((v, position) -> {
+            String tmp = listOfMySavedProduct.get(position).getId();
+            Navigation.findNavController(view).navigate(ProductIWantFragmentDirections.actionProductIWantFragmentToProductFragment(tmp));
+        });
         return view;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
         model.instance.GetProductsIwant(listOfMySavedProduct, myName, catHash -> {
-            mySavedProAdapter.setCategoryList(catHash);
+            mySavedProAdapter.setList(listOfMySavedProduct);
             mySavedProAdapter.notifyDataSetChanged();
         });
     }

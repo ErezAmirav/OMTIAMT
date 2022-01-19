@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
+import com.example.omtiamt.Model.Fragments.ProductIWantFragmentDirections;
+import com.example.omtiamt.Model.Fragments.ProfileFragmentDirections;
 import com.example.omtiamt.R;
 
 
@@ -43,16 +46,20 @@ public class MyProductsListFragment extends Fragment {
         myProRV.setLayoutManager(layoutManager);
         myProAdapter = new MyProductListAdapter();
         myProRV.setAdapter(myProAdapter);
-        if (myName != null) {
+        if (myName != null)
             updateDisplay();
-        }
+        myProAdapter.setOnItemClickListener((v, position) -> {
+            String tmp = listOfMyProduct.get(position).getId();
+            String idan = "";
+            Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductFragment2(tmp));
+        });
         return view;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
         model.instance.GetProductsByMe(listOfMyProduct, myName, catHash -> {
-            myProAdapter.setCategoryList(catHash);
+            myProAdapter.setCategoryList(listOfMyProduct);
             myProAdapter.notifyDataSetChanged();
         });
     }

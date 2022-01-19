@@ -111,6 +111,9 @@
         <action
             android:id="@+id/action_profileFragment_to_productIWantFragment2"
             app:destination="@id/productIWantFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_productFragment2"
+            app:destination="@id/productFragment" />
     </fragment>
     <fragment
         android:id="@+id/newProductFragment"
@@ -122,5 +125,17 @@
         android:label="fragment_product_i_want"
         tools:layout="@layout/fragment_product_i_want" >
         <argument android:name="Name" />
+        <action
+            android:id="@+id/action_productIWantFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myProductsListFragment"
+        android:name="com.example.omtiamt.Model.Recylers.MyProductsListFragment"
+        android:label="fragment_my_products_list"
+        tools:layout="@layout/fragment_my_products_list" >
+        <action
+            android:id="@+id/action_myProductsListFragment_to_productFragment"
+            app:destination="@id/productFragment" />
     </fragment>
 </navigation>

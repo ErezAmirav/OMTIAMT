@@ -25,8 +25,8 @@ public class MySavedProductListAdapter extends RecyclerView.Adapter<MySavedProdu
         this.listener = listener;
     }
 
-    public void setCategoryList(List<Product> listOfMySavedProduct) {
-        this.listOfMySavedProduct = listOfMySavedProduct;
+    public void setList(List<Product> ListOfProduct) {
+        this.listOfMySavedProduct = ListOfProduct;
     }
 
     private List<Product> listOfMySavedProduct = new LinkedList<>();
@@ -52,8 +52,6 @@ public class MySavedProductListAdapter extends RecyclerView.Adapter<MySavedProdu
         holder.userTextView.setText(userName);
         holder.adressTextView.setText(location);
         holder.categoryTextView.setText(category);
-
-
     }
 
     @Override

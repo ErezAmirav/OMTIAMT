@@ -91,14 +91,7 @@ public class model {
         return null;
     }
 
-    public interface getProductsByCat {
-        void onComplete(List<Product> ListOfProduct);
-    }
 
-    public HashMap<String, String> getProductsByCat(List<Product> ListOfProduct, String nameCat, getProductsByCat listener) {
-        modelFirebase.getProductsByCat(ListOfProduct, nameCat, listener);
-        return null;
-    }
 
     public interface saveImageListener {
         void onComplete(String url);
@@ -142,13 +135,20 @@ public class model {
     public void DontNeedit(String idProduct, dontNeedit listener) {
         modelFirebase.DontNeedit(idProduct, listener);
     }
-    public interface getProductsIwant {
+    public interface getProductsByCat {
         void onComplete(List<Product> ListOfProduct);
     }
 
-    public HashMap<String, String> GetProductsIwant(List<Product> ListOfProduct, String name, getProductsIwant listener) {
-        modelFirebase.GetProductsIwant(ListOfProduct, name, listener);
+    public HashMap<String, String> getProductsByCat(List<Product> ListOfProduct, String nameCat, getProductsByCat listener) {
+        modelFirebase.getProductsByCat(ListOfProduct, nameCat, listener);
         return null;
+    }
+    public interface getProductsIwant {
+        void onComplete(List<Product> listOfMyProduct);
+    }
+
+    public void GetProductsIwant(List<Product> listOfMyProduct, String name, getProductsIwant listener) {
+        modelFirebase.GetProductsIwant(listOfMyProduct, name, listener);
     }
     public interface getProductsByMe {
         void onComplete(List<Product> ListOfProduct);

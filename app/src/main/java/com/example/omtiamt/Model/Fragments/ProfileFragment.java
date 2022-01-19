@@ -40,7 +40,6 @@ public class ProfileFragment extends Fragment {
     Button myProductsBtn;
     Button savedProductsBtn;
     View fragmentMyProduct;
-    View fragmentProductIwant;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,6 @@ public class ProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         mAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        myProductsBtn = view.findViewById(R.id.profile_my_products_btn);
         savedProductsBtn = view.findViewById(R.id.profile_saved_products_btn);
         // Show Current User Email
         email = view.findViewById(R.id.profile_email_id);
@@ -65,15 +63,7 @@ public class ProfileFragment extends Fragment {
         email.setText(userEmail);
         MyProductsListFragment fragment = (MyProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productByMe);
         fragment.SetmyName(userEmail2);
-        MySavedProductsListFragment fragment2 = (MySavedProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productIwant);
-        fragment.SetmyName(userEmail2);
         fragmentMyProduct = view.findViewById(R.id.productByMe);
-        fragmentMyProduct.setVisibility(View.GONE);
-
-        myProductsBtn.setOnClickListener(v -> {
-           // fragmentProductIwant.setVisibility(View.GONE);
-            fragmentMyProduct.setVisibility(View.VISIBLE);
-        });
         savedProductsBtn.setOnClickListener(v -> {
             Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductIWantFragment2(userEmail2));
         });

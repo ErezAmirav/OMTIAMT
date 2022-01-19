@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MyProductListAdapter extends RecyclerView.Adapter<MyProductListAdapter.MyProductViewHolder> {
     OnItemClickListener listener;
-    String myNameCategory;
+
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;

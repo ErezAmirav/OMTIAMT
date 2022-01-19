@@ -38,9 +38,6 @@ public class ModelFirebase {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public HashMap<String, String> catHash = new HashMap<>();
     public HashMap<String, String> catOrderByname = new HashMap<>();
-    List<Product> listOfProduct = new LinkedList<>();
-    List<Product> listOfMyProduct = new LinkedList<>();
-    List<Product> listOfProductIwant = new LinkedList<>();
 
 
     public void getAllUsers(model.getAllUsersListener listener) {
@@ -202,6 +199,27 @@ public class ModelFirebase {
             }
         });
     }
+    public void GetProductsIwant(List<Product> ListOfMyProduct, String name, model.getProductsIwant listener) {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String buy = document.getString("UserBuy");
+                    if (name.equals(buy)) {
+                        String id = document.getId();
+                        String userName = document.getString("User");
+                        String nameProduct = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String category = document.getString("Category");
+                        String location = document.getString("Location");
+                        Product product = new Product(id, userName, category, nameProduct, picture, details, location);
+                        ListOfMyProduct.add(product);
+                    }
+                }
+                listener.onComplete(ListOfMyProduct);
+            }
+        });
+    }
 
     public void saveImg(Bitmap imgBitmap, String imgName, model.saveImageListener listener) {
         StorageReference storageReference = storage.getReference();
@@ -274,29 +292,8 @@ public class ModelFirebase {
         });
     }
 
-    public void GetProductsIwant(List<Product> listOfMyProduct, String name, model.getProductsIwant listener) {
-        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String buy = document.getString("UserBuy");
-                    if (name.equals(buy)) {
-                        String id = document.getId();
-                        String userName = document.getString("User");
-                        String nameProduct = document.getString("Name");
-                        String picture = document.getString("Picture");
-                        String details = document.getString("Details");
-                        String category = document.getString("Category");
-                        String location = document.getString("Location");
-                        Product product = new Product(id, userName, category, nameProduct, picture, details, location);
-                        listOfProductIwant.add(product);
-                    }
-                }
-                listener.onComplete(listOfProductIwant);
-            }
-        });
-    }
 
-    public void GetProductsByMe(List<Product> listOfProductIwant, String name, model.getProductsByMe listener) {
+    public void GetProductsByMe(List<Product> listOfMyProduct, String name, model.getProductsByMe listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
