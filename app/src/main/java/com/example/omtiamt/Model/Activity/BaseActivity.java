@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
+import androidx.navigation.Navigation;
 
 import android.os.Bundle;
 import android.view.View;
@@ -31,18 +32,17 @@ public class BaseActivity extends AppCompatActivity {
             Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    fragment = new homePageFragment();
+                    navCtl.navigate(R.id.action_global_homeFragment);
                     break;
 
                 case R.id.nav_add:
-                    fragment = new NewProductFragment();
+                    navCtl.navigate(R.id.action_global_newProductFragment);
                     break;
 
-                case R.id.nav_profile:
-                    fragment = new ProfileFragment();
+                case R.id.nav_profile: ;
+                    navCtl.navigate(R.id.action_global_profileFragment);
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.body_container, fragment).commit();
             return true;
         });
     }

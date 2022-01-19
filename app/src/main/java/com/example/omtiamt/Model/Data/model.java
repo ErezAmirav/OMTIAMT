@@ -129,8 +129,8 @@ public class model {
         void onComplete();
     }
 
-    public void SignOut(signOut listener) {
-        modelFirebase.SignOut(listener);
+    public void SignOut() {
+        modelFirebase.SignOut();
     }
     public interface setTakenProduct {
         void onComplete();

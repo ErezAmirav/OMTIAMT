@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
+    <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
+    <action android:id="@+id/action_global_newProductFragment" app:destination="@id/newProductFragment"/>
+    <action android:id="@+id/action_global_homeFragment" app:destination="@id/homePageFragment"/>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.omtiamt.Model.Fragments.LoginFragment"
@@ -78,21 +81,6 @@
             app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.omtiamt.Model.Fragments.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_productIWantFragment"
-            app:destination="@id/productIWantFragment" />
-    </fragment>
-    <action
-        android:id="@+id/action_global_profileFragment"
-        app:destination="@id/profileFragment" />
-    <fragment
         android:id="@+id/editProductFragment"
         android:name="com.example.omtiamt.Model.Fragments.EditProductFragment"
         android:label="EditProductFragment" >
@@ -116,8 +104,26 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.omtiamt.Model.Fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_productIWantFragment2"
+            app:destination="@id/productIWantFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newProductFragment"
+        android:name="com.example.omtiamt.Model.Fragments.NewProductFragment"
+        android:label="NewProductFragment" />
+    <fragment
         android:id="@+id/productIWantFragment"
         android:name="com.example.omtiamt.Model.Fragments.ProductIWantFragment"
         android:label="fragment_product_i_want"
-        tools:layout="@layout/fragment_product_i_want" />
+        tools:layout="@layout/fragment_product_i_want" >
+        <argument android:name="Name" />
+    </fragment>
 </navigation>

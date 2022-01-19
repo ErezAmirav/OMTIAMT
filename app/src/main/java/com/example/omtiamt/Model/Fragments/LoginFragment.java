@@ -33,14 +33,14 @@ public class LoginFragment extends Fragment {
     FirebaseUser currentUser;
     ImageButton test;
 
-/*    @Override
+@Override
     public void onStart(){
         super.onStart();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null){
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
         }
-    }*/
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

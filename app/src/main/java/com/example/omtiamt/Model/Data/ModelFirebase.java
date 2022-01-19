@@ -247,9 +247,8 @@ public class ModelFirebase {
         });
     }
 
-    public void SignOut(model.signOut listener) {
+    public void SignOut() {
         FirebaseAuth.getInstance().signOut();
-        int i = 1;
     }
 
     public void SetTakenProduct(String idProduct, String nameTaker, model.setTakenProduct listener) {

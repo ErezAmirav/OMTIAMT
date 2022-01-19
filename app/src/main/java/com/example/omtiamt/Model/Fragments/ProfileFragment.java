@@ -73,8 +73,7 @@ public class ProfileFragment extends Fragment {
             fragmentMyProduct.setVisibility(View.VISIBLE);
         });
         savedProductsBtn.setOnClickListener(v -> {
-            //Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductIwantFragment(userEmail2));
-            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_productIWantFragment);
+            Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductIWantFragment2(userEmail2));
         });
 
 
@@ -103,15 +102,13 @@ public class ProfileFragment extends Fragment {
                         return true;
 
                     case R.id.item_logout:
-                        //FirebaseAuth.getInstance().signOut();
-                        //currentUser = null;
-                        model.instance.SignOut(()->{
+                    {
+
+                        model.instance.SignOut();
                             Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
                             Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
-                        });
-
+                        };
                         return true;
-
                     default:
                         return false;
                 }
