@@ -47,6 +47,7 @@ public class EditProductFragment extends Fragment {
     PopupMenu popUpPhoto;
     Bitmap imageBitmap;
     Product product;
+    Button cancelBtn;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_OPEN_GALLERY = 2;
@@ -69,6 +70,10 @@ public class EditProductFragment extends Fragment {
         category = view.findViewById(R.id.textViewCategoryName);
         saveBtn = view.findViewById(R.id.btn_edit_product);
         uploadPhotoBtn = view.findViewById(R.id.upload_photo_btn);
+        cancelBtn = view.findViewById(R.id.edit_product_cancel_btn);
+
+        cancelBtn.setOnClickListener(v ->
+                Navigation.findNavController(v).navigateUp());
 
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
 
