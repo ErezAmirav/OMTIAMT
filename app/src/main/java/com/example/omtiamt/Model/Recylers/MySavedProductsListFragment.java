@@ -19,12 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.LinkedList;
 import java.util.List;
 
-
-public class MyProductsListFragment extends Fragment {
+public class MySavedProductsListFragment extends Fragment {
     View view;
-    RecyclerView myProRV;
-    List<Product> listOfMyProduct = new LinkedList<>();
-    MyProductListAdapter myProAdapter;
+    RecyclerView mySavedproRV;
+    List<Product> listOfMySavedProduct = new LinkedList<>();
+    MySavedProductListAdapter mySavedProAdapter;
     String myName;
     private FirebaseAuth mAuth;
 
@@ -37,22 +36,22 @@ public class MyProductsListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_my_products_list, container, false);
-        myProRV = view.findViewById(R.id.my_products_list_recycle);
+        view = inflater.inflate(R.layout.fragment_my_saved_products_list, container, false);
+        mySavedproRV = view.findViewById(R.id.saved_products_list_recycle);
         myName = mAuth.getCurrentUser().getEmail();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        myProRV.setLayoutManager(layoutManager);
-        myProAdapter = new MyProductListAdapter();
-        myProRV.setAdapter(myProAdapter);
+        mySavedproRV.setLayoutManager(layoutManager);
+        mySavedProAdapter = new MySavedProductListAdapter();
+        mySavedproRV.setAdapter(mySavedProAdapter);
         updateDisplay();
         return view;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
-        model.instance.GetProductsByMe(listOfMyProduct, myName, catHash -> {
-            myProAdapter.setCategoryList(listOfMyProduct);
-            myProAdapter.notifyDataSetChanged();
+        model.instance.GetProductsIwant(listOfMySavedProduct, myName, catHash -> {
+            mySavedProAdapter.setCategoryList(listOfMySavedProduct);
+            mySavedProAdapter.notifyDataSetChanged();
         });
     }
 }

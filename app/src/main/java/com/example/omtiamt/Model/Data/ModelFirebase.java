@@ -33,9 +33,10 @@ public class ModelFirebase {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public HashMap<String, String> catHash = new HashMap<>();
     public HashMap<String, String> catOrderByname = new HashMap<>();
-    public HashMap<String, String> allMyProducts = new HashMap<>();
     List<Product> listOfProduct = new LinkedList<>();
-    public HashMap<String, String> theProductsIWant = new HashMap<>();
+    List<Product> listOfMyProduct = new LinkedList<>();
+    List<Product> listOfProductIwant = new LinkedList<>();
+
 
     public void getAllUsers(model.getAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
@@ -156,27 +157,7 @@ public class ModelFirebase {
                 listener.onComplete(product);
             }
         });
-/*
-        public void SetProductBuy(String id, String userbuy, model.setProductListener listener)
-        {
-            db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String idProduct = document.getString("id");
-                        if (idProduct.equals(id)) {
 
-
-
-                        }
-                    }
-                    listener.onComplete();
-                }
-            });
-        }
-
-    }
-
- */
     }
     //get all the products by the name of category
     public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.getProductsByCat listener) {
@@ -216,67 +197,6 @@ public class ModelFirebase {
             }
         });
     }
-
-    public void getMyProducts(HashMap<String, String> catHash, String myName, model.getMyProducts listener) {
-        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String userName = document.getString("User");
-                    if (userName.equals(myName)) {
-                        String id = document.getId();
-                        String name = document.getString("Name");
-                        String picture = document.getString("Picture");
-                        String details = document.getString("Details");
-                        String location = document.getString("Location");
-                        String isAvailable = document.getString("isAvailable");
-                        allMyProducts.put("id", id);
-                        allMyProducts.put("Name", name);
-                        allMyProducts.put("Details", details);
-                        allMyProducts.put("Picture", picture);
-                        allMyProducts.put("Location", location);
-                        allMyProducts.put("isAvailable", isAvailable);
-                    }
-                }
-                listener.onComplete(catHash);
-            }
-        });
-    }
-
-    public void getTheProductsIWant(HashMap<String, String> catHash, String myName, model.getTheProductsIWant listener) {
-        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String userBuy = document.getString("UserBuy");
-                    if (userBuy.equals(myName)) {
-                        String id = document.getId();
-                        String name = document.getString("Name");
-                        String userName = document.getString("User");
-                        String picture = document.getString("Picture");
-                        String details = document.getString("Details");
-                        String location = document.getString("Location");
-                        String isAvailable = document.getString("isAvailable");
-                        allMyProducts.put("id", id);
-                        allMyProducts.put("Name", name);
-                        allMyProducts.put("User", userName);
-                        allMyProducts.put("Details", details);
-                        allMyProducts.put("Picture", picture);
-                        allMyProducts.put("Location", location);
-                        allMyProducts.put("isAvailable", isAvailable);
-                    }
-                }
-                listener.onComplete(catHash);
-            }
-        });
-    }
-
-
-    public HashMap<String, String> catHashTest = new HashMap<String, String>();
-
-    private HashMap<String, String> isFinish(HashMap<String, String> catHash, HashMap<String, String> inputHash) {
-        inputHash = catHash;
-        return inputHash;
-    }
-
 
     public void saveImg(Bitmap imgBitmap, String imgName, model.saveImageListener listener) {
         StorageReference storageReference = storage.getReference();
@@ -357,6 +277,50 @@ public class ModelFirebase {
                     }
                 }
                 listener.onComplete();
+            }
+        });
+    }
+
+    public void GetProductsIwant(List<Product> listOfMyProduct, String name, model.getProductsIwant listener) {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myName = document.getString("User");
+                    if (name.equals(myName)) {
+                        String id = document.getId();
+                        String userName = document.getString("User");
+                        String nameProduct = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String category = document.getString("Category");
+                        String location = document.getString("Location");
+                        Product product = new Product(id, userName, category, nameProduct, picture, details, location);
+                        listOfMyProduct.add(product);
+                    }
+                }
+                listener.onComplete(listOfMyProduct);
+            }
+        });
+    }
+
+    public void GetProductsByMe(List<Product> listOfProductIwant, String name, model.getProductsByMe listener) {
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String buy = document.getString("UserBuy");
+                    if (name.equals(buy)) {
+                        String id = document.getId();
+                        String userName = document.getString("User");
+                        String nameProduct = document.getString("Name");
+                        String picture = document.getString("Picture");
+                        String details = document.getString("Details");
+                        String category = document.getString("Category");
+                        String location = document.getString("Location");
+                        Product product = new Product(id, userName, category, nameProduct, picture, details, location);
+                        listOfProductIwant.add(product);
+                    }
+                }
+                listener.onComplete(listOfProductIwant);
             }
         });
     }

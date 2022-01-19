@@ -108,23 +108,8 @@ public class model {
         modelFirebase.saveImg(imgBitmap, imgName, listener);
     }
 
-    public interface getMyProducts {
-        void onComplete(HashMap<String, String> catHash);
-    }
 
-    public HashMap<String, String> getMyProducts(HashMap<String, String> catHash, String myName, getMyProducts listener) {
-        modelFirebase.getMyProducts(catHash, myName, listener);
-        return null;
-    }
 
-    public interface getTheProductsIWant {
-        void onComplete(HashMap<String, String> catHash);
-    }
-
-    public HashMap<String, String> getTheProductsIWant(HashMap<String, String> catHash, String myName, getTheProductsIWant listener) {
-        modelFirebase.getTheProductsIWant(catHash, myName, listener);
-        return null;
-    }
     public interface deleteProduct {
         void onComplete();
     }
@@ -160,6 +145,22 @@ public class model {
 
     public void DontNeedit(String idProduct, dontNeedit listener) {
         modelFirebase.DontNeedit(idProduct, listener);
+    }
+    public interface getProductsIwant {
+        void onComplete(List<Product> ListOfProduct);
+    }
+
+    public HashMap<String, String> GetProductsIwant(List<Product> ListOfProduct, String name, getProductsIwant listener) {
+        modelFirebase.GetProductsIwant(ListOfProduct, name, listener);
+        return null;
+    }
+    public interface getProductsByMe {
+        void onComplete(List<Product> ListOfProduct);
+    }
+
+    public HashMap<String, String> GetProductsByMe(List<Product> ListOfProduct, String name, getProductsByMe listener) {
+        modelFirebase.GetProductsByMe(ListOfProduct, name, listener);
+        return null;
     }
 
 }

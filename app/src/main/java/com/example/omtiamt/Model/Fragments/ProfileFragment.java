@@ -2,7 +2,6 @@ package com.example.omtiamt.Model.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,7 +20,7 @@ import android.widget.Toast;
 import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Recylers.MyProductsListFragment;
-import com.example.omtiamt.Model.Recylers.mySavedProductsListFragment;
+import com.example.omtiamt.Model.Recylers.MySavedProductsListFragment;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -117,7 +116,7 @@ public class ProfileFragment extends Fragment {
     }
 
     public void savedProducts(View view) {
-        Fragment savedProductsList = new mySavedProductsListFragment();
+        Fragment savedProductsList = new MySavedProductsListFragment();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.replace(R.id.my_products_list_viewer, savedProductsList).commit();
     }
