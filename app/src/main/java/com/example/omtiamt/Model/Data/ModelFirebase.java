@@ -38,7 +38,8 @@ public class ModelFirebase {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public HashMap<String, String> catHash = new HashMap<>();
     public HashMap<String, String> catOrderByname = new HashMap<>();
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
     public void getAllUsers(model.getAllUsersListener listener) {
         db.collection(Users.COLLECTION_NAME)
                 .get()
@@ -162,7 +163,6 @@ public class ModelFirebase {
     }
     //get all the products by the name of category
     public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.getProductsByCat listener) {
-        ListOfProduct.clear();
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -200,7 +200,6 @@ public class ModelFirebase {
         });
     }
     public void GetProductsIwant(List<Product> ListOfMyProduct, String name, model.getProductsIwant listener) {
-        ListOfMyProduct.clear();
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -295,7 +294,6 @@ public class ModelFirebase {
 
 
     public void GetProductsByMe(List<Product> listOfMyProduct, String name, model.getProductsByMe listener) {
-        listOfMyProduct.clear();
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -314,23 +312,5 @@ public class ModelFirebase {
                 listener.onComplete(listOfMyProduct);
             }
         });
-    }
-
-    public void Deleteuser(model.deleteuser listener) {
-        String userEmail2 = mAuth.getCurrentUser().getEmail();
-        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String myName = document.getString("User");
-                    if (userEmail2.equals(myName)) {
-                        String id = document.getId();
-                        db.collection(Product.COLLECTION_NAME).document(id).delete();
-                    }
-                }
-                listener.onComplete();
-                currentUser.delete();
-            }
-        });
-
     }
 }

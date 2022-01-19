@@ -24,19 +24,6 @@ public class homePageFragment extends Fragment {
     List<String> catData;
     View view;
     FirebaseAuth mAuth;
-    List<String> list;
-    FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-
-
-    public homePageFragment() {
-        // Required empty public constructor
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static homePageFragment newInstance(String param1, String param2) {
-        homePageFragment fragment = new homePageFragment();
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

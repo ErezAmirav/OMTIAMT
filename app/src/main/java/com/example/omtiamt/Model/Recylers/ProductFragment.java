@@ -36,6 +36,7 @@ public class ProductFragment extends Fragment {
     Button iWantItBtn;
     Button dontNeedIt;
     String email;
+    Button backBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class ProductFragment extends Fragment {
         iWantItBtn = view.findViewById(R.id.btn_i_want_it);
         deleteBtn = view.findViewById(R.id.btn_delete_product);
         dontNeedIt = view.findViewById(R.id.btn_dont_need);
+        backBtn = view.findViewById(R.id.product_back_btn);
+        backBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
         dontNeedIt.setVisibility(View.GONE);
         NotYourProduct();
         addressTV = view.findViewById(R.id.product_city_id);
