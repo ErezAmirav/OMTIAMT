@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.omtiamt.Model.Recylers.MySavedProductsListFragment;
-import com.example.omtiamt.Model.Recylers.ProductByCategories;
 import com.example.omtiamt.R;
 
 
@@ -29,7 +28,7 @@ public class ProductIWantFragment extends Fragment {
         view =inflater.inflate(R.layout.fragment_product_i_want, container, false);
         String Name = ProductIWantFragmentArgs.fromBundle(getArguments()).getName();
         MySavedProductsListFragment fragment = (MySavedProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productIwant);
-        fragment.SetmyName(Name);
+        fragment.SetMyName(Name);
         return view;
     }
 }
