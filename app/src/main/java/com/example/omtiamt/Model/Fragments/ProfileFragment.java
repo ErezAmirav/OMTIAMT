@@ -65,6 +65,8 @@ public class ProfileFragment extends Fragment {
         email.setText(userEmail);
         MyProductsListFragment fragment = (MyProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productByMe);
         fragment.SetmyName(userEmail2);
+        MySavedProductsListFragment fragment2 = (MySavedProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productIwant);
+        fragment.SetmyName(userEmail2);
         fragmentMyProduct = view.findViewById(R.id.productByMe);
         fragmentMyProduct.setVisibility(View.GONE);
 

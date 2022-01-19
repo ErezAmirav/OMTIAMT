@@ -52,6 +52,7 @@ public class MyProductListAdapter extends RecyclerView.Adapter<MyProductListAdap
         holder.userTextView.setText(userName);
         holder.adressTextView.setText(location);
         holder.categoryTextView.setText(category);
+        holder.userTextView.setVisibility(View.GONE);
 
 
     }
