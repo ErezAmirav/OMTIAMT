@@ -81,7 +81,7 @@ public class ProfileFragment extends Fragment {
                         // Alert Dialog to Confirm
                         alert = new AlertDialog.Builder(ProfileFragment.this.getContext());
                         alert.setTitle("Delete User");
-                        alert.setMessage("Are You Sure ?");
+                        alert.setMessage("Are You Sure ? all your products will deleted");
                         alert.setPositiveButton("Yes", (dialog, which) -> {
                             model.instance.Deleteuser(new model.deleteuser() {
                                 @Override
