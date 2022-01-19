@@ -31,9 +31,7 @@ public class model {
     }
 
 
-    public interface getAllUsersListener {
-        void onComplete(List<Users> user);
-    }
+
 
     public List<String> getAllCategoriesName() {
         return modelFirebase.getCatName();
@@ -53,18 +51,8 @@ public class model {
         void onComplete(Product product);
     }
 
-
-    public void addUser(Users user, addUsersListener listener) {
-        modelFirebase.addUser(user, listener);
-    }
-
     public void addProduct(Product product, addProductListener listener) {
         modelFirebase.addProduct(product, listener);
-    }
-
-    public Users getUsersById(String userId) {
-        modelFirebase.getUsersById(userId);
-        return null;
     }
     public Product getProduct(String id, Product product, getProductListener listener) {
         modelFirebase.getProduct(id,product,listener);
@@ -82,10 +70,6 @@ public class model {
     public List<String> getCategoryNames() {
         return modelFirebase.getCatName();
     }
-
-    /*public HashMap<String, String> getCatNameAndPictures() {
-        return modelFirebase.getCatNameAndPictures();
-    }*/
 
 
     public interface getCatNameAndPictures {

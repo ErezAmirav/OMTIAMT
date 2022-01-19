@@ -4,8 +4,14 @@ package com.example.omtiamt.Model.Data;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.example.omtiamt.Model.Classes.Categories;
 import com.example.omtiamt.Model.Classes.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -16,9 +22,11 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +36,7 @@ public class ModelFirebase {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public HashMap<String, String> catHash = new HashMap<>();
-    public HashMap<String, String> catOrderByname = new HashMap<>();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
     public void addProduct(Product product, model.addProductListener listener) {
@@ -101,6 +109,7 @@ public class ModelFirebase {
             }
         });
     }
+
     //get Product with id
     public void getProduct(String id, Product product, model.getProductListener listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
@@ -125,12 +134,13 @@ public class ModelFirebase {
         });
 
     }
+
     //get all the products by the name of category
     public void getProductsByCat(List<Product> ListOfProduct, String nameCat, model.getProductsByCat listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    if(nameCat.equals("View All")) {
+                    if (nameCat.equals("View All")) {
                         String buy = document.getString("UserBuy");
                         if (buy.equals("nobody")) {
                             String id = document.getId();
@@ -154,7 +164,7 @@ public class ModelFirebase {
                             String picture = document.getString("Picture");
                             String details = document.getString("Details");
                             String location = document.getString("Location");
-                            Product product = new Product(id, userName,category, name, picture, details, location);
+                            Product product = new Product(id, userName, category, name, picture, details, location);
                             ListOfProduct.add(product);
                         }
                     }
@@ -163,6 +173,7 @@ public class ModelFirebase {
             }
         });
     }
+
     public void GetProductsIwant(List<Product> ListOfMyProduct, String name, model.getProductsIwant listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -214,9 +225,9 @@ public class ModelFirebase {
                 listener.onComplete();
             }
         });
-        }
+    }
 
-    public void SetProduct(Product product , model.setProduct listener) {
+    public void SetProduct(Product product, model.setProduct listener) {
 
         db.collection(Product.COLLECTION_NAME).document(product.getId()).set(product.toJson())
                 .addOnCompleteListener(task ->
@@ -233,12 +244,13 @@ public class ModelFirebase {
                 for (QueryDocumentSnapshot myDocument : task.getResult()) {
                     String idCat = myDocument.getString("id");
                     if (idCat.equals(idProduct)) {
-                        db.collection(Product.COLLECTION_NAME).document(idCat).update("UserBuy",nameTaker);
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("UserBuy", nameTaker);
                     }
                 }
                 listener.onComplete();
             }
         });
+
     }
 
     public void DontNeedit(String idProduct, model.dontNeedit listener) {
@@ -247,14 +259,13 @@ public class ModelFirebase {
                 for (QueryDocumentSnapshot myDocument : task.getResult()) {
                     String idCat = myDocument.getString("id");
                     if (idCat.equals(idProduct)) {
-                        db.collection(Product.COLLECTION_NAME).document(idCat).update("UserBuy","noBody");
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("UserBuy", "noBody");
                     }
                 }
                 listener.onComplete();
             }
         });
     }
-
 
     public void GetProductsByMe(List<Product> listOfMyProduct, String name, model.getProductsByMe listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
@@ -273,6 +284,23 @@ public class ModelFirebase {
                     }
                 }
                 listener.onComplete(listOfMyProduct);
+            }
+        });
+    }
+
+    public void Deleteuser(model.deleteuser listener) {
+        String email = mAuth.getCurrentUser().getEmail();
+        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myName = document.getString("User");
+                    if (email.equals(myName)) {
+                        String id = document.getId();
+                        db.collection(Product.COLLECTION_NAME).document(id).delete();
+                    }
+                }
+                currentUser.delete();
+                listener.onComplete();
             }
         });
     }
