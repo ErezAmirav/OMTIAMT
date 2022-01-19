@@ -80,8 +80,7 @@ public class ProductFragment extends Fragment {
         });
         editBtn.setOnClickListener(v ->
                 Navigation.findNavController(view).navigate(ProductFragmentDirections.actionProductFragmentToEditProductFragment
-                (product.getProductName(),product.getProductPicture(),product.getDetails(),
-                        product.getLocation(),product.getCategory(),product.getId())));
+                (product)));
 
         iWantItBtn.setOnClickListener(v ->
                 popupMessageSureTake(product.getProductName(),id,email));

@@ -84,15 +84,12 @@
         android:id="@+id/editProductFragment"
         android:name="com.example.omtiamt.Model.Fragments.EditProductFragment"
         android:label="EditProductFragment" >
-        <argument android:name="nameProduct" />
-        <argument android:name="pictureProduct" />
-        <argument android:name="detailsProduct" />
-        <argument android:name="adressProduct" />
-        <argument android:name="categoryProduct" />
-        <argument android:name="idProduct" />
         <action
             android:id="@+id/action_editProductFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
+        <argument
+            android:name="product"
+            app:argType="com.example.omtiamt.Model.Classes.Product" />
     </fragment>
     <fragment
         android:id="@+id/loadingScreenFragment"

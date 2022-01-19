@@ -5,9 +5,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.omtiamt.Model.Classes.Categories;
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Classes.Users;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -229,22 +234,11 @@ public class ModelFirebase {
         });
         }
 
-    public void SetProduct(String idProduct, String nameProduuct, String addressProduct, String detailsProduct,String pictureUrl, model.setProduct listener) {
-        db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot myDocument : task.getResult()) {
-                    String idCat = myDocument.getString("id");
-                    if (idCat.equals(idProduct)) {
-                        db.collection(Product.COLLECTION_NAME).document(idCat).update("Name",nameProduuct);
-                        db.collection(Product.COLLECTION_NAME).document(idCat).update("Details",detailsProduct);
-                        db.collection(Product.COLLECTION_NAME).document(idCat).update("Picture",pictureUrl);
-                        db.collection(Product.COLLECTION_NAME).document(idCat).update("Location",addressProduct);
+    public void SetProduct(Product product , model.setProduct listener) {
 
-                    }
-                }
-                listener.onComplete();
-            }
-        });
+        db.collection(Product.COLLECTION_NAME).document(product.getId()).set(product.toJson())
+                .addOnCompleteListener(task ->
+                        listener.onComplete());
     }
 
     public void SignOut() {

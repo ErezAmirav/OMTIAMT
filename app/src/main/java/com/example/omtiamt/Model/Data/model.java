@@ -121,8 +121,8 @@ public class model {
         void onComplete();
     }
 
-    public void SetProduct(String idProduct,String nameProduuct,String addressProduct,String detailsProduct,String pictureUrl, setProduct listener) {
-        modelFirebase.SetProduct(idProduct,nameProduuct,addressProduct,detailsProduct,pictureUrl, listener);
+    public void SetProduct(Product product, setProduct listener) {
+        modelFirebase.SetProduct(product, listener);
     }
 
     public void SignOut() {

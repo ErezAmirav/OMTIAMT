@@ -32,6 +32,7 @@ import com.example.omtiamt.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
+import java.io.Serializable;
 
 
 public class EditProductFragment extends Fragment {
@@ -45,7 +46,7 @@ public class EditProductFragment extends Fragment {
     Button uploadPhotoBtn;
     PopupMenu popUpPhoto;
     Bitmap imageBitmap;
-
+    Product product;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_OPEN_GALLERY = 2;
@@ -59,12 +60,8 @@ public class EditProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_edit_product, container, false);
-        String idProduct = EditProductFragmentArgs.fromBundle(getArguments()).getIdProduct();
-        String nameProduct = EditProductFragmentArgs.fromBundle(getArguments()).getNameProduct();
-        String categoryProduct = EditProductFragmentArgs.fromBundle(getArguments()).getCategoryProduct();
-        String pictureProduct = EditProductFragmentArgs.fromBundle(getArguments()).getPictureProduct();
-        String addressProduct = EditProductFragmentArgs.fromBundle(getArguments()).getAdressProduct();
-        String detailsProduct = EditProductFragmentArgs.fromBundle(getArguments()).getDetailsProduct();
+        product = EditProductFragmentArgs.fromBundle((getArguments())).getProduct();
+
         name = view.findViewById(R.id.newproduct_name_id);
         picImgView = view.findViewById(R.id.image_preview);
         address = view.findViewById(R.id.adress_EditText);
@@ -75,11 +72,11 @@ public class EditProductFragment extends Fragment {
 
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
 
-        name.setText(nameProduct);
-        Picasso.with(this.getContext()).load(pictureProduct).resize(300, 300).into(picImgView);
-        address.setText(addressProduct);
-        details.setText(detailsProduct);
-        category.setText(categoryProduct);
+        name.setText(product.getProductName());
+        Picasso.with(this.getContext()).load(product.getProductPicture()).resize(300, 300).into(picImgView);
+        address.setText(product.getLocation());
+        details.setText(product.getDetails());
+        category.setText(product.getCategory());
 
         saveBtn.setOnClickListener(v -> {
             if (TextUtils.isEmpty(name.getText().toString())) {
@@ -93,28 +90,43 @@ public class EditProductFragment extends Fragment {
                 details.requestFocus();
             } else
                 // TODO - Fix the save
-                popupMessageSureEdit(name.getText().toString(), idProduct, picImgView.toString(), address.getText().toString(), details.getText().toString());
+                popupMessageSureEdit();
         });
 
         return view;
     }
 
-    public void popupMessageSureEdit(String nameProduct, String idProduct, String pictureProduct, String addressProduct, String detailsProduct) {
+    public void popupMessageSureEdit() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
-        alertDialogBuilder.setMessage("Are you sure you want to edit this " + "" + nameProduct + "?");
+        alertDialogBuilder.setMessage("Are you sure you want to edit this " + "" + product.getProductName() + "?");
         alertDialogBuilder.setIcon(R.drawable.additem);
         alertDialogBuilder.setTitle("Delete item");
         alertDialogBuilder.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
-        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> EditMyProduct(nameProduct, idProduct, pictureProduct, addressProduct, detailsProduct));
+        alertDialogBuilder.setPositiveButton("Yes", (dialogInterface, i) -> saveProduct());
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 
-    private void EditMyProduct(String nameProduct, String idProduct, String pictureProduct, String addressProduct, String detailsProduct) {
-        model.instance.SetProduct(idProduct, nameProduct, addressProduct, detailsProduct, pictureProduct, () -> {
-            Toast.makeText(this.getContext(), "Product Edited", Toast.LENGTH_LONG).show();
-            Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_homePageFragment);
-        });
+
+    private void saveProduct(){
+        product.setProductName(name.getText().toString());
+        product.setLocation(address.getText().toString());
+        product.setDetails(details.getText().toString());
+
+        if (imageBitmap == null){
+            model.instance.SetProduct(product, () -> {
+                Toast.makeText(getContext(), "Product Edited", Toast.LENGTH_LONG).show();
+                Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_homePageFragment);
+            });
+        }else{
+            model.instance.saveImage(imageBitmap, product.getProductName(), url -> {
+                product.setProductPicUrl(url);
+                model.instance.SetProduct(product, () -> {
+                    Toast.makeText(getContext(), "Product Edited", Toast.LENGTH_LONG).show();
+                    Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_homePageFragment);
+                });
+            });
+        }
     }
 
     @SuppressLint("NonConstantResourceId")
