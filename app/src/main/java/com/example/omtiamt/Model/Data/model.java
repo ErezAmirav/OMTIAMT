@@ -125,10 +125,6 @@ public class model {
         modelFirebase.SetProduct(idProduct,nameProduuct,addressProduct,detailsProduct,pictureUrl, listener);
     }
 
-    public interface signOut {
-        void onComplete();
-    }
-
     public void SignOut() {
         modelFirebase.SignOut();
     }
