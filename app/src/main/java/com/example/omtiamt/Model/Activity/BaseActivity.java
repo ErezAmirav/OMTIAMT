@@ -29,7 +29,6 @@ public class BaseActivity extends AppCompatActivity {
         navigationView.setSelectedItemId(R.id.nav_home);
 
         navigationView.setOnNavigationItemSelectedListener(item -> {
-            Fragment fragment = null;
             switch (item.getItemId()) {
                 case R.id.nav_home:
                     navCtl.navigate(R.id.action_global_homeFragment);
