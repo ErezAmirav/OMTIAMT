@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/productIwant"
-        android:name="com.example.omtiamt.Model.Recylers.ProductByCategories"
+        android:name="com.example.omtiamt.Model.Recylers.MySavedProductsListFragment"
         android:layout_width="362dp"
         android:layout_height="547dp"
         android:layout_alignParentStart="true"

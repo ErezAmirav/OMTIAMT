@@ -24,7 +24,6 @@ import java.util.List;
 public class ProductByCategories extends Fragment {
     View view;
     RecyclerView proRV;
-    HashMap<String, String> catOrderByname = new HashMap<String, String>();
     List<Product> listOfProduct = new LinkedList<>();
     ProductListAdapter proAdapter;
     String nameCat;

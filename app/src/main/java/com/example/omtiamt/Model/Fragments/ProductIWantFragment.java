@@ -28,8 +28,8 @@ public class ProductIWantFragment extends Fragment {
                              Bundle savedInstanceState) {
         view =inflater.inflate(R.layout.fragment_product_i_want, container, false);
         String Name = ProductIWantFragmentArgs.fromBundle(getArguments()).getName();
-        //MySavedProductsListFragment fragment = (MySavedProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productIwant);
-        //fragment.SetmyName(Name);
+        MySavedProductsListFragment fragment = (MySavedProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productIwant);
+        fragment.SetmyName(Name);
         return view;
     }
 }

@@ -25,7 +25,6 @@ public class MySavedProductsListFragment extends Fragment {
     List<Product> listOfMySavedProduct = new LinkedList<>();
     MySavedProductListAdapter mySavedProAdapter;
     String myName;
-    private FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public class MySavedProductsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_saved_products_list, container, false);
         mySavedproRV = view.findViewById(R.id.saved_products_list_recycle);
-        myName = mAuth.getCurrentUser().getEmail();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
         mySavedproRV.setLayoutManager(layoutManager);
         mySavedProAdapter = new MySavedProductListAdapter();
@@ -46,7 +44,6 @@ public class MySavedProductsListFragment extends Fragment {
         if (myName != null) {
             updateDisplay();
         }
-        updateDisplay();
         return view;
     }
 
