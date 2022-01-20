@@ -95,10 +95,12 @@ public class ProfileFragment extends Fragment {
 
         model.instance.GetNameCurrentUser(userEmail2,(listener)->{
             nameUser = listener;
+            if (nameUser != "")
             profileName.setText(nameUser);
         });
         model.instance.GetPictureCurrentUser(userEmail2,(listener)->{
             imageUrl = listener;
+            if(imageUrl != "")
             Picasso.with(this.getContext()).load(imageUrl).resize(300, 300).into(profilePicture);
 
         });
