@@ -198,12 +198,14 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
+                progressBar.setVisibility(View.VISIBLE);
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                profilePicture.setImageBitmap(imageBitmap);
                 model.instance.saveImage(imageBitmap,  nameUser+ ".jpg", url -> {
                     model.instance.SetPictureCurrentUser(userEmail2,url,()-> {
-                        Toast.makeText(ProfileFragment.this.getContext(), "Picture Changed", Toast.LENGTH_LONG).show();
+                        Picasso.with(this.getContext()).load(url).resize(300, 300).into(profilePicture);
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(ProfileFragment.this.getContext(), "Profile Picture Changed", Toast.LENGTH_LONG).show();
                     });
                 });
 
@@ -211,13 +213,21 @@ public class ProfileFragment extends Fragment {
         }
         if (requestCode == REQUEST_OPEN_GALLERY) {
             if (resultCode == RESULT_OK) {
+                progressBar.setVisibility(View.VISIBLE);
                 try {
                     final Uri imageUri = data.getData();
                     final InputStream imgStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imgStream);
-                    profilePicture.setImageBitmap(imageBitmap);
+                    model.instance.saveImage(imageBitmap,  nameUser+ ".jpg", url -> {
+                        model.instance.SetPictureCurrentUser(userEmail2,url,()-> {
+                            progressBar.setVisibility(View.GONE);
+                            Picasso.with(this.getContext()).load(url).resize(300, 300).into(profilePicture);
+                            Toast.makeText(ProfileFragment.this.getContext(), "Profile Picture Changed", Toast.LENGTH_LONG).show();
+                        });
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(ProfileFragment.this.getContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
             }
