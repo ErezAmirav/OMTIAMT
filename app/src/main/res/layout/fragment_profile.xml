@@ -29,7 +29,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/aldrich"
-        android:text="My Product"
+        android:text="My Products"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="48sp"
@@ -107,6 +107,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_saved_products_btn"
         app:layout_constraintVertical_bias="0.405" />
+
+    <ProgressBar
+        android:id="@+id/product_by_category_pb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="183dp"
+        android:layout_height="175dp"
+        android:indeterminateTint="#FF5722"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

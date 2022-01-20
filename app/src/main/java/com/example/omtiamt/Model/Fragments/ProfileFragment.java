@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.omtiamt.Model.Activity.BaseActivity;
@@ -34,6 +35,7 @@ public class ProfileFragment extends Fragment {
     AlertDialog.Builder alert;
     Button savedProductsBtn;
     View fragmentMyProduct;
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,9 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         BaseActivity.showTabBar();
         view = inflater.inflate(R.layout.fragment_profile, container, false);
+        progressBar = view.findViewById(R.id.product_by_category_pb);
+        progressBar.setVisibility(View.GONE);
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         savedProductsBtn = view.findViewById(R.id.profile_saved_products_btn);
@@ -54,6 +59,7 @@ public class ProfileFragment extends Fragment {
         userEmail = " " + mAuth.getCurrentUser().getEmail();
         userEmail2 = mAuth.getCurrentUser().getEmail();
         email.setText(userEmail);
+
         MyProductsListFragment fragment = (MyProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productByMe);
         fragment.SetMyName(userEmail2);
         fragmentMyProduct = view.findViewById(R.id.productByMe);
@@ -75,9 +81,11 @@ public class ProfileFragment extends Fragment {
                         alert.setMessage("Are You Sure ? all your products will deleted");
                         alert.setPositiveButton("Yes", (dialog, which) -> {
                             model.instance.DeleteUser(() -> {
+                                progressBar.setVisibility(View.VISIBLE);
                                 currentUser.delete();
                                 Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
                                 BaseActivity.hideTabBar();
+                                progressBar.setVisibility(View.GONE);
                                 Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_registerFragment);
                             });
                         });
@@ -88,8 +96,10 @@ public class ProfileFragment extends Fragment {
                         return true;
 
                     case R.id.item_logout: {
+                        progressBar.setVisibility(View.VISIBLE);
                         model.instance.SignOut();
                         Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                         Intent intent = new Intent(getContext(), BaseActivity.class);
                         startActivity(intent);
                     }

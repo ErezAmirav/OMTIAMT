@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.omtiamt.Model.Classes.Product;
@@ -44,6 +45,7 @@ public class EditProductFragment extends Fragment {
     Bitmap imageBitmap;
     Product product;
     Button cancelBtn;
+    ProgressBar progressBar;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_OPEN_GALLERY = 2;
@@ -58,7 +60,8 @@ public class EditProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_edit_product, container, false);
         product = EditProductFragmentArgs.fromBundle((getArguments())).getProduct();
-
+        progressBar = view.findViewById(R.id.edit_product_pb);
+        progressBar.setVisibility(View.GONE);
         name = view.findViewById(R.id.newproduct_name_id);
         picImgView = view.findViewById(R.id.image_preview);
         address = view.findViewById(R.id.adress_EditText);
@@ -104,19 +107,24 @@ public class EditProductFragment extends Fragment {
     }
 
     private void saveProduct() {
+        progressBar.setVisibility(View.VISIBLE);
         product.setProductName(name.getText().toString());
         product.setLocation(address.getText().toString());
         product.setDetails(details.getText().toString());
         if (imageBitmap == null) {
             model.instance.SetProduct(product, () -> {
                 Toast.makeText(getContext(), "Product Edited", Toast.LENGTH_LONG).show();
+                progressBar.setVisibility(View.GONE);
+
                 Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_homePageFragment);
             });
         } else {
+
             model.instance.saveImage(imageBitmap, product.getProductName(), url -> {
                 product.setProductPicUrl(url);
                 model.instance.SetProduct(product, () -> {
                     Toast.makeText(getContext(), "Product Edited", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
                     Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_homePageFragment);
                 });
             });

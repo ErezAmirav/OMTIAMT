@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
     AlertDialog.Builder dialogBuilder;
+    ProgressBar progressBar;
     private String myText;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -70,8 +72,9 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         BaseActivity.showTabBar();
-
         view = inflater.inflate(R.layout.fragment_new_product, container, false);
+        progressBar = view.findViewById(R.id.new_product_pb);
+        progressBar.setVisibility(View.GONE);
         catList = view.findViewById(R.id.choose_category_id);
         uploadPhotoBtn = view.findViewById(R.id.upload_photo_btn);
         publishBtn = view.findViewById(R.id.btn_edit_product);
@@ -145,6 +148,8 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
         Product product = new Product(id, name, category, address, details, userEmail, null, "nobody");
         if (imageBitmap != null) {
+            progressBar.setVisibility(View.VISIBLE);
+
             model.instance.saveImage(imageBitmap, name + ".jpg", url -> {
                 product.setProductPicUrl(url);
                 model.instance.addProduct(product, this::restartPage);
@@ -204,6 +209,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     }
 
     public void restartPage() {
+        progressBar.setVisibility(View.GONE);
         popupMessageEnd();
         namePro.setText("");
         addressPro.setText("");

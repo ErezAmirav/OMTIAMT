@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
 import com.example.omtiamt.R;
@@ -22,6 +24,7 @@ public class Category_List_Fragment extends Fragment {
     RecyclerView catRV;
     HashMap<String, String> myCatHash = new HashMap<String, String>();
     CategoryListAdapter catAdapter;
+    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,12 +38,14 @@ public class Category_List_Fragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_category__list_, container, false);
         catRV = view.findViewById(R.id.recyclerview_Categories);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
+
         catRV.setLayoutManager(layoutManager);
 
         model.instance.getCatNameAndPictures(myCatHash, catHash -> {
             catAdapter.setCategoryMap(catHash);
             catAdapter.notifyDataSetChanged();
         });
+
         catAdapter = new CategoryListAdapter();
         catRV.setAdapter(catAdapter);
         catAdapter.setOnItemClickListener((v, position) -> {

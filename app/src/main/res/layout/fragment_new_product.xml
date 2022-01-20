@@ -235,5 +235,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/choose_category_id" />
 
+
+        <ProgressBar
+            android:id="@+id/new_product_pb"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="183dp"
+            android:layout_height="175dp"
+            android:indeterminateTint="#FF5722"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

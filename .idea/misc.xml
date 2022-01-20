@@ -15,7 +15,7 @@
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_activity_base.xml" value="0.2269021739130435" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_activity_register.xml" value="0.2713541666666667" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_category.xml" value="0.22" />
-        <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_category__list_.xml" value="0.14947916666666666" />
+        <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_category__list_.xml" value="0.22" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_category_item.xml" value="0.33" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_choose_category.xml" value="0.33" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_edit_product.xml" value="0.25" />
@@ -26,7 +26,7 @@
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_product.xml" value="0.5" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_product__by__categories.xml" value="0.18958333333333333" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_product_i_want.xml" value="0.18958333333333333" />
-        <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_readmore_product.xml" value="0.5" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_register.xml" value="0.33" />
         <entry key="..\:/Users/Erez/AndroidStudioProjects/OMTIAMT/app/src/main/res/layout/fragment_welcome.xml" value="0.1816123188405797" />
