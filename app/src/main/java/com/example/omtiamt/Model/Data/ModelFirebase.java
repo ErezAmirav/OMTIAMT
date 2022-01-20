@@ -29,6 +29,8 @@ public class ModelFirebase {
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     boolean check;
     String myMessage;
+    String imageUrl;
+    String nameUser;
 
     // Add new Product
     public void addProduct(Product product, model.addProductListener listener) {
@@ -346,7 +348,7 @@ public class ModelFirebase {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String myEmail = document.getString("email");
                     if (email.equals(myEmail)) {
-                        String imageUrl = document.getString("imageUrl");
+                        imageUrl = document.getString("imageUrl");
                         listener.onComplete(imageUrl);
                     }
                 }
@@ -354,4 +356,46 @@ public class ModelFirebase {
         });
     }
 
+    public void SetPictureCurrentUser(String email, String pictureUrl, model.setPictureCurrentUser listener) {
+        db.collection(Users.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myEmail = document.getString("email");
+                    if (email.equals(myEmail)) {
+                        String id = document.getId();
+                        db.collection(Users.COLLECTION_NAME).document(id).update("imageUrl",pictureUrl);
+                    }
+                }
+            }
+        });
+    }
+
+    public void SetNameCurrentUser(String email, String nameUser, model.setNameCurrentUser listener) {
+        db.collection(Users.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myEmail = document.getString("email");
+                    if (email.equals(myEmail)) {
+                        String id = document.getId();
+                        db.collection(Users.COLLECTION_NAME).document(id).update("name",nameUser);
+                        listener.onComplete(nameUser);
+                    }
+                }
+            }
+        });
+    }
+
+    public void GetNameCurrentUser(String email, model.getNameCurrentUser listener) {
+        db.collection(Users.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myEmail = document.getString("email");
+                    if (email.equals(myEmail)) {
+                        nameUser = document.getString("name");
+                        listener.onComplete(nameUser);
+                    }
+                }
+            }
+        });
+    }
 }

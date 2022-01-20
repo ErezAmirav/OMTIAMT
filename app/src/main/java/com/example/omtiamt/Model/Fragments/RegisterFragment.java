@@ -75,7 +75,7 @@ public class RegisterFragment extends Fragment {
             else if
             (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())) {
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
-                Users user = new Users("",inputEmail.getText().toString(),"");
+                Users user = new Users("",inputEmail.getText().toString(),"","");
                 model.instance.AddUser(user,()->{
                     Toast.makeText(RegisterFragment.this.getContext(), "Register Successful", Toast.LENGTH_LONG).show();
                 });

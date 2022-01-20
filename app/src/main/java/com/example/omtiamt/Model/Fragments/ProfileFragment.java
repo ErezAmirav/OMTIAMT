@@ -34,6 +34,7 @@ import com.example.omtiamt.Model.Recylers.MyProductsListFragment;
 import com.example.omtiamt.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 
@@ -56,6 +57,7 @@ public class ProfileFragment extends Fragment {
     TextView profileName;
     String imageUrl;
     Bitmap imageBitmap;
+    String nameUser;
     private String myText;
 
 
@@ -90,6 +92,17 @@ public class ProfileFragment extends Fragment {
         MyProductsListFragment fragment = (MyProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productByMe);
         fragment.SetMyName(userEmail2);
         fragmentMyProduct = view.findViewById(R.id.productByMe);
+
+        model.instance.GetNameCurrentUser(userEmail2,(listener)->{
+            nameUser = listener;
+            profileName.setText(nameUser);
+        });
+        model.instance.GetPictureCurrentUser(userEmail2,(listener)->{
+            imageUrl = listener;
+            Picasso.with(this.getContext()).load(imageUrl).resize(300, 300).into(profilePicture);
+
+        });
+        //profileName.setText(nameUser);
 
         // Settings Popup Menu
         settingsMenu = view.findViewById(R.id.profile_settings_id);
@@ -159,7 +172,9 @@ public class ProfileFragment extends Fragment {
 
                         newUserName.setPositiveButton("Confirm", (dialog, which) -> {
                             myText = fullDetails.getText().toString();
-                            profileName.setText(myText);
+                            model.instance.SetNameCurrentUser(userEmail2,myText, (nameUser)->{
+                                profileName.setText(nameUser);
+                            });
                         });
                         newUserName.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
                         newUserName.show();

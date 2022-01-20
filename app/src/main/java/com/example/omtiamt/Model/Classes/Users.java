@@ -9,11 +9,14 @@ public class Users implements Serializable {
     String id;
     String email;
     String imageUrl;
+    String name;
 
-    public Users(String id, String email, String image) {
+    public Users(String id, String email, String image,String name) {
         this.id = id;
         this.email = email;
         this.imageUrl = image;
+        this.name = name;
+
     }
 
     public Map<String, Object> toJson() {
@@ -21,8 +24,10 @@ public class Users implements Serializable {
         json.put("id", id);
         json.put("email", "");
         json.put("imageUrl", "");
+        json.put("name", "");
         return json;
     }
+
 
     public String getId() {
         return id;
@@ -48,4 +53,19 @@ public class Users implements Serializable {
         imageUrl = image;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

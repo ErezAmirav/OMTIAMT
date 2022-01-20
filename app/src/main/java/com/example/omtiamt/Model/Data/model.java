@@ -178,8 +178,30 @@ public class model {
         void onComplete(String picture);
     }
 
-    public void getPictureCurrentUser(String email,getPictureCurrentUser listener) {
+    public void GetPictureCurrentUser(String email,getPictureCurrentUser listener) {
         modelFirebase.GetPictureCurrentUser(email,listener);
+    }
+    public interface getNameCurrentUser {
+        void onComplete(String name);
+    }
+
+    public void GetNameCurrentUser(String email,getNameCurrentUser listener) {
+        modelFirebase.GetNameCurrentUser(email,listener);
+    }
+
+    public interface setPictureCurrentUser {
+        void onComplete();
+    }
+
+    public void SetPictureCurrentUser(String email,String pictureUrl,setPictureCurrentUser listener) {
+        modelFirebase.SetPictureCurrentUser(email,pictureUrl,listener);
+    }
+    public interface setNameCurrentUser {
+        void onComplete(String nameUser);
+    }
+
+    public void SetNameCurrentUser(String email,String nameUser,setNameCurrentUser listener) {
+        modelFirebase.SetNameCurrentUser(email,nameUser,listener);
     }
 }
 
