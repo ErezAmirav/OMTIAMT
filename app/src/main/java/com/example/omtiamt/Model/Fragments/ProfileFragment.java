@@ -189,6 +189,8 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -197,6 +199,12 @@ public class ProfileFragment extends Fragment {
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 profilePicture.setImageBitmap(imageBitmap);
+                model.instance.saveImage(imageBitmap,  nameUser+ ".jpg", url -> {
+                    model.instance.SetPictureCurrentUser(userEmail2,url,()-> {
+                        Toast.makeText(ProfileFragment.this.getContext(), "Picture Changed", Toast.LENGTH_LONG).show();
+                    });
+                });
+
             }
         }
         if (requestCode == REQUEST_OPEN_GALLERY) {

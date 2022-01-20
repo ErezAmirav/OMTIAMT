@@ -364,6 +364,7 @@ public class ModelFirebase {
                     if (email.equals(myEmail)) {
                         String id = document.getId();
                         db.collection(Users.COLLECTION_NAME).document(id).update("imageUrl",pictureUrl);
+                        listener.onComplete();
                     }
                 }
             }
