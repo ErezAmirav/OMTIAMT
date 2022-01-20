@@ -21,6 +21,7 @@
         android:id="@+id/title_id"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/aldrich"
         android:text="titletext"
@@ -35,6 +36,7 @@
         android:id="@+id/city_txt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:fontFamily="@font/aldrich"
         android:text="city_txt"
         android:textColor="#000000"
@@ -48,6 +50,7 @@
         android:id="@+id/email_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="2dp"
         android:fontFamily="@font/aldrich"
         android:text="username:"
@@ -62,6 +65,7 @@
         android:id="@+id/textview_cat"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:fontFamily="@font/aldrich"
         android:text="category"
         android:textColor="#000000"
@@ -75,9 +79,9 @@
         android:id="@+id/divider2"
         android:layout_width="409dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@+id/textview_cat"
+        app:layout_constraintTop_toBottomOf="@+id/product_image"
         tools:layout_editor_absoluteX="4dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

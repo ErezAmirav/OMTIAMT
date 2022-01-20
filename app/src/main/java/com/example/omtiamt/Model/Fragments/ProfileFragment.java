@@ -4,7 +4,6 @@ import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,7 +19,6 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,6 +26,7 @@ import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Recylers.MyProductsListFragment;
@@ -45,7 +44,6 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
     String userEmail;
-    String userEmail2;
     ImageButton settingsMenu;
     PopupMenu popupMenu;
     AlertDialog.Builder alert;
@@ -61,7 +59,6 @@ public class ProfileFragment extends Fragment {
     private String myText;
 
 
-
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_OPEN_GALLERY = 2;
 
@@ -70,7 +67,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,26 +82,24 @@ public class ProfileFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         // Show Current User Email
         email = view.findViewById(R.id.profile_email_id);
-        userEmail = " " + mAuth.getCurrentUser().getEmail();
-        userEmail2 = mAuth.getCurrentUser().getEmail();
-        email.setText(userEmail);
+        userEmail = mAuth.getCurrentUser().getEmail();
+        email.setText(" " + userEmail);
 
         MyProductsListFragment fragment = (MyProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productByMe);
-        fragment.SetMyName(userEmail2);
+        fragment.SetMyName(userEmail);
         fragmentMyProduct = view.findViewById(R.id.productByMe);
 
-        model.instance.GetNameCurrentUser(userEmail2,(listener)->{
+        model.instance.GetNameCurrentUser(userEmail, (listener) -> {
             nameUser = listener;
             if (nameUser != "")
-            profileName.setText(nameUser);
+                profileName.setText(nameUser);
         });
-        model.instance.GetPictureCurrentUser(userEmail2,(listener)->{
+        model.instance.GetPictureCurrentUser(userEmail, (listener) -> {
             imageUrl = listener;
-            if(imageUrl != "")
-            Picasso.with(this.getContext()).load(imageUrl).resize(300, 300).into(profilePicture);
+            if (imageUrl != "")
+                Picasso.with(this.getContext()).load(imageUrl).resize(300, 300).into(profilePicture);
 
         });
-        //profileName.setText(nameUser);
 
         // Settings Popup Menu
         settingsMenu = view.findViewById(R.id.profile_settings_id);
@@ -161,7 +156,8 @@ public class ProfileFragment extends Fragment {
                         return true;
 
                     case R.id.item_my_saved_products:
-                        Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductIWantFragment2(userEmail2));
+                        Navigation.findNavController(view).navigate(ProfileFragmentDirections
+                                .actionProfileFragmentToProductIWantFragment2(userEmail));
                         return true;
 
                     case R.id.item_change_profile_name:
@@ -174,7 +170,7 @@ public class ProfileFragment extends Fragment {
 
                         newUserName.setPositiveButton("Confirm", (dialog, which) -> {
                             myText = fullDetails.getText().toString();
-                            model.instance.SetNameCurrentUser(userEmail2,myText, (nameUser)->{
+                            model.instance.SetNameCurrentUser(userEmail, myText, (nameUser) -> {
                                 profileName.setText(nameUser);
                             });
                         });
@@ -191,8 +187,6 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -201,14 +195,13 @@ public class ProfileFragment extends Fragment {
                 progressBar.setVisibility(View.VISIBLE);
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
-                model.instance.saveImage(imageBitmap,  nameUser+ ".jpg", url -> {
-                    model.instance.SetPictureCurrentUser(userEmail2,url,()-> {
+                model.instance.saveImage(imageBitmap, nameUser + ".jpg", url -> {
+                    model.instance.SetPictureCurrentUser(userEmail, url, () -> {
                         Picasso.with(this.getContext()).load(url).resize(300, 300).into(profilePicture);
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(ProfileFragment.this.getContext(), "Profile Picture Changed", Toast.LENGTH_LONG).show();
                     });
                 });
-
             }
         }
         if (requestCode == REQUEST_OPEN_GALLERY) {
@@ -218,8 +211,8 @@ public class ProfileFragment extends Fragment {
                     final Uri imageUri = data.getData();
                     final InputStream imgStream = getContext().getContentResolver().openInputStream(imageUri);
                     imageBitmap = BitmapFactory.decodeStream(imgStream);
-                    model.instance.saveImage(imageBitmap,  nameUser+ ".jpg", url -> {
-                        model.instance.SetPictureCurrentUser(userEmail2,url,()-> {
+                    model.instance.saveImage(imageBitmap, nameUser + ".jpg", url -> {
+                        model.instance.SetPictureCurrentUser(userEmail, url, () -> {
                             progressBar.setVisibility(View.GONE);
                             Picasso.with(this.getContext()).load(url).resize(300, 300).into(profilePicture);
                             Toast.makeText(ProfileFragment.this.getContext(), "Profile Picture Changed", Toast.LENGTH_LONG).show();

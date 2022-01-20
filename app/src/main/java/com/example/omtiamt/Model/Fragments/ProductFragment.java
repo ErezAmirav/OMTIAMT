@@ -1,5 +1,6 @@
 package com.example.omtiamt.Model.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -41,6 +42,7 @@ public class ProductFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,10 +67,10 @@ public class ProductFragment extends Fragment {
         userTV = view.findViewById(R.id.product_username_id);
         model.instance.getProduct(id, product, pro -> {
             productNameTV.setText(product.getProductName());
-            addressTV.setText(product.getLocation());
+            addressTV.setText(" " + product.getLocation());
             detailsTV.setText(product.getDetails());
             Picasso.with(this.getContext()).load(product.getProductPicture()).resize(300, 300).into(productImgV);
-            userTV.setText(product.getUser());
+            userTV.setText(" " + product.getUser());
             currentUser = FirebaseAuth.getInstance().getCurrentUser();
             String userBuy = product.getUserBuy();
             email = currentUser.getEmail();
