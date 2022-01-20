@@ -14,8 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.omtiamt.Model.Classes.Product;
+import com.example.omtiamt.Model.Classes.Users;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class RegisterFragment extends Fragment {
@@ -72,9 +75,11 @@ public class RegisterFragment extends Fragment {
             else if
             (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())) {
                 model.instance.registerNewUser(inputEmail.getText().toString(), inputPassword.getText().toString());
-                Toast.makeText(RegisterFragment.this.getContext(), "Register Successful", Toast.LENGTH_LONG).show();
-
-                Navigation.findNavController(view).navigateUp();
+                Users user = new Users("",inputEmail.getText().toString(),"");
+                model.instance.AddUser(user,()->{
+                    Toast.makeText(RegisterFragment.this.getContext(), "Register Successful", Toast.LENGTH_LONG).show();
+                });
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment);
             } else
                 Toast.makeText(RegisterFragment.this.getContext(), "The Passwords don't match", Toast.LENGTH_LONG).show();
         });

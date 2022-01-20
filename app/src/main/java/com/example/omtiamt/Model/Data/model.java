@@ -3,6 +3,7 @@ package com.example.omtiamt.Model.Data;
 import android.graphics.Bitmap;
 
 import com.example.omtiamt.Model.Classes.Product;
+import com.example.omtiamt.Model.Classes.Users;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
@@ -31,6 +32,15 @@ public class model {
 
     public void addProduct(Product product, addProductListener listener) {
         modelFirebase.addProduct(product, listener);
+    }
+
+    // Add new User
+    public interface addUserListener {
+        void onComplete();
+    }
+
+    public void AddUser(Users user, addUserListener listener) {
+        modelFirebase.AddUser(user,listener);
     }
 
     // Get Product by id
@@ -162,6 +172,14 @@ public class model {
 
     public void GetEmailCurrentUser(getEmailCurrentUser listener) {
         modelFirebase.GetEmailCurrentUser(listener);
+    }
+
+    public interface getPictureCurrentUser {
+        void onComplete(String picture);
+    }
+
+    public void getPictureCurrentUser(String email,getPictureCurrentUser listener) {
+        modelFirebase.GetEmailCurrentUser(email,listener);
     }
 }
 
