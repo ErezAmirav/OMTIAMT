@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.omtiamt.Model.Classes.Categories;
 import com.example.omtiamt.Model.Classes.Product;
+import com.example.omtiamt.Model.Classes.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +36,18 @@ public class ModelFirebase {
         String NewDocument = db.collection(Product.COLLECTION_NAME).document().getId();
         json.put("id", NewDocument);
         db.collection(Product.COLLECTION_NAME)
+                .document(NewDocument)
+                .set(json)
+                .addOnSuccessListener(unused -> listener.onComplete())
+                .addOnFailureListener(e -> listener.onComplete());
+    }
+
+    public void AddUser(Users user, model.addUserListener listener) {
+        Map<String, Object> json = user.toJson();
+        String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId();
+        json.put("id", NewDocument);
+        json.put("email", user.getEmail());
+        db.collection(Users.COLLECTION_NAME)
                 .document(NewDocument)
                 .set(json)
                 .addOnSuccessListener(unused -> listener.onComplete())
@@ -264,6 +277,17 @@ public class ModelFirebase {
     // Delete User and all his products
     public void DeleteUser(model.deleteUser listener) {
         String email = mAuth.getCurrentUser().getEmail();
+        db.collection(Users.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myName = document.getString("email");
+                    if (email.equals(myName)) {
+                        String id = document.getId();
+                        db.collection(Users.COLLECTION_NAME).document(id).delete();
+                    }
+                }
+            }
+        });
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -312,7 +336,22 @@ public class ModelFirebase {
 
     public void GetEmailCurrentUser(model.getEmailCurrentUser listener) {
         listener.onComplete(currentUser.getEmail());
+
+
     }
 
+    public void GetPictureCurrentUser(String email, model.getPictureCurrentUser listener) {
+        db.collection(Users.COLLECTION_NAME).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myEmail = document.getString("email");
+                    if (email.equals(myEmail)) {
+                        String imageUrl = document.getString("imageUrl");
+                        listener.onComplete(imageUrl);
+                    }
+                }
+            }
+        });
+    }
 
 }
