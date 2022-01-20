@@ -9,11 +9,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,14 +23,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
-import java.io.Serializable;
 
 
 public class EditProductFragment extends Fragment {
@@ -91,12 +87,11 @@ public class EditProductFragment extends Fragment {
                 details.setError("Details Field Cannot Be Empty");
                 details.requestFocus();
             } else
-                // TODO - Fix the save
                 popupMessageSureEdit();
         });
-
         return view;
     }
+
     public void popupMessageSureEdit() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
         alertDialogBuilder.setMessage("Are you sure you want to edit this " + "" + product.getProductName() + "?");
@@ -107,16 +102,17 @@ public class EditProductFragment extends Fragment {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-    private void saveProduct(){
+
+    private void saveProduct() {
         product.setProductName(name.getText().toString());
         product.setLocation(address.getText().toString());
         product.setDetails(details.getText().toString());
-        if (imageBitmap == null){
+        if (imageBitmap == null) {
             model.instance.SetProduct(product, () -> {
                 Toast.makeText(getContext(), "Product Edited", Toast.LENGTH_LONG).show();
                 Navigation.findNavController(view).navigate(R.id.action_editProductFragment_to_homePageFragment);
             });
-        }else{
+        } else {
             model.instance.saveImage(imageBitmap, product.getProductName(), url -> {
                 product.setProductPicUrl(url);
                 model.instance.SetProduct(product, () -> {
@@ -126,6 +122,7 @@ public class EditProductFragment extends Fragment {
             });
         }
     }
+
     @SuppressLint("NonConstantResourceId")
     public void uploadPhoto(View view) {
         popUpPhoto = new PopupMenu(EditProductFragment.this.getContext(), view);
@@ -141,7 +138,6 @@ public class EditProductFragment extends Fragment {
                     openGalleryIntent.setType("image/*");
                     startActivityForResult(openGalleryIntent, REQUEST_OPEN_GALLERY);
                     break;
-
                 default:
                     return false;
             }
@@ -149,6 +145,7 @@ public class EditProductFragment extends Fragment {
         });
         popUpPhoto.show();
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -5,18 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Fragments.CategoryFragmentDirections;
 import com.example.omtiamt.R;
-
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,9 +23,11 @@ public class ProductByCategories extends Fragment {
     List<Product> listOfProduct = new LinkedList<>();
     ProductListAdapter proAdapter;
     String nameCat;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +45,7 @@ public class ProductByCategories extends Fragment {
         });
         return view;
     }
+
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
         if (listOfProduct.isEmpty()) {
@@ -58,8 +57,10 @@ public class ProductByCategories extends Fragment {
         } else {
             proAdapter.setCategoryMap(listOfProduct);
             proAdapter.notifyDataSetChanged();
-            proAdapter.enableCategory(nameCat);}
+            proAdapter.enableCategory(nameCat);
+        }
     }
+
     public void setCategory(String name) {
         nameCat = name;
         if (view != null) {

@@ -2,23 +2,17 @@ package com.example.omtiamt.Model.Recylers;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
-import com.example.omtiamt.Model.Fragments.ProductIWantFragmentDirections;
 import com.example.omtiamt.Model.Fragments.ProfileFragmentDirections;
 import com.example.omtiamt.R;
-
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +40,6 @@ public class MyProductsListFragment extends Fragment {
             updateDisplay();
         myProAdapter.setOnItemClickListener((v, position) -> {
             String tmp = listOfMyProduct.get(position).getId();
-            String idan = "";
             Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductFragment2(tmp));
         });
         return view;
@@ -58,7 +51,7 @@ public class MyProductsListFragment extends Fragment {
             myProAdapter.notifyDataSetChanged();
         });
     }
-    public void SetmyName(String userEmail) {
+    public void SetMyName(String userEmail) {
         myName = userEmail;
         if (view != null) {
             updateDisplay();

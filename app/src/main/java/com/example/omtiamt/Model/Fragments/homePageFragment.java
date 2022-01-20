@@ -1,49 +1,28 @@
 package com.example.omtiamt.Model.Fragments;
 
-import android.content.Intent;
+
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.omtiamt.Model.Activity.BaseActivity;
-import com.example.omtiamt.Model.Recylers.Category_List_Fragment;
-import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.List;
 
 public class homePageFragment extends Fragment {
-    List<String> catData;
     View view;
-    FirebaseAuth mAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
-    }
-
-    public void onStart() {
-        super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null) {
-            startActivity(new Intent(homePageFragment.this.getContext(), LoginFragment.class));
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         BaseActivity.showTabBar();
-        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        view = inflater.inflate(R.layout.fragment_home_page, container, false);
         return view;
     }
 }

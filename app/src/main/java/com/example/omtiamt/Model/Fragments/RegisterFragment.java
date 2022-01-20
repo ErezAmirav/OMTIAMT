@@ -1,6 +1,5 @@
 package com.example.omtiamt.Model.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,13 +16,8 @@ import android.widget.Toast;
 
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class RegisterFragment extends Fragment {
     ImageButton btnSaveUser;
     EditText inputPassword;
@@ -31,6 +25,7 @@ public class RegisterFragment extends Fragment {
     EditText inputEmail;
     View view;
     Button backBtn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

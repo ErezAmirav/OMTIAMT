@@ -1,10 +1,8 @@
 package com.example.omtiamt.Model.Fragments;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 
 
@@ -43,7 +38,6 @@ public class LoginFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-
     }
     @Override
     public void onResume() {
@@ -70,7 +64,7 @@ public class LoginFragment extends Fragment {
         String password = signPassword.getText().toString();
         model.instance.SignIn(email, password, message -> {
             switch (message) {
-                case "SUCCSES":
+                case "SUCCESS":
                     Toast.makeText(this.getContext(), "Welcome Back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
                     Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
                     break;
@@ -86,7 +80,6 @@ public class LoginFragment extends Fragment {
                     signName.setError("ERROR_INVALID_EMAIL");
                     signName.requestFocus();
                     break;
-
             }
         });
     }

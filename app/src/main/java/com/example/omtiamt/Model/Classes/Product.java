@@ -1,12 +1,8 @@
 package com.example.omtiamt.Model.Classes;
 
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -35,8 +31,7 @@ public class Product implements Serializable {
     }
 
 
-
-    public Product(String id, String name, String category, String address, String details, String user,String picture,String userBuy) {
+    public Product(String id, String name, String category, String address, String details, String user, String picture, String userBuy) {
         this.id = id;
         this.user = user;
         this.productName = name;
@@ -57,7 +52,7 @@ public class Product implements Serializable {
         this.location = location;
     }
 
-    public Product(String id, String name, String address, String details,String picture) {
+    public Product(String id, String name, String address, String details, String picture) {
         this.id = id;
         this.productName = name;
         this.location = address;
@@ -73,9 +68,7 @@ public class Product implements Serializable {
         this.userBuy = userBuy;
     }
 
-    public Product() {
-
-    }
+    public Product() { }
 
     public String getId() {
         return id;
@@ -121,10 +114,6 @@ public class Product implements Serializable {
         return productPicture;
     }
 
-    public void setProductPicture(String productPicture) {
-        this.productPicture = productPicture;
-    }
-
     public String getDetails() {
         return details;
     }
@@ -133,17 +122,17 @@ public class Product implements Serializable {
         this.details = details;
     }
 
-    public void setProductPicUrl (String url){
+    public void setProductPicUrl(String url) {
         this.productPicture = url;
     }
 
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<>();
         json.put("id", id);
-        json.put("User",user);
+        json.put("User", user);
         json.put("Category", category);
         json.put("Name", productName);
-        json.put("Picture",productPicture);
+        json.put("Picture", productPicture);
         json.put("Location", location);
         json.put("Details", details);
         json.put("UserBuy", "nobody");

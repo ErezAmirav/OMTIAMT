@@ -3,8 +3,6 @@ package com.example.omtiamt.Model.Classes;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.List;
-
 @Entity
 public class Categories {
     final public static String COLLECTION_NAME = "Category";

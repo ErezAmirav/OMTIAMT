@@ -21,7 +21,7 @@ public class ProductIWantFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view =inflater.inflate(R.layout.fragment_product_i_want, container, false);
+        view = inflater.inflate(R.layout.fragment_product_i_want, container, false);
         String name = ProductIWantFragmentArgs.fromBundle(getArguments()).getName();
         MySavedProductsListFragment fragment = (MySavedProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productIwant);
         fragment.SetMyName(name);

@@ -1,7 +1,6 @@
 package com.example.omtiamt.Model.Fragments;
 
 import static android.app.Activity.RESULT_OK;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -10,10 +9,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -29,15 +26,11 @@ import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.omtiamt.Model.Activity.BaseActivity;
 import com.example.omtiamt.Model.Classes.Product;
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+
 
 import java.io.InputStream;
 
@@ -50,17 +43,12 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     TextView detailsPro;
     Button uploadPhotoBtn;
     Button publishBtn;
-    FirebaseStorage storage;
-    StorageReference storageReference;
     PopupMenu popUpPhoto;
     ImageView prevImage;
     Bitmap imageBitmap;
-    private FirebaseAuth mAuth;
-    String emailUser;
-    FirebaseUser currentUser;
     AlertDialog.Builder dialogBuilder;
     private String myText;
-
+    String userEmail;
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int REQUEST_OPEN_GALLERY = 2;
@@ -76,6 +64,11 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         BaseActivity.showTabBar();
 
         view = inflater.inflate(R.layout.fragment_new_product, container, false);
+        model.instance.GetEmailCurrentUser(listener ->{
+            userEmail = listener;
+        });
+
+
         catList = view.findViewById(R.id.choose_category_id);
         uploadPhotoBtn = view.findViewById(R.id.upload_photo_btn);
         publishBtn = view.findViewById(R.id.btn_edit_product);
@@ -84,27 +77,24 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         addressPro = view.findViewById(R.id.adress_EditText);
         detailsPro = view.findViewById(R.id.details_product_editText);
         detailsPro.setOnClickListener(v -> popUpDetails());
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.names, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         catList.setAdapter(adapter);
         catList.setOnItemSelectedListener(this);
-        publishBtn.setOnClickListener(v ->{
-                if (TextUtils.isEmpty(namePro.getText().toString())){
-                    namePro.setError("Name Field Cannot Be Empty");
-                    namePro.requestFocus();
-                } else if (TextUtils.isEmpty(addressPro.getText().toString())){
-                    addressPro.setError("Address Field Cannot Be Empty");
-                    addressPro.requestFocus();
-                } else if (TextUtils.isEmpty(detailsPro.getText().toString())
-                        || detailsPro.getText().toString().equals("Tap to write full details")){
-                    detailsPro.setError("Details Field Cannot Be Empty");
-                    detailsPro.requestFocus();
-                } else
-                    popupMessageSure(namePro.getText().toString());
-                });
+        publishBtn.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(namePro.getText().toString())) {
+                namePro.setError("Name Field Cannot Be Empty");
+                namePro.requestFocus();
+            } else if (TextUtils.isEmpty(addressPro.getText().toString())) {
+                addressPro.setError("Address Field Cannot Be Empty");
+                addressPro.requestFocus();
+            } else if (TextUtils.isEmpty(detailsPro.getText().toString())
+                    || detailsPro.getText().toString().equals("Tap to write full details")) {
+                detailsPro.setError("Details Field Cannot Be Empty");
+                detailsPro.requestFocus();
+            } else
+                popupMessageSure(namePro.getText().toString());
+        });
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
         return view;
     }
@@ -126,7 +116,6 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         dialogBuilder.show();
     }
 
-
     @SuppressLint("ResourceAsColor")
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -144,9 +133,6 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
         String category = catList.getSelectedItem().toString();
         String address = addressPro.getText().toString();
         String details = detailsPro.getText().toString();
-        String userEmail = mAuth.getCurrentUser().getEmail();
-
-
 
         Product product = new Product(id, name, category, address, details, userEmail, null, "nobody");
         if (imageBitmap != null) {

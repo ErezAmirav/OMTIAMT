@@ -11,18 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.Model.Fragments.homePageFragmentDirections;
 import com.example.omtiamt.R;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Category_List_Fragment extends Fragment {
     View view;
     RecyclerView catRV;
-    HashMap<String,String> myCatHash = new HashMap<String,String>();
+    HashMap<String, String> myCatHash = new HashMap<String, String>();
     CategoryListAdapter catAdapter;
 
     @Override
@@ -36,22 +34,18 @@ public class Category_List_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category__list_, container, false);
         catRV = view.findViewById(R.id.recyclerview_Categories);
-      //  RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this.getContext());
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(),3);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(), 3);
         catRV.setLayoutManager(layoutManager);
 
         model.instance.getCatNameAndPictures(myCatHash, catHash -> {
-         catAdapter.setCategoryMap(catHash);
-         catAdapter.notifyDataSetChanged();
+            catAdapter.setCategoryMap(catHash);
+            catAdapter.notifyDataSetChanged();
         });
         catAdapter = new CategoryListAdapter();
         catRV.setAdapter(catAdapter);
-        catAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                String tmp = (new ArrayList<>(myCatHash.keySet())).get(position);
-                Navigation.findNavController(view).navigate(homePageFragmentDirections.actionHomePageFragmentToCategoryFragment(tmp));
-            }
+        catAdapter.setOnItemClickListener((v, position) -> {
+            String tmp = (new ArrayList<>(myCatHash.keySet())).get(position);
+            Navigation.findNavController(view).navigate(homePageFragmentDirections.actionHomePageFragmentToCategoryFragment(tmp));
         });
         return view;
     }
