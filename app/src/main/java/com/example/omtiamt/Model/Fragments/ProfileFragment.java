@@ -25,9 +25,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class ProfileFragment extends Fragment {
     View view;
     TextView email;
+    private FirebaseAuth mAuth;
     FirebaseUser currentUser;
     String userEmail;
-
+    String userEmail2;
     ImageButton settingsMenu;
     PopupMenu popupMenu;
     AlertDialog.Builder alert;
@@ -39,24 +40,25 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
+    @SuppressLint("NonConstantResourceId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         BaseActivity.showTabBar();
-
         view = inflater.inflate(R.layout.fragment_profile, container, false);
-        model.instance.GetEmailCurrentUser(listener -> userEmail = listener);
+        mAuth = FirebaseAuth.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         savedProductsBtn = view.findViewById(R.id.profile_saved_products_btn);
         // Show Current User Email
         email = view.findViewById(R.id.profile_email_id);
-        email.setText(" "+userEmail);
+        userEmail = " " + mAuth.getCurrentUser().getEmail();
+        userEmail2 = mAuth.getCurrentUser().getEmail();
+        email.setText(userEmail);
         MyProductsListFragment fragment = (MyProductsListFragment) getChildFragmentManager().findFragmentById(R.id.productByMe);
-        fragment.SetMyName(userEmail);
+        fragment.SetMyName(userEmail2);
         fragmentMyProduct = view.findViewById(R.id.productByMe);
         savedProductsBtn.setOnClickListener(v -> {
-            Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductIWantFragment2(userEmail));
+            Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductIWantFragment2(userEmail2));
         });
 
         // Settings Popup Menu
@@ -85,14 +87,13 @@ public class ProfileFragment extends Fragment {
                         alert.create().show();
                         return true;
 
-                    case R.id.item_logout:
-                    {
+                    case R.id.item_logout: {
                         model.instance.SignOut();
-                            Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
-                           Intent intent = new Intent(getContext(),BaseActivity.class);
-                           startActivity(intent);
-                        }
-                        return true;
+                        Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getContext(), BaseActivity.class);
+                        startActivity(intent);
+                    }
+                    return true;
                     default:
                         return false;
                 }
