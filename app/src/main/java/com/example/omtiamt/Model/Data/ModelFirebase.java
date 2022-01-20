@@ -41,6 +41,7 @@ public class ModelFirebase {
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> listener.onComplete());
     }
+
     public void AddUser(Users user, model.addUserListener listener) {
         Map<String, Object> json = user.toJson();
         String NewDocument = db.collection(Users.COLLECTION_NAME).document().getId();
@@ -277,16 +278,16 @@ public class ModelFirebase {
     public void DeleteUser(model.deleteUser listener) {
         String email = mAuth.getCurrentUser().getEmail();
         db.collection(Users.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String myName = document.getString("email");
-                            if (email.equals(myName)) {
-                                String id = document.getId();
-                                db.collection(Users.COLLECTION_NAME).document(id).delete();
-                            }
-                        }
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String myName = document.getString("email");
+                    if (email.equals(myName)) {
+                        String id = document.getId();
+                        db.collection(Users.COLLECTION_NAME).document(id).delete();
                     }
-                });
+                }
+            }
+        });
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -339,7 +340,7 @@ public class ModelFirebase {
 
     }
 
-    public void GetEmailCurrentUser(String email, model.getPictureCurrentUser listener) {
+    public void GetPictureCurrentUser(String email, model.getPictureCurrentUser listener) {
         db.collection(Users.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -352,4 +353,5 @@ public class ModelFirebase {
             }
         });
     }
+
 }

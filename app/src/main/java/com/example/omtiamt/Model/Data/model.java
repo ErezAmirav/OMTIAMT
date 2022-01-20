@@ -179,7 +179,7 @@ public class model {
     }
 
     public void getPictureCurrentUser(String email,getPictureCurrentUser listener) {
-        modelFirebase.GetEmailCurrentUser(email,listener);
+        modelFirebase.GetPictureCurrentUser(email,listener);
     }
 }
 
