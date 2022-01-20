@@ -48,10 +48,15 @@ public class MySavedProductsListFragment extends Fragment {
 
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
-        model.instance.GetProductsIWant(listOfMySavedProduct, myName, catHash -> {
+        if (listOfMySavedProduct.isEmpty()) {
+            model.instance.GetProductsIWant(listOfMySavedProduct, myName, catHash -> {
+                mySavedProAdapter.setList(listOfMySavedProduct);
+                mySavedProAdapter.notifyDataSetChanged();
+            });
+        }
+        else
             mySavedProAdapter.setList(listOfMySavedProduct);
-            mySavedProAdapter.notifyDataSetChanged();
-        });
+        mySavedProAdapter.notifyDataSetChanged();
     }
 
     public void SetMyName(String userEmail2) {

@@ -46,10 +46,16 @@ public class MyProductsListFragment extends Fragment {
     }
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
-        model.instance.GetProductsByMe(listOfMyProduct, myName, catHash -> {
+        if (listOfMyProduct.isEmpty()) {
+            model.instance.GetProductsByMe(listOfMyProduct, myName, catHash -> {
+                myProAdapter.setCategoryList(listOfMyProduct);
+                myProAdapter.notifyDataSetChanged();
+            });
+        }
+        else
             myProAdapter.setCategoryList(listOfMyProduct);
-            myProAdapter.notifyDataSetChanged();
-        });
+        myProAdapter.notifyDataSetChanged();
+
     }
     public void SetMyName(String userEmail) {
         myName = userEmail;
