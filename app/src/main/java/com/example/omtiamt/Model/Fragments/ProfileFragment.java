@@ -69,8 +69,6 @@ public class ProfileFragment extends Fragment {
             Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionProfileFragmentToProductIWantFragment2(userEmail2));
         });
 
-
-
         // Settings Popup Menu
         settingsMenu = view.findViewById(R.id.profile_settings_id);
         settingsMenu.setOnClickListener(v -> {
@@ -89,9 +87,10 @@ public class ProfileFragment extends Fragment {
                                 public void onComplete() {
                                     currentUser.delete();
                                     Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
-                                    Intent intent = new Intent(getActivity(), BaseActivity.class);
-                                    startActivity(intent);
-                                    //Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_registerFragment);
+                                   // Intent intent = new Intent(getActivity(), BaseActivity.class);
+                                    //startActivity(intent);
+                                    BaseActivity.hideTabBar();
+                                    Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_registerFragment);
                                 }
                             });
                         });

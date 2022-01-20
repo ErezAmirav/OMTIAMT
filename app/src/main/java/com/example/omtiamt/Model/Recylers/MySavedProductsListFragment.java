@@ -26,13 +26,10 @@ public class MySavedProductsListFragment extends Fragment {
     List<Product> listOfMySavedProduct = new LinkedList<>();
     MySavedProductListAdapter mySavedProAdapter;
     String myName;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,7 +47,6 @@ public class MySavedProductsListFragment extends Fragment {
         });
         return view;
     }
-
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
         model.instance.GetProductsIwant(listOfMySavedProduct, myName, catHash -> {
@@ -58,7 +54,6 @@ public class MySavedProductsListFragment extends Fragment {
             mySavedProAdapter.notifyDataSetChanged();
         });
     }
-
     public void SetMyName(String userEmail2) {
         myName = userEmail2;
         if (view != null) {

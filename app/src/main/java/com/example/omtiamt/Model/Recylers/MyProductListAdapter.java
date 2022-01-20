@@ -20,18 +20,13 @@ import java.util.List;
 public class MyProductListAdapter extends RecyclerView.Adapter<MyProductListAdapter.MyProductViewHolder> {
     OnItemClickListener listener;
 
-
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
     public void setCategoryList(List<Product> ListMyOfProduct) {
         this.ListMyOfProduct = ListMyOfProduct;
     }
-
     private List<Product> ListMyOfProduct = new LinkedList<>();
-    URL url;
-
     @NonNull
     @Override
     public MyProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,7 +34,6 @@ public class MyProductListAdapter extends RecyclerView.Adapter<MyProductListAdap
         MyProductViewHolder holder = new MyProductViewHolder(view, listener);
         return holder;
     }
-
     @Override
     public void onBindViewHolder(@NonNull MyProductViewHolder holder, int position) {
         String userName = ListMyOfProduct.get(position).getUser();
@@ -53,22 +47,17 @@ public class MyProductListAdapter extends RecyclerView.Adapter<MyProductListAdap
         holder.adressTextView.setText(location);
         holder.categoryTextView.setText(category);
         holder.userTextView.setVisibility(View.GONE);
-
-
     }
-
     @Override
     public int getItemCount() {
         return ListMyOfProduct.size();
     }
-
     public static class MyProductViewHolder extends RecyclerView.ViewHolder {
         public TextView namePTextView;
         public TextView adressTextView;
         public TextView userTextView;
         public ImageView picture;
         public TextView categoryTextView;
-
         public MyProductViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             namePTextView = itemView.findViewById(R.id.title_id);

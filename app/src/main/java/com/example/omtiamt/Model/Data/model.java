@@ -125,12 +125,15 @@ public class model {
     public void GetProductsByMe(List<Product> ListOfProduct, String name, getProductsByMe listener) {
         modelFirebase.GetProductsByMe(ListOfProduct, name, listener);
     }
+    //Sign in
     public interface signIn {
         void onComplete(String message);
     }
     public void SignIn(String email,String password, signIn listener) {
         modelFirebase.SignIn(email,password, listener);
     }
+
+
 }
 
 

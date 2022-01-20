@@ -20,18 +20,13 @@ import java.util.List;
 
 public class MySavedProductListAdapter extends RecyclerView.Adapter<MySavedProductListAdapter.MySavedProductViewHolder> {
     OnItemClickListener listener;
-
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
     public void setList(List<Product> ListOfProduct) {
         this.listOfMySavedProduct = ListOfProduct;
     }
-
     private List<Product> listOfMySavedProduct = new LinkedList<>();
-    URL url;
-
     @NonNull
     @Override
     public MySavedProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,7 +34,6 @@ public class MySavedProductListAdapter extends RecyclerView.Adapter<MySavedProdu
         MySavedProductViewHolder holder = new MySavedProductViewHolder(view, listener);
         return holder;
     }
-
     @Override
     public void onBindViewHolder(@NonNull MySavedProductViewHolder holder, int position) {
         String userName = listOfMySavedProduct.get(position).getUser();
@@ -53,19 +47,16 @@ public class MySavedProductListAdapter extends RecyclerView.Adapter<MySavedProdu
         holder.adressTextView.setText(location);
         holder.categoryTextView.setText(category);
     }
-
     @Override
     public int getItemCount() {
         return listOfMySavedProduct.size();
     }
-
     public static class MySavedProductViewHolder extends RecyclerView.ViewHolder {
         public TextView namePTextView;
         public TextView adressTextView;
         public TextView userTextView;
         public ImageView picture;
         public TextView categoryTextView;
-
         public MySavedProductViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             namePTextView = itemView.findViewById(R.id.title_id);

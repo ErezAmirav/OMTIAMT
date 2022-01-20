@@ -27,11 +27,9 @@ public class ProductByCategories extends Fragment {
     List<Product> listOfProduct = new LinkedList<>();
     ProductListAdapter proAdapter;
     String nameCat;
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,14 +41,12 @@ public class ProductByCategories extends Fragment {
         proRV.setAdapter(proAdapter);
         if (nameCat != null)
             updateDisplay();
-
         proAdapter.setOnItemClickListener((v, position) -> {
             String tmp = listOfProduct.get(position).getId();
             Navigation.findNavController(view).navigate(CategoryFragmentDirections.actionCategoryFragmentToProductFragment(tmp));
         });
         return view;
     }
-
     @SuppressLint("NotifyDataSetChanged")
     public void updateDisplay() {
         if (listOfProduct.isEmpty()) {
@@ -63,9 +59,7 @@ public class ProductByCategories extends Fragment {
             proAdapter.setCategoryMap(listOfProduct);
             proAdapter.notifyDataSetChanged();
             proAdapter.enableCategory(nameCat);}
-
     }
-
     public void setCategory(String name) {
         nameCat = name;
         if (view != null) {

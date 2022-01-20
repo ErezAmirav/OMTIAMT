@@ -35,14 +35,14 @@ public class LoginFragment extends Fragment {
     public void onStart(){
         super.onStart();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null ){
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
+            if (currentUser != null) {
+                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
+            }
         }
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mAuth = FirebaseAuth.getInstance();
 
     }
     @Override
@@ -53,7 +53,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        //onStart();
         view = inflater.inflate(R.layout.fragment_login, container, false);
         mAuth = FirebaseAuth.getInstance();
         signName = view.findViewById(R.id.username_id);

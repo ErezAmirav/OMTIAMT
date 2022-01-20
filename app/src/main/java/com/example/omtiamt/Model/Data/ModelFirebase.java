@@ -275,6 +275,8 @@ public class ModelFirebase {
                 listener.onComplete();
             }
         });
+
+        //here
     }
 
     // The product not available anymore
@@ -283,7 +285,7 @@ public class ModelFirebase {
         listener.onComplete();
 
     }
-
+    //Sign in
     public void SignIn(String email, String password, model.signIn listener) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -306,5 +308,6 @@ public class ModelFirebase {
             }
             listener.onComplete(myMessage);
         });
+
     }
 }

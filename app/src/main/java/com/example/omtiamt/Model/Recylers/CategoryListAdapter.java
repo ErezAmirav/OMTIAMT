@@ -26,10 +26,7 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     public void setCategoryMap(HashMap<String, String> categoryMap) {
         this.categoryMap = categoryMap;
     }
-
     private HashMap<String,String> categoryMap = new LinkedHashMap<>();
-    URL url;
-
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,7 +47,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
             }
         }
     }
-
     @Override
     public int getItemCount() {
         return categoryMap.size();
@@ -59,7 +55,6 @@ public class CategoryListAdapter extends RecyclerView.Adapter<CategoryListAdapte
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public ImageView picture;
-
         public CategoryViewHolder(@NonNull View itemView,OnItemClickListener listener) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.choose_category_name);

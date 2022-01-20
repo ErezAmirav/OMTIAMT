@@ -138,7 +138,6 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
-
     public void publishProduct() {
         String id = "";
         String name = namePro.getText().toString();

@@ -7,6 +7,7 @@
     <action android:id="@+id/action_global_profileFragment" app:destination="@id/profileFragment"/>
     <action android:id="@+id/action_global_newProductFragment" app:destination="@id/newProductFragment"/>
     <action android:id="@+id/action_global_homeFragment" app:destination="@id/homePageFragment"/>
+    <action android:id="@+id/action_global_login" app:destination="@id/loginFragment"/>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.omtiamt.Model.Fragments.LoginFragment"
@@ -18,12 +19,19 @@
         <action
             android:id="@+id/action_loginFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
+        <argument
+            android:name="check"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.omtiamt.Model.Fragments.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homePageFragment"
         android:name="com.example.omtiamt.Model.Fragments.homePageFragment"
@@ -50,22 +58,8 @@
             app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
-        android:id="@+id/category_List_Fragment"
-        android:name="com.example.omtiamt.Model.Recylers.Category_List_Fragment"
-        android:label="fragment_category__list_"
-        tools:layout="@layout/fragment_category__list_" />
-    <fragment
-        android:id="@+id/product_By_Categories"
-        android:name="com.example.omtiamt.Model.Recylers.ProductByCategories"
-        android:label="fragment_product__by__categories"
-        tools:layout="@layout/fragment_product__by__categories" >
-        <argument
-            android:name="nameCategory"
-            app:argType="string" />
-    </fragment>
-    <fragment
         android:id="@+id/productFragment"
-        android:name="com.example.omtiamt.Model.Recylers.ProductFragment"
+        android:name="com.example.omtiamt.Model.Fragments.ProductFragment"
         android:label="fragment_product"
         tools:layout="@layout/fragment_product" >
         <argument android:name="Product_id" />
@@ -89,15 +83,6 @@
         <argument
             android:name="product"
             app:argType="com.example.omtiamt.Model.Classes.Product" />
-    </fragment>
-    <fragment
-        android:id="@+id/loadingScreenFragment"
-        android:name="com.example.omtiamt.Model.Fragments.LoadingScreenFragment"
-        android:label="fragment_loading_screen"
-        tools:layout="@layout/fragment_loading_screen" >
-        <action
-            android:id="@+id/action_loadingScreenFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"

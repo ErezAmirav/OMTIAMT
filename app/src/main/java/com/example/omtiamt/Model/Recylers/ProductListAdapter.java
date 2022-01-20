@@ -19,18 +19,13 @@ import java.util.List;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductViewHolder> {
     OnItemClickListener listener;
     String myNameCategory;
-
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
-
     public void setCategoryMap(List<Product> ListOfProduct) {
         this.ListOfProduct = ListOfProduct;
     }
-
     private List<Product> ListOfProduct = new LinkedList<>();
-    URL url;
-
     @NonNull
     @Override
     public ProductListAdapter.ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -55,28 +50,21 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         if (myNameCategory.equals("View All")) {
             holder.categoryTextView.setVisibility(View.VISIBLE);
         }
-
-
     }
-
     @Override
     public int getItemCount() {
         return ListOfProduct.size();
     }
-
     public void enableCategory(String nameCat) {
         myNameCategory = nameCat;
 
     }
-
-
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         public TextView namePTextView;
         public TextView adressTextView;
         public TextView userTextView;
         public ImageView picture;
         public TextView categoryTextView;
-
         public ProductViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
             namePTextView = itemView.findViewById(R.id.title_id);

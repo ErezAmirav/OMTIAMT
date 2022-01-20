@@ -44,10 +44,8 @@ public class Category_List_Fragment extends Fragment {
          catAdapter.setCategoryMap(catHash);
          catAdapter.notifyDataSetChanged();
         });
-
         catAdapter = new CategoryListAdapter();
         catRV.setAdapter(catAdapter);
-
         catAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {

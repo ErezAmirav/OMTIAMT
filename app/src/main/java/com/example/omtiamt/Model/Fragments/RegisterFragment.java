@@ -30,24 +30,18 @@ public class RegisterFragment extends Fragment {
     EditText inputConfirmPassword;
     EditText inputEmail;
     View view;
-    private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
-    Fragment fragment;
     Button backBtn;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mAuth = FirebaseAuth.getInstance();
         view = inflater.inflate(R.layout.fragment_register, container, false);
         btnSaveUser = view.findViewById(R.id.signup_register_btn_id);
         inputPassword = view.findViewById(R.id.password_register_id);
         inputEmail = view.findViewById(R.id.email_register_id);
         inputConfirmPassword = view.findViewById(R.id.confirmpassword_register_id);
         backBtn = view.findViewById(R.id.register_back_btn);
-
         backBtn.setOnClickListener(v ->
-                Navigation.findNavController(v).navigateUp());
+                Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment));
 
         btnSaveUser.setOnClickListener(v -> {
             // Checks if Email field is not empty
@@ -79,7 +73,6 @@ public class RegisterFragment extends Fragment {
                 inputEmail.setError("Email is not Legal");
                 inputEmail.requestFocus();
             }
-
             // Checks if Password and Confirm Password fields match
             else if
             (inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString())) {
@@ -92,12 +85,6 @@ public class RegisterFragment extends Fragment {
         });
         return view;
     }
-
-    public void onStart() {
-        super.onStart();
-        currentUser = mAuth.getCurrentUser();
-    }
-
 
     static boolean isValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";

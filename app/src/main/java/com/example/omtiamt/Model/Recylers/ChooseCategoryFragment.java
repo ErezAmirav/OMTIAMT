@@ -10,13 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.omtiamt.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChooseCategoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ChooseCategoryFragment extends Fragment {
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
