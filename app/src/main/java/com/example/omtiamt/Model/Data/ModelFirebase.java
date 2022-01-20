@@ -231,7 +231,7 @@ public class ModelFirebase {
                 for (QueryDocumentSnapshot myDocument : task.getResult()) {
                     String idCat = myDocument.getString("id");
                     if (idCat.equals(idProduct)) {
-                        db.collection(Product.COLLECTION_NAME).document(idCat).update("UserBuy", "noBody");
+                        db.collection(Product.COLLECTION_NAME).document(idCat).update("UserBuy", "nobody");
                     }
                 }
                 listener.onComplete();
