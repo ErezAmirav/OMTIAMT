@@ -87,8 +87,6 @@ public class ProfileFragment extends Fragment {
                                 public void onComplete() {
                                     currentUser.delete();
                                     Toast.makeText(ProfileFragment.this.getContext(), "User Deleted", Toast.LENGTH_LONG).show();
-                                   // Intent intent = new Intent(getActivity(), BaseActivity.class);
-                                    //startActivity(intent);
                                     BaseActivity.hideTabBar();
                                     Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_registerFragment);
                                 }
@@ -105,7 +103,8 @@ public class ProfileFragment extends Fragment {
 
                         model.instance.SignOut();
                             Toast.makeText(ProfileFragment.this.getContext(), "Signing out, Goodbye!", Toast.LENGTH_LONG).show();
-                            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_loginFragment);
+                           Intent intent = new Intent(getContext(),BaseActivity.class);
+                           startActivity(intent);
                         };
                         return true;
                     default:

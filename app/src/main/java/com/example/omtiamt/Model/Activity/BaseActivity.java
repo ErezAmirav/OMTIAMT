@@ -53,4 +53,5 @@ public class BaseActivity extends AppCompatActivity {
     public static void showTabBar(){
         navigationView.setVisibility(View.VISIBLE);
     }
+
 }
