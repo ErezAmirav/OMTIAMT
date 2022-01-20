@@ -15,13 +15,11 @@ import java.util.concurrent.Executors;
 
 public class model {
     public static final model instance = new model();
-    Executor executors = Executors.newFixedThreadPool(1);
-    Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     ModelFirebase modelFirebase = new ModelFirebase();
 
     private model() {
     }
-
+    //Delete User and all the Product he have
     public interface deleteuser {
         void onComplete();
     }
@@ -29,132 +27,110 @@ public class model {
         modelFirebase.Deleteuser(listener);
     }
 
-
-
-
-    public List<String> getAllCategoriesName() {
-        return modelFirebase.getCatName();
-    }
-
-    public interface addUsersListener {
-        void onComplete();
-    }
-
+    //Add new Product
     public interface addProductListener {
         void onComplete();
     }
-    public interface getProductListener {
-        void onComplete(Product product);
-    }
-    public interface setProductListener {
-        void onComplete(Product product);
-    }
-
     public void addProduct(Product product, addProductListener listener) {
         modelFirebase.addProduct(product, listener);
     }
-    public Product getProduct(String id, Product product, getProductListener listener) {
+    //Get Product by id and return the Product
+    public interface getProductListener {
+        void onComplete(Product product);
+    }
+    public void getProduct(String id, Product product, getProductListener listener) {
         modelFirebase.getProduct(id,product,listener);
-        return null;
     }
 
+    //Register New User
     public void registerNewUser(String email, String password) {
         modelFirebase.registerNewUser(email, password);
     }
-
+    //check if the email exist
     public boolean checkEmail(String email) {
         return modelFirebase.checkEmail(email);
     }
 
-    public List<String> getCategoryNames() {
-        return modelFirebase.getCatName();
-    }
-
-
+    //Get all the name and pictures of Category by id - to HashMap
     public interface getCatNameAndPictures {
         void onComplete(HashMap<String, String> catHash);
     }
-
     public void getCatNameAndPictures(HashMap<String, String> catHash, getCatNameAndPictures listener) {
         modelFirebase.getCatNameAndPictures(catHash, listener);
     }
-
-
-
+    //Save Image in Firebase
     public interface saveImageListener {
         void onComplete(String url);
     }
-
     public void saveImage(Bitmap imgBitmap, String imgName, saveImageListener listener) {
         modelFirebase.saveImg(imgBitmap, imgName, listener);
     }
-
-
-
+    //Delete one Product by id
     public interface deleteProduct {
         void onComplete();
     }
-
     public void DeleteProduct(String id, deleteProduct listener) {
         modelFirebase.DeleteProduct(id, listener);
     }
+    //Set Product
     public interface setProduct {
         void onComplete();
     }
-
     public void SetProduct(Product product, setProduct listener) {
         modelFirebase.SetProduct(product, listener);
     }
-
+    //SignOut
     public void SignOut() {
         modelFirebase.SignOut();
     }
+    //Set the product taker
     public interface setTakenProduct {
         void onComplete();
     }
-
     public void setTakenProduct(String idProduct,String nameTaker, setTakenProduct listener) {
         modelFirebase.SetTakenProduct(idProduct,nameTaker, listener);
     }
+    //Dont need the product and return him to show for all
     public interface dontNeedit {
         void onComplete();
     }
-
     public void DontNeedit(String idProduct, dontNeedit listener) {
         modelFirebase.DontNeedit(idProduct, listener);
     }
-
+    // The product not available anymore
     public interface iWasTookit {
         void onComplete();
     }
-
     public void ITookit(String idProduct, iWasTookit listener) {
         modelFirebase.IWasTookit(idProduct, listener);
     }
-
+    //Return list of product by name category
     public interface getProductsByCat {
         void onComplete(List<Product> ListOfProduct);
     }
-
-    public HashMap<String, String> getProductsByCat(List<Product> ListOfProduct, String nameCat, getProductsByCat listener) {
+    public void getProductsByCat(List<Product> ListOfProduct, String nameCat, getProductsByCat listener) {
         modelFirebase.getProductsByCat(ListOfProduct, nameCat, listener);
-        return null;
     }
+    //Return list of all my product that i want
     public interface getProductsIwant {
         void onComplete(List<Product> listOfMyProduct);
     }
-
     public void GetProductsIwant(List<Product> listOfMyProduct, String name, getProductsIwant listener) {
         modelFirebase.GetProductsIwant(listOfMyProduct, name, listener);
     }
+    //Return list of all my product that i uploaded
     public interface getProductsByMe {
         void onComplete(List<Product> ListOfProduct);
     }
-
     public void GetProductsByMe(List<Product> ListOfProduct, String name, getProductsByMe listener) {
         modelFirebase.GetProductsByMe(ListOfProduct, name, listener);
     }
-
+    public interface signIn {
+        void onComplete(String message);
+    }
+    public void SignIn(String email,String password, signIn listener) {
+        modelFirebase.SignIn(email,password, listener);
+    }
 }
 
 

@@ -149,7 +149,7 @@ public class NewProductFragment extends Fragment implements AdapterView.OnItemSe
 
 
 
-        Product product = new Product(id, name, category, address, details, userEmail, true, null, "nobody");
+        Product product = new Product(id, name, category, address, details, userEmail, null, "nobody");
         if (imageBitmap != null) {
             model.instance.saveImage(imageBitmap, name + ".jpg", url -> {
                 product.setProductPicUrl(url);

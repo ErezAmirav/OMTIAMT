@@ -4,41 +4,28 @@ package com.example.omtiamt.Model.Data;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
-
-import androidx.annotation.NonNull;
-
-import com.example.omtiamt.Model.Classes.Categories;
 import com.example.omtiamt.Model.Classes.Product;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    public HashMap<String, String> catHash = new HashMap<>();
-    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    boolean check;
+    String myMessage;
 
-
+    //Add new Product
     public void addProduct(Product product, model.addProductListener listener) {
         Map<String, Object> json = product.toJson();
         String NewDocument = db.collection(Product.COLLECTION_NAME).document().getId().toString();
@@ -50,6 +37,7 @@ public class ModelFirebase {
                 .addOnFailureListener(e -> listener.onComplete());
     }
 
+    //Register New User
     public void registerNewUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
@@ -62,12 +50,7 @@ public class ModelFirebase {
                 });
     }
 
-    public void getUsersById(String userId) {
-    }
-
-
-    boolean check;
-
+    //check if the email exist
     public boolean checkEmail(String email) {
         mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
             check = !task.getResult().getSignInMethods().isEmpty();
@@ -75,24 +58,7 @@ public class ModelFirebase {
         return check;
     }
 
-    public List<String> getCatName() {
-        List<String> list = new ArrayList<>();
-        CollectionReference applicationsRef = db.collection(Categories.COLLECTION_NAME);
-        db.collection(Categories.COLLECTION_NAME).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    String id = document.getId();
-                    DocumentReference applicationIdRef = applicationsRef.document(id);
-                    String name = document.getString("Name");
-                    list.add(name);
-                }
-                Log.d("TAG", list.toString());
-            }
-        });
-        return list;
-    }
-
-    //get all categories names and pictures
+    //Get all the name and pictures of Category by id - to HashMap
     public void getCatNameAndPictures(HashMap<String, String> catHash, model.getCatNameAndPictures listener) {
         db.collection("Category").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -118,7 +84,6 @@ public class ModelFirebase {
                     String Category = document.getString("id");
                     if (Category.equals(id)) {
                         product.setId(document.getId());
-                        product.setAvailable(document.getBoolean("isAvailable"));
                         product.setUser(document.getString("User"));
                         product.setCategory(document.getString("Category"));
                         product.setProductName(document.getString("Name"));
@@ -174,6 +139,7 @@ public class ModelFirebase {
         });
     }
 
+    //Return list of all my product that i want
     public void GetProductsIwant(List<Product> ListOfMyProduct, String name, model.getProductsIwant listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -196,6 +162,7 @@ public class ModelFirebase {
         });
     }
 
+    //Save Image in Firebase
     public void saveImg(Bitmap imgBitmap, String imgName, model.saveImageListener listener) {
         StorageReference storageReference = storage.getReference();
         StorageReference imgRef = storageReference.child("/product_photos" + imgName);
@@ -213,6 +180,7 @@ public class ModelFirebase {
                         }));
     }
 
+    //Delete one Product by id
     public void DeleteProduct(String id, model.deleteProduct listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -227,17 +195,19 @@ public class ModelFirebase {
         });
     }
 
+    //Set Product
     public void SetProduct(Product product, model.setProduct listener) {
-
         db.collection(Product.COLLECTION_NAME).document(product.getId()).set(product.toJson())
                 .addOnCompleteListener(task ->
                         listener.onComplete());
     }
 
+    //SignOut
     public void SignOut() {
         FirebaseAuth.getInstance().signOut();
     }
 
+    //Set the product taker
     public void SetTakenProduct(String idProduct, String nameTaker, model.setTakenProduct listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -253,6 +223,7 @@ public class ModelFirebase {
 
     }
 
+    //Dont need the product and return him to show for all
     public void DontNeedit(String idProduct, model.dontNeedit listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -267,6 +238,7 @@ public class ModelFirebase {
         });
     }
 
+    //Return list of all my product that i uploaded
     public void GetProductsByMe(List<Product> listOfMyProduct, String name, model.getProductsByMe listener) {
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -288,6 +260,7 @@ public class ModelFirebase {
         });
     }
 
+    //Delete User and all the Product he have
     public void Deleteuser(model.deleteuser listener) {
         String email = mAuth.getCurrentUser().getEmail();
         db.collection(Product.COLLECTION_NAME).get().addOnCompleteListener(task -> {
@@ -304,9 +277,34 @@ public class ModelFirebase {
         });
     }
 
+    // The product not available anymore
     public void IWasTookit(String idProduct, model.iWasTookit listener) {
         db.collection(Product.COLLECTION_NAME).document(idProduct).delete();
-                listener.onComplete();
+        listener.onComplete();
 
+    }
+
+    public void SignIn(String email, String password, model.signIn listener) {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                myMessage ="SUCCSES";
+            } else {
+                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                switch (errorCode) {
+
+                    case "ERROR_INVALID_EMAIL":
+                        myMessage = "ERROR_INVALID_EMAIL";
+
+                    case "ERROR_WRONG_PASSWORD":
+                        myMessage = "ERROR_WRONG_PASSWORD";
+                        break;
+
+                    case "ERROR_USER_NOT_FOUND":
+                        myMessage = "ERROR_USER_NOT_FOUND";
+                        break;
+                }
+            }
+            listener.onComplete(myMessage);
+        });
     }
 }

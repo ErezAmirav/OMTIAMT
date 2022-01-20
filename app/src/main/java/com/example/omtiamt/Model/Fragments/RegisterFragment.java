@@ -98,10 +98,6 @@ public class RegisterFragment extends Fragment {
         currentUser = mAuth.getCurrentUser();
     }
 
-    public void logout_btn2(View view) {
-        FirebaseAuth.getInstance().signOut();
-        onStart();
-    }
 
     static boolean isValid(String email) {
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";

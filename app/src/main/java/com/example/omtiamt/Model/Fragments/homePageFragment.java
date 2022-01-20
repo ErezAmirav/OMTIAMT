@@ -43,14 +43,7 @@ public class homePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         BaseActivity.showTabBar();
-
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        List<String> catList = model.instance.getCategoryNames();
-
-        Fragment categoryList = new Category_List_Fragment();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.category_fragment_viewer, categoryList).commit();
-
         return view;
     }
 }

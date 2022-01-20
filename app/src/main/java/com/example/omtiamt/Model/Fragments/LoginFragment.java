@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.omtiamt.Model.Activity.BaseActivity;
+import com.example.omtiamt.Model.Data.model;
 import com.example.omtiamt.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,20 +39,17 @@ public class LoginFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
         }
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
     }
-
     @Override
     public void onResume() {
         super.onResume();
         BaseActivity.hideTabBar();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,12 +58,8 @@ public class LoginFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         signName = view.findViewById(R.id.username_id);
         signPassword = view.findViewById(R.id.password_id);
-
-
-
         register = view.findViewById(R.id.login_clickhere_id);
         register.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_loginFragment_to_registerFragment));
-
         connect = view.findViewById(R.id.login_btn_id);
         connect.setOnClickListener(v -> login());
         return view;
@@ -74,33 +68,26 @@ public class LoginFragment extends Fragment {
     private void login() {
         String email = signName.getText().toString();
         String password = signPassword.getText().toString();
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(this.getContext(), "Welcome Back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
-                Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
-            } else {
-                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
-                switch (errorCode) {
+        model.instance.SignIn(email, password, message -> {
+            switch (message) {
+                case "SUCCSES":
+                    Toast.makeText(this.getContext(), "Welcome Back " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
+                    Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_homePageFragment);
+                    break;
+                case "ERROR_WRONG_PASSWORD":
+                    signPassword.setError("Incorrect Email/Password");
+                    signPassword.requestFocus();
+                    break;
+                case "ERROR_USER_NOT_FOUND":
+                    signName.setError("Email doesn't exist");
+                    signName.requestFocus();
+                    break;
+                case "ERROR_INVALID_EMAIL":
+                    signName.setError("ERROR_INVALID_EMAIL");
+                    signName.requestFocus();
+                    break;
 
-                    case "ERROR_WRONG_PASSWORD":
-                        signPassword.setError("Incorrect Email/Password");
-                        signPassword.requestFocus();
-                        break;
-
-                    case "ERROR_USER_NOT_FOUND":
-                        signName.setError("Email doesn't exist");
-                        signName.requestFocus();
-                        break;
-                }
-            }
-            if (!isValid(email)) {
-                signName.setError("Email is not Legal");
-                signName.requestFocus();
             }
         });
-    }
-    static boolean isValid(String email) {
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(regex);
     }
 }

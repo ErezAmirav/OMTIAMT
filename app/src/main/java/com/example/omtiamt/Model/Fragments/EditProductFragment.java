@@ -71,18 +71,15 @@ public class EditProductFragment extends Fragment {
         saveBtn = view.findViewById(R.id.btn_edit_product);
         uploadPhotoBtn = view.findViewById(R.id.upload_photo_btn);
         cancelBtn = view.findViewById(R.id.edit_product_cancel_btn);
-
         cancelBtn.setOnClickListener(v ->
                 Navigation.findNavController(v).navigateUp());
 
         uploadPhotoBtn.setOnClickListener(this::uploadPhoto);
-
         name.setText(product.getProductName());
         Picasso.with(this.getContext()).load(product.getProductPicture()).resize(300, 300).into(picImgView);
         address.setText(product.getLocation());
         details.setText(product.getDetails());
         category.setText(product.getCategory());
-
         saveBtn.setOnClickListener(v -> {
             if (TextUtils.isEmpty(name.getText().toString())) {
                 name.setError("Name Field Cannot Be Empty");
@@ -100,7 +97,6 @@ public class EditProductFragment extends Fragment {
 
         return view;
     }
-
     public void popupMessageSureEdit() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this.getContext());
         alertDialogBuilder.setMessage("Are you sure you want to edit this " + "" + product.getProductName() + "?");
@@ -111,13 +107,10 @@ public class EditProductFragment extends Fragment {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-
-
     private void saveProduct(){
         product.setProductName(name.getText().toString());
         product.setLocation(address.getText().toString());
         product.setDetails(details.getText().toString());
-
         if (imageBitmap == null){
             model.instance.SetProduct(product, () -> {
                 Toast.makeText(getContext(), "Product Edited", Toast.LENGTH_LONG).show();
@@ -133,7 +126,6 @@ public class EditProductFragment extends Fragment {
             });
         }
     }
-
     @SuppressLint("NonConstantResourceId")
     public void uploadPhoto(View view) {
         popUpPhoto = new PopupMenu(EditProductFragment.this.getContext(), view);
@@ -157,7 +149,6 @@ public class EditProductFragment extends Fragment {
         });
         popUpPhoto.show();
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

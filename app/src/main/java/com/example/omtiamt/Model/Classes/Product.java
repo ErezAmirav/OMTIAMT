@@ -15,13 +15,11 @@ import java.util.Map;
 @Entity
 public class Product implements Serializable {
     final public static String COLLECTION_NAME = "Products";
-    private FirebaseAuth mAuth;
     @PrimaryKey
     String id;
     String user;
     String productName;
     String category;
-    Boolean isAvailable;
     String location;
     String productPicture;
     String details;
@@ -38,12 +36,11 @@ public class Product implements Serializable {
 
 
 
-    public Product(String id, String name, String category, String address, String details, String user, boolean isAvailable,String picture,String userBuy) {
+    public Product(String id, String name, String category, String address, String details, String user,String picture,String userBuy) {
         this.id = id;
         this.user = user;
         this.productName = name;
         this.category = category;
-        this.isAvailable = isAvailable;
         this.location = address;
         this.productPicture = picture;
         this.details = details;
@@ -112,14 +109,6 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Boolean getAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(Boolean available) {
-        isAvailable = available;
-    }
-
     public String getLocation() {
         return location;
     }
@@ -157,7 +146,6 @@ public class Product implements Serializable {
         json.put("Picture",productPicture);
         json.put("Location", location);
         json.put("Details", details);
-        json.put("isAvailable", isAvailable);
         json.put("UserBuy", "nobody");
         return json;
     }

@@ -25,19 +25,21 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         NavHost navHost = (NavHost)getSupportFragmentManager().findFragmentById(R.id.base_navhost);
         navCtl = navHost.getNavController();
+
+        //Tab-bar
         navigationView = findViewById(R.id.bottom_navigation_id);
         navigationView.setSelectedItemId(R.id.nav_home);
-
         navigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
+                //Choose Home Page
                 case R.id.nav_home:
                     navCtl.navigate(R.id.action_global_homeFragment);
                     break;
-
+                //Choose New Product
                 case R.id.nav_add:
                     navCtl.navigate(R.id.action_global_newProductFragment);
                     break;
-
+                //Choose Profile Page
                 case R.id.nav_profile: ;
                     navCtl.navigate(R.id.action_global_profileFragment);
                     break;
