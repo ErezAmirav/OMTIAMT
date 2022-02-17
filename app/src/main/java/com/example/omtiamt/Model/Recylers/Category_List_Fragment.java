@@ -22,9 +22,8 @@ import java.util.HashMap;
 public class Category_List_Fragment extends Fragment {
     View view;
     RecyclerView catRV;
-    HashMap<String, String> myCatHash = new HashMap<String, String>();
+    HashMap<String, String> myCatHash = new HashMap<>();
     CategoryListAdapter catAdapter;
-    ProgressBar progressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +48,8 @@ public class Category_List_Fragment extends Fragment {
         catAdapter = new CategoryListAdapter();
         catRV.setAdapter(catAdapter);
         catAdapter.setOnItemClickListener((v, position) -> {
-            String tmp = (new ArrayList<>(myCatHash.keySet())).get(position);
-            Navigation.findNavController(view).navigate(homePageFragmentDirections.actionHomePageFragmentToCategoryFragment(tmp));
+            String selectedCategory = (new ArrayList<>(myCatHash.keySet())).get(position);
+            Navigation.findNavController(view).navigate(homePageFragmentDirections.actionHomePageFragmentToCategoryFragment(selectedCategory));
         });
         return view;
     }

@@ -26,13 +26,13 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_category, container, false);
 
-        String Name = CategoryFragmentArgs.fromBundle(getArguments()).getNameCategory();
+        String selectedCategory = CategoryFragmentArgs.fromBundle(getArguments()).getNameCategory();
         nameTv = view.findViewById(R.id.category_name_id);
         noProductYetTv = view.findViewById(R.id.category_name_id2);
-        nameTv.setText(Name);
+        nameTv.setText(selectedCategory);
         //Send to the Recycler View the name of category
         ProductByCategories fragment = (ProductByCategories) getChildFragmentManager().findFragmentById(R.id.productByCat);
-        fragment.setCategory(Name);
+        fragment.setCategory(selectedCategory);
 
         return view;
     }
